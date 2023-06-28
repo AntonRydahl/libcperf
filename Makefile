@@ -1,4 +1,4 @@
-APP ?=test
+APP ?=driver
 
 OPT ?=-O3
 
@@ -10,6 +10,14 @@ bin: bin/$(APP)
 target: bin
 
 CFLAGS = $(OPT) -Wall -std=c++2a -Iinclude
+
+ifdef VENDORFUN
+CFLAGS += -DVENDORFUN=$(VENDORFUN)
+endif
+
+ifdef BUILTINFUN
+CFLAGS += -DBUILTINFUN=$(BUILTINFUN)
+endif
 
 CFLAGS += -fopenmp
 CFLAGS += -fopenmp-targets=amdgcn-amd-amdhsa --offload-arch=gfx906

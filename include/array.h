@@ -19,7 +19,7 @@ namespace gpumath {
             const int_t _device;
             bool _on_device = true;
         public:
-            Array(int_t l = 0xFFFFFF, int_t d = omp_get_default_device(), int_t h = omp_get_initial_device());
+            Array(int_t l = 0x1FFFFFFF, int_t d = omp_get_default_device(), int_t h = omp_get_initial_device());
             void to_device();
             void to_host();
             bool on_device() const {return _on_device;};
