@@ -1,4 +1,4 @@
-APP ?=driver
+APP ?=driver64
 
 OPT ?=-O3
 
@@ -9,7 +9,7 @@ bin: bin/$(APP)
 
 target: bin
 
-CFLAGS = $(OPT) -Wall -std=c++2a -Iinclude
+CFLAGS = $(OPT) -Wall -std=c++2a -Iinclude -nogpuinc
 
 ifdef VENDORFUN
 CFLAGS += -DVENDORFUN=$(VENDORFUN)
@@ -21,12 +21,16 @@ endif
 
 CFLAGS += -fopenmp
 CFLAGS += -fopenmp-targets=amdgcn-amd-amdhsa --offload-arch=gfx906
-CFLAGS += -fopenmp-offload-mandatory
-LDFLAGS += -lomp -L/g/g92/rydahl1/LLVM2/install/lib -lomptarget -lomp -lomptarget.devicertl
+CFLAGS += -fopenmp-offload-mandatory #--offload-device-only
+LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomptarget
+LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomp
+LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomptarget.devicertl
+LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -L/g/g92/rydahl1/LLVM2/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu
+#LDFLAGS += -Xlinker --verbose
 
 # Compiling source to binary
 bin/$(APP): src/$(APP).cpp
-	$(CXX) $(CFLAGS) $(LDFLAGS) src/$(APP).cpp -o bin/$(APP)
+	$(CXX) $(CFLAGS) src/$(APP).cpp -o bin/$(APP) $(LDFLAGS)
 
 .PHONY: clean ir
 clean:
