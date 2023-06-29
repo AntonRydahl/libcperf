@@ -1,5 +1,4 @@
 #include <iostream>
-#include "math.h"
 #include "array.h"
 #include "range.h"
 #include "compare.h"
@@ -8,15 +7,15 @@
 #define str(a) #a
 
 #ifndef VENDORFUN
-#define VENDORFUN __ocml_sin_f64
+#define VENDORFUN __ocml_sinh_f64
 #endif
 
 #ifndef BUILTINFUN
-#define BUILTINFUN sin
+#define BUILTINFUN sinh
 #endif
 
 extern "C" {
-  double VENDORFUN(double);
+  gpumath::double_t VENDORFUN(gpumath::double_t);
 }
 
 int main(void) {
