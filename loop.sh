@@ -1,6 +1,9 @@
 rm -rf figures/data/* figures/images/*
 module load rocm
-for fun in sinh tan tanh; do
+!/bin/bash
+for filename in ../LLVM2/llvm-project/libc/src/math/gpu/*f.cpp; do
+    tmp=$(basename "$filename" .txt)
+    fun=${tmp%f.*}
     make clean; make APP=driver64 BUILTINFUN=$fun VENDORFUN=__ocml_$fun\_f64
     clean; make APP=driver32 BUILTINFUN=$fun\f VENDORFUN=__ocml_$fun\_f32
     ./bin/driver64

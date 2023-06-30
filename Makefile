@@ -22,6 +22,7 @@ endif
 CFLAGS += -fopenmp
 CFLAGS += -fopenmp-targets=amdgcn-amd-amdhsa --offload-arch=gfx906
 CFLAGS += -fopenmp-offload-mandatory #--offload-device-only
+CFLAGS += -foffload-lto
 LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomptarget
 LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomp
 LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomptarget.devicertl
@@ -32,9 +33,12 @@ LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -L/g/g92/rydahl1/LLVM2/install/lib
 bin/$(APP): src/$(APP).cpp
 	$(CXX) $(CFLAGS) src/$(APP).cpp -o bin/$(APP) $(LDFLAGS)
 
-.PHONY: clean ir
+.PHONY: clean ir temps
 clean:
-	rm -rf bin/* ir/* *.core ast/*
+	rm -rf bin/* ir/* *.core ast/* *.bc *.o *.s *.ii *.out *.ll
 
 ir:
 	$(CXX) $(CFLAGS) -emit-llvm -S src/$(APP).cpp -o ir/$(APP).ll
+
+temps:
+	$(CXX) $(CFLAGS) -save-temps src/$(APP).cpp -o bin/$(APP) $(LDFLAGS)

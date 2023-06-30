@@ -35,9 +35,9 @@ namespace gpumath {
     template<class T,T (*F1)(T),T (*F2)(T)>
     void gpu_math_compare(Array<T> & input, Array<T> & builtin_out, Array<T> & vendor_out,std::string builtin_file="builtin",std::string vendor_file="vendor"){
         const double_t builtin_time = gpu_time<T,F1>(input,builtin_out,builtin_file);
-        std::cout << "Builtin version: " << builtin_time << std::endl;
+        std::cout << "Builtin version of " << builtin_file << ": " << builtin_time << std::endl;
         const double_t vendor_time = gpu_time<T,F2>(input,vendor_out,vendor_file);
-        std::cout << "Vendor version: " << vendor_time << std::endl;
+        std::cout << "Vendor version of " << vendor_file << ": " << vendor_time << std::endl;
     }
 }
 
