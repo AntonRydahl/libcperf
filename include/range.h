@@ -1,12 +1,13 @@
 #ifndef _GPU_MATH_RANGE_
 #define _GPU_MATH_RANGE_
 
+#include <cmath>
 #include "array.h"
 
 namespace gpumath {
 
     template<class T>
-    void uniform_range(Array<T> & arr,T xmin = -1.0, T xmax = 1.0){
+    void uniform_range(Array<T> & arr,T xmin = -M_PI, T xmax = M_PI){
         int_t length = arr.length();
         T step = (xmax-xmin)/(((T) arr.length())-1.0);
         T * devptr = arr.devptr();

@@ -19,12 +19,26 @@ extern "C" {
 }
 
 int main(void) {
-  gpumath::Array<gpumath::double_t> input;
-  gpumath::Array<gpumath::double_t> libcarr;
-  gpumath::Array<gpumath::double_t> vendorarr;
-  gpumath::uniform_range(input);
   std::string libcname = xstr(BUILTINFUN);
   std::string vendorname = xstr(VENDORFUN);
-  gpu_math_compare<gpumath::double_t,BUILTINFUN,VENDORFUN>(input,libcarr,vendorarr,libcname,vendorname);
+  // Running timings for very large input size
+  {
+    gpumath::Array<gpumath::double_t> input;
+    gpumath::Array<gpumath::double_t> libcarr;
+    gpumath::Array<gpumath::double_t> vendorarr;
+    gpumath::uniform_range(input);
+    gpumath::compare_time<gpumath::double_t,BUILTINFUN,VENDORFUN>(input,libcarr,vendorarr,libcname,vendorname);
+  }
+  // Comparing results for smaller input size
+  {
+    gpumath::Array<gpumath::double_t> input(2048);
+    gpumath::Array<gpumath::double_t> hostarr(2048);
+    hostarr.to_host();
+    gpumath::Array<gpumath::double_t> libcarr(2048);
+    gpumath::Array<gpumath::double_t> vendorarr(2048);
+    gpumath::uniform_range(input);
+    hostarr.to_host();
+    gpumath::compare_accuracy<gpumath::double_t,BUILTINFUN,VENDORFUN>(input,hostarr,libcarr,vendorarr,libcname,vendorname);
+  }
   return 0;
 }

@@ -12,8 +12,8 @@ if (len(sys.argv) != 3):
 builtin = sys.argv[1]
 vendor = sys.argv[2]
 
-p1 = 1000.0*np.loadtxt(f"data/{builtin}.txt", comments="#", delimiter="\n", unpack=False)
-p2 = 1000.0*np.loadtxt(f"data/{vendor}.txt", comments="#", delimiter="\n", unpack=False)
+p1 = 1000.0*np.loadtxt(f"data/timings/{builtin}.txt", comments="#", delimiter="\n", unpack=False)
+p2 = 1000.0*np.loadtxt(f"data//timings/{vendor}.txt", comments="#", delimiter="\n", unpack=False)
 
 med_p1 = np.median(p1)
 med_p2 = np.median(p2)
@@ -27,4 +27,4 @@ plt.axvline(x = med_p2, color='orange', label=f" median({vendor})={np.round(med_
 plt.legend(loc='upper right')
 plt.xlabel('Wall Time in MS',fontsize=15)
 plt.ylabel('Observations',fontsize=15)
-plt.savefig(f"images/{builtin}x{vendor}.png")
+plt.savefig(f"images/timings/{builtin}x{vendor}.png")

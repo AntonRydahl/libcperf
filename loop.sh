@@ -1,4 +1,5 @@
-rm -rf figures/data/* figures/images/*
+rm -rf figures/data/timings/* figures/images/timings/*
+rm -rf figures/data/differences/* figures/images/differences/*
 module load rocm
 !/bin/bash
 for filename in ../LLVM2/llvm-project/libc/src/math/gpu/*f.cpp; do
@@ -11,5 +12,7 @@ for filename in ../LLVM2/llvm-project/libc/src/math/gpu/*f.cpp; do
     cd figures
     python3 histogram.py $fun __ocml_$fun\_f64
     python3 histogram.py $fun\f __ocml_$fun\_f32
+    python3 brownian.py $fun __ocml_$fun\_f64
+    python3 brownian.py $fun\f __ocml_$fun\_f32
     cd ..
 done

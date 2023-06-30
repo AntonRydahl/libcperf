@@ -20,6 +20,7 @@ namespace gpumath {
             bool _on_device = true;
         public:
             Array(int_t l = 0x1FFFFFFF, int_t d = omp_get_default_device(), int_t h = omp_get_initial_device());
+            ~Array();
             void to_device();
             void to_host();
             bool on_device() const {return _on_device;};
@@ -41,6 +42,14 @@ namespace gpumath {
 		if (this->_devptr == NULL){
 			std::cerr << "Error allocating Array on device " << this->_device << std::endl;
 		}
+    }
+
+    template <class T>
+	Array<T>::~Array() {
+        free(this->_hostptr);
+        this->_hostptr = NULL;
+		omp_target_free(this->_devptr,(int)this->_device);
+        this->_devptr = NULL;
     }
 
     template <class T>
