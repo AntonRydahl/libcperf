@@ -7,9 +7,6 @@ for filename in ./*f.png; do
     tmp=$(basename "$filename" .png)
     fun=${tmp%f*}
     echo $fun
-    echo "![$__ocml_{fun}_f64](figures/__ocml_${fun}_f64.png)  | ![${fun}](figures/${fun}.png)" >> README.md
-    echo "![$__ocml_{fun}_f32](figures/__ocml_${fun}_f32.png)  | ![${fun}f](figures/${fun}f.png)" >> README.md
-
-    #make clean; make APP=driver64 BUILTINFUN=$fun VENDORFUN=__ocml_$fun\_f64
-    #clean; make APP=driver32 BUILTINFUN=$fun\f VENDORFUN=__ocml_$fun\_f32
+    echo "![__ocml_${fun}_f64](__ocml_${fun}_f64.png)  | ![${fun}](${fun}.png)" >> README.md
+    echo "![__ocml_${fun}_f32](__ocml_${fun}_f32.png)  | ![${fun}f](${fun}f.png)" >> README.md
 done
