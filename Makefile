@@ -41,4 +41,6 @@ ir:
 	$(CXX) $(CFLAGS) -emit-llvm -S src/$(APP).cpp -o ir/$(APP).ll
 
 temps:
-	$(CXX) $(CFLAGS) -save-temps src/$(APP).cpp -o bin/$(APP) $(LDFLAGS)
+	rm -rf $(TMPOUT)
+	mkdir -p $(TMPOUT)
+	$(CXX) $(CFLAGS) -save-temps=obj src/$(APP).cpp -o $(TMPOUT)
