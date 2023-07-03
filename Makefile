@@ -19,8 +19,11 @@ ifdef BUILTINFUN
 CFLAGS += -DBUILTINFUN=$(BUILTINFUN)
 endif
 
+OMPTARGET=amdgcn-amd-amdhsa
+OFFLOADARCH=gfx906
+
 CFLAGS += -fopenmp
-CFLAGS += -fopenmp-targets=amdgcn-amd-amdhsa --offload-arch=gfx906
+CFLAGS += -fopenmp-targets=$(OMPTARGET) --offload-arch=$(OFFLOADARCH)
 CFLAGS += -fopenmp-offload-mandatory #--offload-device-only
 CFLAGS += -foffload-lto
 LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomptarget
@@ -40,7 +43,13 @@ clean:
 ir:
 	$(CXX) $(CFLAGS) -emit-llvm -S src/$(APP).cpp -o ir/$(APP).ll
 
-temps:
+temps: clean
 	rm -rf $(TMPOUT)
 	mkdir -p $(TMPOUT)
-	$(CXX) $(CFLAGS) -save-temps=obj src/$(APP).cpp -o $(TMPOUT)
+	$(CXX) $(CFLAGS) -save-temps src/$(APP).cpp -o $(APP).o $(LDFLAGS)
+	mv $(APP)*.o $(TMPOUT)
+	mv $(APP)*.bc $(TMPOUT)
+	mv $(APP)*.ii $(TMPOUT)
+	mv $(APP)*.s $(TMPOUT)
+	mv $(APP)*.out $(TMPOUT)
+
