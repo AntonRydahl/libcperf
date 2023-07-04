@@ -7,42 +7,65 @@
 #include <fstream>
 #include "array.h"
 #include <cmath>
+#include <tuple>
 
 namespace gpumath {
 
-    template<class T,T (*F)(T)>
-    double apply_fun_gpu(const Array<T> & input,Array<T> & output){
-        assert(input.length() == output.length());
-        const T * inptr = input.devptr();
+    template<class T,T (*F)(ARGS),typename ... args>
+        double apply_fun_gpu(std::tuple<args ...> & input,Array<T> & output){
+        assert(std::get<0>(input).length() == output.length());
+        const int_t length = output.length();
+        const int_t device = output.device();
         T * outptr = output.devptr();
-        const int_t length = input.length();
-        const int_t device = input.device();
+        const auto * inptr1 = std::get<0>(input).devptr();
         double_t cmath_time = omp_get_wtime();
-        #pragma omp target teams distribute parallel for is_device_ptr(inptr,outptr) device(device)
-        for (int_t i = 0; i < length; i++){
-            outptr[i] = F(inptr[i]);
-        }
+        #if NARGS==1
+        #pragma omp target teams distribute parallel for is_device_ptr(outptr,inptr1) device(device)
+        for (int_t i = 0; i < length; i++) outptr[i] = F(inptr1[i]);
+        #else
+        const auto * inptr2 = std::get<1>(input).devptr();
+        #if NARGS==2
+        #pragma omp target teams distribute parallel for is_device_ptr(outptr,inptr1,inptr2) device(device)
+        for (int_t i = 0; i < length; i++) outptr[i] = F(inptr1[i],inptr2[i]);
+        #else
+        const auto * inptr3 = std::get<2>(input).devptr();
+        #pragma omp target teams distribute parallel for is_device_ptr(outptr,inptr1,inptr2,inptr3) device(device)
+        for (int_t i = 0; i < length; i++) outptr[i] = F(inptr1[i],inptr2[i],inptr3[i]);
+        #endif
+        #endif
         return omp_get_wtime()-cmath_time;
     }
 
-    template<class T,T (*F)(T)>
-    double apply_fun_cpu(const Array<T> & input,Array<T> & output){
-        assert(input.length() == output.length());
-        assert(!input.on_device());
+    template<class T,T (*F)(ARGS),typename ... args>
+    double apply_fun_cpu(std::tuple<args ...> & input,Array<T> & output){
+        assert(std::get<0>(input).length() == output.length());
         assert(!output.on_device());
-        const T * inptr = input.hostptr();
-        T * outptr = output.hostptr();
-        const int_t length = input.length();
+        const int_t length = output.length();
+        T * outptr = output.devptr();
+        const auto * inptr1 = std::get<0>(input).devptr();
         double_t cmath_time = omp_get_wtime();
+        #if NARGS==1
+        assert(!std::get<0>(input).on_device());
         #pragma omp parallel for
-        for (int_t i = 0; i < length; i++){
-            outptr[i] = F(inptr[i]);
-        }
+        for (int_t i = 0; i < length; i++) outptr[i] = F(inptr1[i]);
+        #else
+        const auto * inptr2 = std::get<1>(input).devptr();
+        assert(!std::get<1>(input).on_device());
+        #if NARGS==2
+        #pragma omp parallel for
+        for (int_t i = 0; i < length; i++) outptr[i] = F(inptr1[i],inptr2[i]);
+        #else
+        assert(!std::get<2>(input).on_device());
+        const auto * inptr3 = std::get<2>(input).devptr();
+        #pragma omp parallel for
+        for (int_t i = 0; i < length; i++) outptr[i] = F(inptr1[i],inptr2[i],inptr3[i]);
+        #endif
+        #endif
         return omp_get_wtime()-cmath_time;
     }
 
-    template<class T,T (*F)(T)>
-    double_t gpu_time(const Array<T> & input,Array<T> & output,std::string filename, int_t tests=500) {
+    template<class T,T (*F)(ARGS),typename ... args>
+    double_t gpu_time(std::tuple<args ...> & input,Array<T> & output,std::string filename, int_t tests=500) {
         std::ofstream result_file("figures/data/"+filename+".txt");
         double_t total_time = 0.0;
         for (int t=0;t<tests;t++){
@@ -53,8 +76,8 @@ namespace gpumath {
         return total_time;
     }
 
-    template<class T,T (*F1)(T),T (*F2)(T)>
-    void compare_time(Array<T> & input, Array<T> & builtin_out, Array<T> & vendor_out,std::string builtin_file="builtin",std::string vendor_file="vendor"){
+    template<class T,T (*F1)(ARGS),T (*F2)(ARGS),typename ... args>
+    void compare_time(std::tuple<args ...> & input, Array<T> & builtin_out, Array<T> & vendor_out,std::string builtin_file="builtin",std::string vendor_file="vendor"){
         const double_t builtin_time = gpu_time<T,F1>(input,builtin_out,"timings/"+builtin_file);
         std::cout << "Builtin version of " << builtin_file << ": " << builtin_time << std::endl;
         const double_t vendor_time = gpu_time<T,F2>(input,vendor_out,"timings/"+vendor_file);
