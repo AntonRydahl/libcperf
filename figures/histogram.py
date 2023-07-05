@@ -12,8 +12,14 @@ if (len(sys.argv) != 3):
 builtin = sys.argv[1]
 vendor = sys.argv[2]
 
-p1 = 1000.0*np.loadtxt(f"data/timings/{builtin}.txt", comments="#", delimiter="\n", unpack=False)
-p2 = 1000.0*np.loadtxt(f"data//timings/{vendor}.txt", comments="#", delimiter="\n", unpack=False)
+try:
+    p1 = 1000.0*np.loadtxt(f"data/timings/{builtin}.txt", comments="#", delimiter="\n", unpack=False,dtype='double')
+except:
+    sys.exit(f"data/timings/{builtin}.txt not found")
+try:
+    p2 = 1000.0*np.loadtxt(f"data//timings/{vendor}.txt", comments="#", delimiter="\n", unpack=False,dtype='double')
+except:
+    sys.exit(f"data/timings/{vendor}.txt not found")
 
 med_p1 = np.median(p1)
 med_p2 = np.median(p2)
