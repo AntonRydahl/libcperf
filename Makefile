@@ -19,6 +19,20 @@ ifdef BUILTINFUN
 CFLAGS += -DBUILTINFUN=$(BUILTINFUN)
 endif
 
+ifdef NARGS
+CFLAGS += -DNARGS=$(NARGS)
+endif
+
+ifdef ARGS
+CFLAGS += -DARGS=$(ARGS)
+endif
+
+ifdef RETTYPE
+CFLAGS += -DRETTYPE=$(RETTYPE)
+endif
+
+#CFLAGS += -DARGS=double -DRETTYPE=double -DNARGS=1 -DVENDORFUN=__ocml_sinh_f64 -DBUILTINFUN=sinh
+
 OMPTARGET=amdgcn-amd-amdhsa
 OFFLOADARCH=gfx906
 

@@ -766,10 +766,10 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z15__ocml_tanh_f64
 
 	.no_dead_strip	__omp_rtl_device_environment
 	.section	".linker-options",#exclude
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 085845a2acbefd26d5c229338225dfd76e2c2df3)"
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 085845a2acbefd26d5c229338225dfd76e2c2df3)"
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 085845a2acbefd26d5c229338225dfd76e2c2df3)"
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 085845a2acbefd26d5c229338225dfd76e2c2df3)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
 	.ident	"AMD clang version 16.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-5.5.0 23144 5fe166b8eac068df976282939b880a75a3a63014)"
 	.section	".note.GNU-stack"
 	.amdgpu_metadata

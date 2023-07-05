@@ -2,7 +2,17 @@
 The sinle-input math functions were tested on an AMD MI50 for 64 and 32-bit floating points. the functions were tested by running a naive kernel applying the functions to 4.3 GB of doubles / 2.15 GB of floats.
  64-bit            | 32-bit
 :-------------------------:|:-------------------------:
+![ceil VS __ocml_ceil_f64](ceilx__ocml_ceil_f64.png)  | ![ceilf VS __ocml_ceil_f32](ceilfx__ocml_ceil_f32.png)
+![copysign VS __ocml_copysign_f64](copysignx__ocml_copysign_f64.png)  | ![copysignf VS __ocml_copysign_f32](copysignfx__ocml_copysign_f32.png)
+![fabs VS __ocml_fabs_f64](fabsx__ocml_fabs_f64.png)  | ![fabsf VS __ocml_fabs_f32](fabsfx__ocml_fabs_f32.png)
+![floor VS __ocml_floor_f64](floorx__ocml_floor_f64.png)  | ![floorf VS __ocml_floor_f32](floorfx__ocml_floor_f32.png)
+![fma VS __ocml_fma_f64](fmax__ocml_fma_f64.png)  | ![fmaf VS __ocml_fma_f32](fmafx__ocml_fma_f32.png)
+![fmax VS __ocml_fmax_f64](fmaxx__ocml_fmax_f64.png)  | ![fmaxf VS __ocml_fmax_f32](fmaxfx__ocml_fmax_f32.png)
+![fmin VS __ocml_fmin_f64](fminx__ocml_fmin_f64.png)  | ![fminf VS __ocml_fmin_f32](fminfx__ocml_fmin_f32.png)
+![fmod VS __ocml_fmod_f64](fmodx__ocml_fmod_f64.png)  | ![fmodf VS __ocml_fmod_f32](fmodfx__ocml_fmod_f32.png)
 ![nearbyint VS __ocml_nearbyint_f64](nearbyintx__ocml_nearbyint_f64.png)  | ![nearbyintf VS __ocml_nearbyint_f32](nearbyintfx__ocml_nearbyint_f32.png)
+![nextafter VS __ocml_nextafter_f64](nextafterx__ocml_nextafter_f64.png)  | ![nextafterf VS __ocml_nextafter_f32](nextafterfx__ocml_nextafter_f32.png)
+![remainder VS __ocml_remainder_f64](remainderx__ocml_remainder_f64.png)  | ![remainderf VS __ocml_remainder_f32](remainderfx__ocml_remainder_f32.png)
 ![rint VS __ocml_rint_f64](rintx__ocml_rint_f64.png)  | ![rintf VS __ocml_rint_f32](rintfx__ocml_rint_f32.png)
 ![round VS __ocml_round_f64](roundx__ocml_round_f64.png)  | ![roundf VS __ocml_round_f32](roundfx__ocml_round_f32.png)
 ![sinh VS __ocml_sinh_f64](sinhx__ocml_sinh_f64.png)  | ![sinhf VS __ocml_sinh_f32](sinhfx__ocml_sinh_f32.png)
