@@ -30,6 +30,8 @@ The tests were performed by computing results with sinle-input math functions on
 ![__ocml_round_f32](__ocml_round_f32.png)  | ![roundf](roundf.png)
 ![__ocml_sinh_f64](__ocml_sinh_f64.png)  | ![sinh](sinh.png)
 ![__ocml_sinh_f32](__ocml_sinh_f32.png)  | ![sinhf](sinhf.png)
+![__ocml_sqrt_f64](__ocml_sqrt_f64.png)  | ![sqrt](sqrt.png)
+![__ocml_sqrt_f32](__ocml_sqrt_f32.png)  | ![sqrtf](sqrtf.png)
 ![__ocml_tan_f64](__ocml_tan_f64.png)  | ![tan](tan.png)
 ![__ocml_tan_f32](__ocml_tan_f32.png)  | ![tanf](tanf.png)
 ![__ocml_tanh_f64](__ocml_tanh_f64.png)  | ![tanh](tanh.png)

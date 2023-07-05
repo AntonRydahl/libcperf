@@ -16,5 +16,6 @@ The sinle-input math functions were tested on an AMD MI50 for 64 and 32-bit floa
 ![rint VS __ocml_rint_f64](rintx__ocml_rint_f64.png)  | ![rintf VS __ocml_rint_f32](rintfx__ocml_rint_f32.png)
 ![round VS __ocml_round_f64](roundx__ocml_round_f64.png)  | ![roundf VS __ocml_round_f32](roundfx__ocml_round_f32.png)
 ![sinh VS __ocml_sinh_f64](sinhx__ocml_sinh_f64.png)  | ![sinhf VS __ocml_sinh_f32](sinhfx__ocml_sinh_f32.png)
+![sqrt VS __ocml_sqrt_f64](sqrtx__ocml_sqrt_f64.png)  | ![sqrtf VS __ocml_sqrt_f32](sqrtfx__ocml_sqrt_f32.png)
 ![tan VS __ocml_tan_f64](tanx__ocml_tan_f64.png)  | ![tanf VS __ocml_tan_f32](tanfx__ocml_tan_f32.png)
 ![tanh VS __ocml_tanh_f64](tanhx__ocml_tanh_f64.png)  | ![tanhf VS __ocml_tanh_f32](tanhfx__ocml_tanh_f32.png)
