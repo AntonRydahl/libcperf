@@ -43,24 +43,35 @@ void timings(std::string libcname,std::string vendorname){
 #endif
   gpumath::Array<RETTYPE> libcarr;
   gpumath::Array<RETTYPE> vendorarr;
-  gpumath::compare_time<RETTYPE,BUILTINFUN,VENDORFUN>(input,libcarr,vendorarr,libcname,vendorname);
+  gpumath::compare_time<RETTYPE, BUILTINFUN, VENDORFUN, args...>(
+      input, libcarr, vendorarr, libcname, vendorname);
+}
+
+template <typename... args>
+void correctness(std::string libcname, std::string vendorname) {
+  std::tuple<gpumath::Array<args>...> input;
+  std::get<0>(input).reshape(2048);
+  gpumath::uniform_range(std::get<0>(input));
+#if NARGS > 1
+  std::get<1>(input).reshape(2048);
+  gpumath::uniform_range(std::get<1>(input));
+#endif
+#if NARGS > 2
+  std::get<2>(input).reshape(2048);
+  gpumath::uniform_range(std::get<2>(input));
+#endif
+  gpumath::Array<RETTYPE> hostarr(2048);
+  gpumath::Array<RETTYPE> libcarr(2048);
+  gpumath::Array<RETTYPE> vendorarr(2048);
+  hostarr.to_host();
+  gpumath::compare_accuracy<RETTYPE, BUILTINFUN, VENDORFUN, args...>(
+      input, hostarr, libcarr, vendorarr, libcname, vendorname);
 }
 
 int main(void) {
   std::string libcname = xstr(BUILTINFUN);
   std::string vendorname = xstr(VENDORFUN);
   timings<ARGS>(libcname,vendorname);
-
-  /*// Comparing results for smaller input size
-  {
-    gpumath::Array<gpumath::float_t> input(2048);
-    gpumath::Array<gpumath::float_t> hostarr(2048);
-    hostarr.to_host();
-    gpumath::Array<gpumath::float_t> libcarr(2048);
-    gpumath::Array<gpumath::float_t> vendorarr(2048);
-    gpumath::uniform_range(input);
-    hostarr.to_host();
-    gpumath::compare_accuracy<gpumath::float_t,BUILTINFUN,VENDORFUN>(input,hostarr,libcarr,vendorarr,libcname,vendorname);
-  }*/
+  correctness<ARGS>(libcname, vendorname);
   return 0;
 }

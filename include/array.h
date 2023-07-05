@@ -14,9 +14,9 @@ namespace gpumath {
         private:
             T * _hostptr;
             T * _devptr;
-            const int_t _length;
-            const int_t _host;
-            const int_t _device;
+            int_t _length;
+            int_t _host;
+            int_t _device;
             bool _on_device = true;
         public:
             Array(int_t l = 0x1FFFFFFF, int_t d = omp_get_default_device(), int_t h = omp_get_initial_device());
@@ -29,6 +29,7 @@ namespace gpumath {
             int_t host() const {return _host;};
             int_t device() const {return _device;};
             int_t length() const {return _length;};
+            void reshape(int_t l);
             T infinity_norm() const;
     };
 
@@ -73,6 +74,23 @@ namespace gpumath {
             _on_device = false;
         }
 	}
+
+        template <class T> void Array<T>::reshape(int_t l) {
+        this->_length = l;
+        free(this->_hostptr);
+        this->_hostptr = (T *)malloc((int)this->_length * sizeof(T));
+        if (this->_hostptr == NULL) {
+            std::cerr << "Error allocating Array on host " << this->_host
+                      << std::endl;
+        }
+        omp_target_free(this->_devptr, (int)this->_device);
+        this->_devptr = (T *)omp_target_alloc((int)this->_length * sizeof(T),
+                                              (int)this->_device);
+        if (this->_devptr == NULL) {
+            std::cerr << "Error allocating Array on device " << this->_device
+                      << std::endl;
+        }
+        }
 
     template<class T>
 	T Array<T>::infinity_norm() const{
