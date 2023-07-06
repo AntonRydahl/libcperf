@@ -36,7 +36,7 @@ for filename in ../LLVM2/llvm-project/libc/src/math/gpu/*.cpp; do
     python3 histogram.py $fun $VENDORFUN
     python3 brownian.py $fun $VENDORFUN
     cd ..
-    make -i APP=vararg BUILTINFUN=$fun VENDORFUN=$VENDORFUN RETTYPE=$RETTYPE ARGS=$ARGS NARGS=$NARGS temps TMPOUT=temps/${fun}f
+    make -i APP=vararg BUILTINFUN=$fun VENDORFUN=$VENDORFUN RETTYPE=$RETTYPE ARGS=$ARGS NARGS=$NARGS temps TMPOUT=temps/$fun
 
 done
 

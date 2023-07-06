@@ -39541,20 +39541,22 @@ namespace gpumath {
         }
  }
 
-    template <class T>
-    void Array<T>::reshape(int_t l) {
+        template <class T> void Array<T>::reshape(int_t l) {
         this->_length = l;
         free(this->_hostptr);
-        this->_hostptr = (T*) malloc((int)this->_length*sizeof(T));
-  if (this->_hostptr == __null){
-   std::cerr << "Error allocating Array on host " << this->_host << std::endl;
-  }
-        omp_target_free(this->_devptr,(int)this->_device);
-  this->_devptr = (T*) omp_target_alloc((int)this->_length*sizeof(T),(int)this->_device);
-  if (this->_devptr == __null){
-   std::cerr << "Error allocating Array on device " << this->_device << std::endl;
-  }
-    }
+        this->_hostptr = (T *)malloc((int)this->_length * sizeof(T));
+        if (this->_hostptr == __null) {
+            std::cerr << "Error allocating Array on host " << this->_host
+                      << std::endl;
+        }
+        omp_target_free(this->_devptr, (int)this->_device);
+        this->_devptr = (T *)omp_target_alloc((int)this->_length * sizeof(T),
+                                              (int)this->_device);
+        if (this->_devptr == __null) {
+            std::cerr << "Error allocating Array on device " << this->_device
+                      << std::endl;
+        }
+        }
 
     template<class T>
  T Array<T>::infinity_norm() const{
@@ -53479,62 +53481,72 @@ namespace std __attribute__ ((__visibility__ ("default")))
 
 namespace gpumath {
 
-    template<class T,T (*F)(double),typename ... args>
-        double apply_fun_gpu(std::tuple<Array<args>...> & input,Array<T> & output){
-        (static_cast <bool> (std::get<0>(input).length() == output.length()) ? void (0) : __assert_fail ("std::get<0>(input).length() == output.length()", "include/compare.h", 16, __extension__ __PRETTY_FUNCTION__));
-        const int_t length = output.length();
-        const int_t device = output.device();
-        T * outptr = output.devptr();
-        const auto * inptr1 = std::get<0>(input).devptr();
-        double_t cmath_time = omp_get_wtime();
+template <class T, T (*F)(float), typename... args>
+double apply_fun_gpu(std::tuple<Array<args>...> &input, Array<T> &output) {
+  (static_cast <bool> (std::get<0>(input).length() == output.length()) ? void (0) : __assert_fail ("std::get<0>(input).length() == output.length()", "include/compare.h", 16, __extension__ __PRETTY_FUNCTION__));
+  const int_t length = output.length();
+  const int_t device = output.device();
+  T *outptr = output.devptr();
+  const auto *inptr1 = std::get<0>(input).devptr();
+  double_t cmath_time = omp_get_wtime();
 
-#pragma omp target teams distribute parallel for is_device_ptr(outptr,inptr1) device(device)
-        for (int_t i = 0; i < length; i++) outptr[i] = F(inptr1[i]);
-# 36 "include/compare.h"
-        return omp_get_wtime()-cmath_time;
-    }
+#pragma omp target teams distribute parallel for is_device_ptr(outptr, inptr1) device(device)
 
-    template<class T,T (*F)(double),typename ... args>
-    double apply_fun_cpu(std::tuple<Array<args>...> & input,Array<T> & output){
-        (static_cast <bool> (std::get<0>(input).length() == output.length()) ? void (0) : __assert_fail ("std::get<0>(input).length() == output.length()", "include/compare.h", 41, __extension__ __PRETTY_FUNCTION__));
-        (static_cast <bool> (!output.on_device()) ? void (0) : __assert_fail ("!output.on_device()", "include/compare.h", 42, __extension__ __PRETTY_FUNCTION__));
-        (static_cast <bool> (!std::get<0>(input).on_device()) ? void (0) : __assert_fail ("!std::get<0>(input).on_device()", "include/compare.h", 43, __extension__ __PRETTY_FUNCTION__));
-        const int_t length = output.length();
-        T * outptr = output.hostptr();
-        const auto * inptr1 = std::get<0>(input).hostptr();
-        double_t cmath_time = omp_get_wtime();
+  for (int_t i = 0; i < length; i++)
+    outptr[i] = F(inptr1[i]);
+# 42 "include/compare.h"
+  return omp_get_wtime() - cmath_time;
+}
+
+template <class T, T (*F)(float), typename... args>
+double apply_fun_cpu(std::tuple<Array<args>...> &input, Array<T> &output) {
+  (static_cast <bool> (std::get<0>(input).length() == output.length()) ? void (0) : __assert_fail ("std::get<0>(input).length() == output.length()", "include/compare.h", 47, __extension__ __PRETTY_FUNCTION__));
+  (static_cast <bool> (!output.on_device()) ? void (0) : __assert_fail ("!output.on_device()", "include/compare.h", 48, __extension__ __PRETTY_FUNCTION__));
+  (static_cast <bool> (!std::get<0>(input).on_device()) ? void (0) : __assert_fail ("!std::get<0>(input).on_device()", "include/compare.h", 49, __extension__ __PRETTY_FUNCTION__));
+  const int_t length = output.length();
+  T *outptr = output.hostptr();
+  const auto *inptr1 = std::get<0>(input).hostptr();
+  double_t cmath_time = omp_get_wtime();
 
 #pragma omp parallel for
-        for (int_t i = 0; i < length; i++) outptr[i] = F(inptr1[i]);
-# 64 "include/compare.h"
-        return omp_get_wtime()-cmath_time;
-    }
+  for (int_t i = 0; i < length; i++)
+    outptr[i] = F(inptr1[i]);
+# 73 "include/compare.h"
+  return omp_get_wtime() - cmath_time;
+}
 
-    template<class T,T (*F)(double),typename ... args>
-    double_t gpu_time(std::tuple<Array<args>...> & input,Array<T> & output,std::string filename, int_t tests=500) {
-        std::ofstream result_file("figures/data/"+filename+".txt");
-        double_t total_time = 0.0;
-        for (int t=0;t<tests;t++){
-            const double_t cmath_time = apply_fun_gpu<T,F>(input,output);
-            result_file << cmath_time << std::endl;
-            total_time += cmath_time;
-        }
-        return total_time;
-    }
+template <class T, T (*F)(float), typename... args>
+double_t gpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
+                  std::string filename, int_t tests = 500) {
+  std::ofstream result_file("figures/data/" + filename + ".txt");
+  double_t total_time = 0.0;
+  for (int t = 0; t < tests; t++) {
+    const double_t cmath_time = apply_fun_gpu<T, F>(input, output);
+    result_file << cmath_time << std::endl;
+    total_time += cmath_time;
+  }
+  return total_time;
+}
 
-    template<class T,T (*F1)(double),T (*F2)(double),typename ... args>
-    void compare_time(std::tuple<Array<args>...> & input, Array<T> & builtin_out, Array<T> & vendor_out,std::string builtin_file="builtin",std::string vendor_file="vendor"){
-        const double_t builtin_time = gpu_time<T,F1,args ...>(input,builtin_out,"timings/"+builtin_file);
-        std::cout << "Builtin version of " << builtin_file << ": " << builtin_time << std::endl;
-        const double_t vendor_time = gpu_time<T,F2,args ...>(input,vendor_out,"timings/"+vendor_file);
-        std::cout << "Vendor version of " << vendor_file << ": " << vendor_time << std::endl;
-    }
+template <class T, T (*F1)(float), T (*F2)(float), typename... args>
+void compare_time(std::tuple<Array<args>...> &input, Array<T> &builtin_out,
+                  Array<T> &vendor_out, std::string builtin_file = "builtin",
+                  std::string vendor_file = "vendor") {
+  const double_t builtin_time =
+      gpu_time<T, F1, args...>(input, builtin_out, "timings/" + builtin_file);
+  std::cout << "Builtin version of " << builtin_file << ": " << builtin_time
+            << std::endl;
+  const double_t vendor_time =
+      gpu_time<T, F2, args...>(input, vendor_out, "timings/" + vendor_file);
+  std::cout << "Vendor version of " << vendor_file << ": " << vendor_time
+            << std::endl;
+}
 
     template<class T>
     T cpu_abs_diff(const Array<T> & host_array,Array<T> & dev_array,std::string filename) {
-        (static_cast <bool> (host_array.length() == dev_array.length()) ? void (0) : __assert_fail ("host_array.length() == dev_array.length()", "include/compare.h", 89, __extension__ __PRETTY_FUNCTION__));
-        (static_cast <bool> (!host_array.on_device()) ? void (0) : __assert_fail ("!host_array.on_device()", "include/compare.h", 90, __extension__ __PRETTY_FUNCTION__));
-        (static_cast <bool> (!dev_array.on_device()) ? void (0) : __assert_fail ("!dev_array.on_device()", "include/compare.h", 91, __extension__ __PRETTY_FUNCTION__));
+        (static_cast <bool> (host_array.length() == dev_array.length()) ? void (0) : __assert_fail ("host_array.length() == dev_array.length()", "include/compare.h", 105, __extension__ __PRETTY_FUNCTION__));
+        (static_cast <bool> (!host_array.on_device()) ? void (0) : __assert_fail ("!host_array.on_device()", "include/compare.h", 106, __extension__ __PRETTY_FUNCTION__));
+        (static_cast <bool> (!dev_array.on_device()) ? void (0) : __assert_fail ("!dev_array.on_device()", "include/compare.h", 107, __extension__ __PRETTY_FUNCTION__));
         const T * ref = host_array.hostptr();
         const T * res = dev_array.hostptr();
         std::ofstream result_file("figures/data/"+filename+".txt");
@@ -53547,21 +53559,21 @@ namespace gpumath {
         return max_diff;
     }
 
-    template<class T,T (*F1)(double),T (*F2)(double),typename ... args>
-    void compare_accuracy(std::tuple<Array<args>...> & input, Array<T> & host_array, Array<T> & builtin_out, Array<T> & vendor_out,std::string builtin_file="builtin",std::string vendor_file="vendor"){
-        if (!std::get<0>(input).on_device()) std::get<0>(input).to_device();
-
-
-
-
-
-
+    template <class T, T (*F1)(float), T (*F2)(float), typename... args>
+    void compare_accuracy(std::tuple<Array<args>...> &input,
+                          Array<T> &host_array, Array<T> &builtin_out,
+                          Array<T> &vendor_out,
+                          std::string builtin_file = "builtin",
+                          std::string vendor_file = "vendor") {
+        if (!std::get<0>(input).on_device())
+            std::get<0>(input).to_device();
+# 136 "include/compare.h"
         if (!builtin_out.on_device()) builtin_out.to_device();
         if (!vendor_out.on_device()) vendor_out.to_device();
 
 
-        apply_fun_gpu<T,F1,args ...>(input,builtin_out);
-        apply_fun_gpu<T,F2,args ...>(input,vendor_out);
+        apply_fun_gpu<T, F1, args...>(input, builtin_out);
+        apply_fun_gpu<T, F2, args...>(input, vendor_out);
 
 
         std::get<0>(input).to_host();
@@ -53571,8 +53583,9 @@ namespace gpumath {
 
 
 
-        if (host_array.on_device()) host_array.to_host();
-        apply_fun_cpu<T,F1,args ...>(input,host_array);
+        if (host_array.on_device())
+            host_array.to_host();
+        apply_fun_cpu<T, F1, args...>(input, host_array);
 
 
 #pragma omp parallel
@@ -53592,14 +53605,13 @@ namespace gpumath {
                 std::cout << vendor_file << " max abs diff: " << vendor_diff << std::endl;
             }
         }
-
     }
 }
 # 28 "src/vararg.cpp" 2
 
 
 extern "C" {
-  double __ocml_tan_f64(double);
+  float __ocml_tan_f32(float);
 }
 
 template<typename ... args>
@@ -53612,28 +53624,30 @@ void timings(std::string libcname,std::string vendorname){
 
 
 
-  gpumath::Array<double> libcarr;
-  gpumath::Array<double> vendorarr;
-  gpumath::compare_time<double,tan,__ocml_tan_f64,args ...>(input,libcarr,vendorarr,libcname,vendorname);
+  gpumath::Array<float> libcarr;
+  gpumath::Array<float> vendorarr;
+  gpumath::compare_time<float, tanf, __ocml_tan_f32, args...>(
+      input, libcarr, vendorarr, libcname, vendorname);
 }
 
-template<typename ... args>
-void correctness(std::string libcname,std::string vendorname){
+template <typename... args>
+void correctness(std::string libcname, std::string vendorname) {
   std::tuple<gpumath::Array<args>...> input;
   std::get<0>(input).reshape(2048);
   gpumath::uniform_range(std::get<0>(input));
-# 62 "src/vararg.cpp"
-  gpumath::Array<double> hostarr(2048);
-  gpumath::Array<double> libcarr(2048);
-  gpumath::Array<double> vendorarr(2048);
+# 63 "src/vararg.cpp"
+  gpumath::Array<float> hostarr(2048);
+  gpumath::Array<float> libcarr(2048);
+  gpumath::Array<float> vendorarr(2048);
   hostarr.to_host();
-  gpumath::compare_accuracy<double,tan,__ocml_tan_f64,args ...>(input,hostarr,libcarr,vendorarr,libcname,vendorname);
+  gpumath::compare_accuracy<float, tanf, __ocml_tan_f32, args...>(
+      input, hostarr, libcarr, vendorarr, libcname, vendorname);
 }
 
 int main(void) {
-  std::string libcname = "tan";
-  std::string vendorname = "__ocml_tan_f64";
-  timings<double>(libcname,vendorname);
-  correctness<double>(libcname,vendorname);
+  std::string libcname = "tanf";
+  std::string vendorname = "__ocml_tan_f32";
+  timings<float>(libcname,vendorname);
+  correctness<float>(libcname, vendorname);
   return 0;
 }

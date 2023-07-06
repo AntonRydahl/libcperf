@@ -42,7 +42,7 @@ _ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2_: # @_ZN7gpumath13uniform_ra
 	movq	%rcx, 88(%rsp)
 	leaq	16(%rsp), %rcx
 	movq	%rcx, 96(%rsp)
-	leaq	.L.offload_sizes(%rip), %rcx
+	leaq	.L.offload_sizes.7(%rip), %rcx
 	movq	%rcx, 104(%rsp)
 	leaq	.L.offload_maptypes.8(%rip), %rcx
 	movq	%rcx, 112(%rsp)
@@ -251,8 +251,9 @@ main:                                   # @main
 	movq	%r13, 8(%rsp)
 	movabsq	$7306085894386967922, %r14      # imm = 0x65646E69616D6572
 	movq	%r14, 24(%rsp)
-	movw	$114, 32(%rsp)
-	movq	$9, 16(%rsp)
+	movw	$26226, 32(%rsp)                # imm = 0x6672
+	movq	$10, 16(%rsp)
+	movb	$0, 34(%rsp)
 .Ltmp0:
 	movl	$21, %edi
 	callq	_Znwm@PLT
@@ -261,47 +262,48 @@ main:                                   # @main
 	movq	%rax, %rbx
 	movups	.L.str.4(%rip), %xmm0
 	movups	%xmm0, (%rax)
-	movl	$875980383, 16(%rax)            # imm = 0x3436665F
+	movl	$842229343, 16(%rax)            # imm = 0x3233665F
 	movb	$0, 20(%rax)
-	leaq	152(%rsp), %r15
-	movq	%r15, 136(%rsp)
-	movq	%r14, 152(%rsp)
-	movw	$114, 160(%rsp)
-	movq	$9, 144(%rsp)
-	leaq	120(%rsp), %r12
-	movq	%r12, 104(%rsp)
+	leaq	56(%rsp), %r15
+	movq	%r15, 40(%rsp)
+	movq	%r14, 56(%rsp)
+	movw	$26226, 64(%rsp)                # imm = 0x6672
+	movq	$10, 48(%rsp)
+	movb	$0, 66(%rsp)
+	leaq	152(%rsp), %r12
+	movq	%r12, 136(%rsp)
 .Ltmp3:
 	movl	$21, %edi
 	callq	_Znwm@PLT
 .Ltmp4:
 # %bb.2:                                # %invoke.cont8
-	movq	%rax, 104(%rsp)
-	movq	$20, 120(%rsp)
+	movq	%rax, 136(%rsp)
+	movq	$20, 152(%rsp)
 	movups	.L.str.4(%rip), %xmm0
 	movups	%xmm0, (%rax)
-	movl	$875980383, 16(%rax)            # imm = 0x3436665F
-	movq	$20, 112(%rsp)
+	movl	$842229343, 16(%rax)            # imm = 0x3233665F
+	movq	$20, 144(%rsp)
 	movb	$0, 20(%rax)
 .Ltmp6:
-	leaq	136(%rsp), %rdi
-	leaq	104(%rsp), %rsi
-	callq	_Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	leaq	40(%rsp), %rdi
+	leaq	136(%rsp), %rsi
+	callq	_Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 .Ltmp7:
 # %bb.3:                                # %invoke.cont10
-	movq	104(%rsp), %rdi
+	movq	136(%rsp), %rdi
 	cmpq	%r12, %rdi
 	je	.LBB2_5
 # %bb.4:                                # %if.then.i.i67
 	callq	_ZdlPv@PLT
 .LBB2_5:                                # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
-	movq	136(%rsp), %rdi
+	movq	40(%rsp), %rdi
 	cmpq	%r15, %rdi
 	je	.LBB2_7
 # %bb.6:                                # %if.then.i.i69
 	callq	_ZdlPv@PLT
 .LBB2_7:                                # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit70
-	leaq	88(%rsp), %rbp
-	movq	%rbp, 72(%rsp)
+	leaq	120(%rsp), %rbp
+	movq	%rbp, 104(%rsp)
 	movq	8(%rsp), %r15
 	movq	16(%rsp), %r14
 	movq	%rbp, %r12
@@ -320,8 +322,8 @@ main:                                   # @main
 .Ltmp10:
 # %bb.15:                               # %call5.i.i.i.i.i5.i.noexc88
 	movq	%rax, %r12
-	movq	%rax, 72(%rsp)
-	movq	%r14, 88(%rsp)
+	movq	%rax, 104(%rsp)
+	movq	%r14, 120(%rsp)
 .LBB2_16:                               # %if.end.i.i73
 	testq	%r14, %r14
 	je	.LBB2_20
@@ -338,36 +340,36 @@ main:                                   # @main
 	movq	%r14, %rdx
 	callq	memcpy@PLT
 .LBB2_20:                               # %invoke.cont12
-	movq	%r14, 80(%rsp)
+	movq	%r14, 112(%rsp)
 	movb	$0, (%r12,%r14)
-	leaq	56(%rsp), %r15
-	movq	%r15, 40(%rsp)
+	leaq	88(%rsp), %r15
+	movq	%r15, 72(%rsp)
 .Ltmp11:
 	movl	$21, %edi
 	callq	_Znwm@PLT
 .Ltmp12:
 # %bb.21:                               # %call5.i.i.i.i.i5.i.noexc108
-	movq	%rax, 40(%rsp)
-	movq	$20, 56(%rsp)
+	movq	%rax, 72(%rsp)
+	movq	$20, 88(%rsp)
 	movl	16(%rbx), %ecx
 	movl	%ecx, 16(%rax)
 	movups	(%rbx), %xmm0
 	movups	%xmm0, (%rax)
-	movq	$20, 48(%rsp)
+	movq	$20, 80(%rsp)
 	movb	$0, 20(%rax)
 .Ltmp14:
-	leaq	72(%rsp), %rdi
-	leaq	40(%rsp), %rsi
-	callq	_Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	leaq	104(%rsp), %rdi
+	leaq	72(%rsp), %rsi
+	callq	_Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 .Ltmp15:
 # %bb.22:                               # %invoke.cont17
-	movq	40(%rsp), %rdi
+	movq	72(%rsp), %rdi
 	cmpq	%r15, %rdi
 	je	.LBB2_24
 # %bb.23:                               # %if.then.i.i112
 	callq	_ZdlPv@PLT
 .LBB2_24:                               # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit113
-	movq	72(%rsp), %rdi
+	movq	104(%rsp), %rdi
 	cmpq	%rbp, %rdi
 	je	.LBB2_26
 # %bb.25:                               # %if.then.i.i115
@@ -412,7 +414,7 @@ main:                                   # @main
 .LBB2_36:                               # %lpad16
 .Ltmp16:
 	movq	%rax, %r14
-	movq	40(%rsp), %rdi
+	movq	72(%rsp), %rdi
 	cmpq	%r15, %rdi
 	je	.LBB2_38
 # %bb.37:                               # %if.then.i.i130
@@ -422,14 +424,14 @@ main:                                   # @main
 .Ltmp13:
 	movq	%rax, %r14
 .LBB2_38:                               # %ehcleanup19
-	movq	72(%rsp), %rdi
+	movq	104(%rsp), %rdi
 	cmpq	%rbp, %rdi
 	jne	.LBB2_39
 	jmp	.LBB2_40
 .LBB2_32:                               # %lpad9
 .Ltmp8:
 	movq	%rax, %r14
-	movq	104(%rsp), %rdi
+	movq	136(%rsp), %rdi
 	cmpq	%r12, %rdi
 	je	.LBB2_34
 # %bb.33:                               # %if.then.i.i124
@@ -439,7 +441,7 @@ main:                                   # @main
 .Ltmp5:
 	movq	%rax, %r14
 .LBB2_34:                               # %ehcleanup
-	movq	136(%rsp), %rdi
+	movq	40(%rsp), %rdi
 	cmpq	%r15, %rdi
 	je	.LBB2_40
 .LBB2_39:                               # %if.then.i.i133
@@ -515,17 +517,17 @@ GCC_except_table2:
 .Lcst_end0:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.rodata.cst8,"aM",@progbits,8
-	.p2align	3, 0x0                          # -- Begin function _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	.section	.rodata.cst4,"aM",@progbits,4
+	.p2align	2, 0x0                          # -- Begin function _Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 .LCPI3_0:
-	.quad	0xc00921fb54442d18              # double -3.1415926535897931
+	.long	0xc0490fdb                      # float -3.14159274
 .LCPI3_1:
-	.quad	0x400921fb54442d18              # double 3.1415926535897931
-	.section	.text._Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,"axG",@progbits,_Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,comdat
-	.weak	_Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	.long	0x40490fdb                      # float 3.14159274
+	.section	.text._Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,"axG",@progbits,_Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,comdat
+	.weak	_Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 	.p2align	4, 0x90
-	.type	_Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,@function
-_Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	.type	_Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,@function
+_Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 .Lfunc_begin1:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -554,19 +556,19 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 	movq	%rsi, %rbx
 	movq	%rdi, %r14
 	leaq	136(%rsp), %rdi
-	callq	_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv
+	callq	_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv
 	leaq	168(%rsp), %rdi
 .Ltmp22:
-	movsd	.LCPI3_0(%rip), %xmm0           # xmm0 = mem[0],zero
-	movsd	.LCPI3_1(%rip), %xmm1           # xmm1 = mem[0],zero
-	callq	_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_
+	movss	.LCPI3_0(%rip), %xmm0           # xmm0 = mem[0],zero,zero,zero
+	movss	.LCPI3_1(%rip), %xmm1           # xmm1 = mem[0],zero,zero,zero
+	callq	_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_
 .Ltmp23:
 # %bb.1:                                # %invoke.cont
 .Ltmp24:
 	leaq	136(%rsp), %rdi
-	movsd	.LCPI3_0(%rip), %xmm0           # xmm0 = mem[0],zero
-	movsd	.LCPI3_1(%rip), %xmm1           # xmm1 = mem[0],zero
-	callq	_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_
+	movss	.LCPI3_0(%rip), %xmm0           # xmm0 = mem[0],zero,zero,zero
+	movss	.LCPI3_1(%rip), %xmm1           # xmm1 = mem[0],zero,zero,zero
+	callq	_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_
 .Ltmp25:
 # %bb.2:                                # %invoke.cont2
 .Ltmp27:
@@ -583,7 +585,7 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 	movl	$536870911, %esi                # imm = 0x1FFFFFFF
 	movl	%ebp, %edx
 	movl	%eax, %ecx
-	callq	_ZN7gpumath5ArrayIdEC2Eiii
+	callq	_ZN7gpumath5ArrayIfEC2Eiii
 .Ltmp32:
 # %bb.5:                                # %invoke.cont8
 .Ltmp34:
@@ -600,7 +602,7 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 	movl	$536870911, %esi                # imm = 0x1FFFFFFF
 	movl	%ebp, %edx
 	movl	%eax, %ecx
-	callq	_ZN7gpumath5ArrayIdEC2Eiii
+	callq	_ZN7gpumath5ArrayIfEC2Eiii
 .Ltmp39:
 # %bb.8:                                # %invoke.cont14
 	leaq	56(%rsp), %r13
@@ -689,7 +691,7 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 	leaq	72(%rsp), %rdx
 	leaq	40(%rsp), %rcx
 	leaq	8(%rsp), %r8
-	callq	_ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
+	callq	_ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
 .Ltmp46:
 # %bb.27:                               # %invoke.cont21
 	movq	8(%rsp), %rdi
@@ -712,7 +714,7 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 .Ltmp48:
 	callq	omp_target_free@PLT
 .Ltmp49:
-# %bb.32:                               # %_ZN7gpumath5ArrayIdED2Ev.exit
+# %bb.32:                               # %_ZN7gpumath5ArrayIfED2Ev.exit
 	movq	104(%rsp), %rdi
 	callq	free@PLT
 	movq	$0, 104(%rsp)
@@ -721,7 +723,7 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 .Ltmp51:
 	callq	omp_target_free@PLT
 .Ltmp52:
-# %bb.33:                               # %_ZN7gpumath5ArrayIdED2Ev.exit36
+# %bb.33:                               # %_ZN7gpumath5ArrayIfED2Ev.exit36
 	movq	168(%rsp), %rdi
 	callq	free@PLT
 	movq	$0, 168(%rsp)
@@ -730,7 +732,7 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 .Ltmp54:
 	callq	omp_target_free@PLT
 .Ltmp55:
-# %bb.34:                               # %_ZNSt10_Head_baseILm0EN7gpumath5ArrayIdEELb0EED2Ev.exit.i
+# %bb.34:                               # %_ZNSt10_Head_baseILm0EN7gpumath5ArrayIfEELb0EED2Ev.exit.i
 	movq	$0, 176(%rsp)
 	movq	136(%rsp), %rdi
 	callq	free@PLT
@@ -740,7 +742,7 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 .Ltmp57:
 	callq	omp_target_free@PLT
 .Ltmp58:
-# %bb.35:                               # %_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev.exit
+# %bb.35:                               # %_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev.exit
 	addq	$200, %rsp
 	.cfi_def_cfa_offset 56
 	popq	%rbx
@@ -816,7 +818,7 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 .LBB3_51:                               # %lpad
 	movq	%rax, %rbx
 	leaq	136(%rsp), %rdi
-	callq	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev
+	callq	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 .LBB3_54:                               # %lpad18
@@ -834,18 +836,18 @@ _Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z7
 	movq	%rax, %rbx
 .LBB3_58:                               # %ehcleanup22
 	leaq	72(%rsp), %rdi
-	callq	_ZN7gpumath5ArrayIdED2Ev
+	callq	_ZN7gpumath5ArrayIfED2Ev
 .LBB3_59:                               # %ehcleanup23
 	leaq	104(%rsp), %rdi
-	callq	_ZN7gpumath5ArrayIdED2Ev
+	callq	_ZN7gpumath5ArrayIfED2Ev
 	leaq	136(%rsp), %rdi
-	callq	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev
+	callq	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 .Lfunc_end3:
-	.size	_Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_, .Lfunc_end3-_Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	.size	_Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_, .Lfunc_end3-_Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 	.cfi_endproc
-	.section	.gcc_except_table._Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,"aG",@progbits,_Z7timingsIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,comdat
+	.section	.gcc_except_table._Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,"aG",@progbits,_Z7timingsIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,comdat
 	.p2align	2, 0x0
 GCC_except_table3:
 .Lexception1:
@@ -938,17 +940,17 @@ GCC_except_table3:
 .Lttbase0:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.rodata.cst8,"aM",@progbits,8
-	.p2align	3, 0x0                          # -- Begin function _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	.section	.rodata.cst4,"aM",@progbits,4
+	.p2align	2, 0x0                          # -- Begin function _Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 .LCPI4_0:
-	.quad	0xc00921fb54442d18              # double -3.1415926535897931
+	.long	0xc0490fdb                      # float -3.14159274
 .LCPI4_1:
-	.quad	0x400921fb54442d18              # double 3.1415926535897931
-	.section	.text._Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,"axG",@progbits,_Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,comdat
-	.weak	_Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	.long	0x40490fdb                      # float 3.14159274
+	.section	.text._Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,"axG",@progbits,_Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,comdat
+	.weak	_Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 	.p2align	4, 0x90
-	.type	_Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,@function
-_Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	.type	_Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,@function
+_Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: # @_Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 .Lfunc_begin2:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -977,32 +979,32 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 	movq	%rsi, %rbx
 	movq	%rdi, %r14
 	leaq	104(%rsp), %rdi
-	callq	_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv
+	callq	_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv
 	leaq	136(%rsp), %r15
 .Ltmp70:
 	movq	%r15, %rdi
 	movl	$2048, %esi                     # imm = 0x800
-	callq	_ZN7gpumath5ArrayIdE7reshapeEi
+	callq	_ZN7gpumath5ArrayIfE7reshapeEi
 .Ltmp71:
 # %bb.1:                                # %invoke.cont
 .Ltmp72:
-	movsd	.LCPI4_0(%rip), %xmm0           # xmm0 = mem[0],zero
-	movsd	.LCPI4_1(%rip), %xmm1           # xmm1 = mem[0],zero
+	movss	.LCPI4_0(%rip), %xmm0           # xmm0 = mem[0],zero,zero,zero
+	movss	.LCPI4_1(%rip), %xmm1           # xmm1 = mem[0],zero,zero,zero
 	movq	%r15, %rdi
-	callq	_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_
+	callq	_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_
 .Ltmp73:
 # %bb.2:                                # %invoke.cont2
 .Ltmp74:
 	leaq	104(%rsp), %rdi
 	movl	$2048, %esi                     # imm = 0x800
-	callq	_ZN7gpumath5ArrayIdE7reshapeEi
+	callq	_ZN7gpumath5ArrayIfE7reshapeEi
 .Ltmp75:
 # %bb.3:                                # %invoke.cont4
 .Ltmp76:
 	leaq	104(%rsp), %rdi
-	movsd	.LCPI4_0(%rip), %xmm0           # xmm0 = mem[0],zero
-	movsd	.LCPI4_1(%rip), %xmm1           # xmm1 = mem[0],zero
-	callq	_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_
+	movss	.LCPI4_0(%rip), %xmm0           # xmm0 = mem[0],zero,zero,zero
+	movss	.LCPI4_1(%rip), %xmm1           # xmm1 = mem[0],zero,zero,zero
+	callq	_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_
 .Ltmp77:
 # %bb.4:                                # %invoke.cont6
 .Ltmp79:
@@ -1019,7 +1021,7 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 	movl	$2048, %esi                     # imm = 0x800
 	movl	%ebp, %edx
 	movl	%eax, %ecx
-	callq	_ZN7gpumath5ArrayIdEC2Eiii
+	callq	_ZN7gpumath5ArrayIfEC2Eiii
 .Ltmp84:
 # %bb.7:                                # %invoke.cont12
 .Ltmp86:
@@ -1036,7 +1038,7 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 	movl	$2048, %esi                     # imm = 0x800
 	movl	%ebp, %edx
 	movl	%eax, %ecx
-	callq	_ZN7gpumath5ArrayIdEC2Eiii
+	callq	_ZN7gpumath5ArrayIfEC2Eiii
 .Ltmp91:
 # %bb.10:                               # %invoke.cont18
 .Ltmp93:
@@ -1053,12 +1055,12 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 	movl	$2048, %esi                     # imm = 0x800
 	movl	%ebp, %edx
 	movl	%eax, %ecx
-	callq	_ZN7gpumath5ArrayIdEC2Eiii
+	callq	_ZN7gpumath5ArrayIfEC2Eiii
 .Ltmp98:
 # %bb.13:                               # %invoke.cont24
 .Ltmp100:
 	leaq	72(%rsp), %rdi
-	callq	_ZN7gpumath5ArrayIdE7to_hostEv
+	callq	_ZN7gpumath5ArrayIfE7to_hostEv
 .Ltmp101:
 # %bb.14:                               # %invoke.cont26
 	leaq	56(%rsp), %r13
@@ -1148,7 +1150,7 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 	leaq	168(%rsp), %rcx
 	leaq	40(%rsp), %r8
 	leaq	8(%rsp), %r9
-	callq	_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
+	callq	_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
 .Ltmp107:
 # %bb.33:                               # %invoke.cont32
 	movq	8(%rsp), %rdi
@@ -1171,7 +1173,7 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 .Ltmp109:
 	callq	omp_target_free@PLT
 .Ltmp110:
-# %bb.38:                               # %_ZN7gpumath5ArrayIdED2Ev.exit
+# %bb.38:                               # %_ZN7gpumath5ArrayIfED2Ev.exit
 	movq	200(%rsp), %rdi
 	callq	free@PLT
 	movq	$0, 200(%rsp)
@@ -1180,7 +1182,7 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 .Ltmp112:
 	callq	omp_target_free@PLT
 .Ltmp113:
-# %bb.39:                               # %_ZN7gpumath5ArrayIdED2Ev.exit38
+# %bb.39:                               # %_ZN7gpumath5ArrayIfED2Ev.exit38
 	movq	72(%rsp), %rdi
 	callq	free@PLT
 	movq	$0, 72(%rsp)
@@ -1189,7 +1191,7 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 .Ltmp115:
 	callq	omp_target_free@PLT
 .Ltmp116:
-# %bb.40:                               # %_ZN7gpumath5ArrayIdED2Ev.exit42
+# %bb.40:                               # %_ZN7gpumath5ArrayIfED2Ev.exit42
 	movq	136(%rsp), %rdi
 	callq	free@PLT
 	movq	$0, 136(%rsp)
@@ -1198,7 +1200,7 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 .Ltmp118:
 	callq	omp_target_free@PLT
 .Ltmp119:
-# %bb.41:                               # %_ZNSt10_Head_baseILm0EN7gpumath5ArrayIdEELb0EED2Ev.exit.i
+# %bb.41:                               # %_ZNSt10_Head_baseILm0EN7gpumath5ArrayIfEELb0EED2Ev.exit.i
 	movq	$0, 144(%rsp)
 	movq	104(%rsp), %rdi
 	callq	free@PLT
@@ -1208,7 +1210,7 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 .Ltmp121:
 	callq	omp_target_free@PLT
 .Ltmp122:
-# %bb.42:                               # %_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev.exit
+# %bb.42:                               # %_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev.exit
 	addq	$232, %rsp
 	.cfi_def_cfa_offset 56
 	popq	%rbx
@@ -1292,7 +1294,7 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 .LBB4_62:                               # %lpad
 	movq	%rax, %rbx
 	leaq	104(%rsp), %rdi
-	callq	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev
+	callq	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 .LBB4_63:                               # %lpad29
@@ -1310,21 +1312,21 @@ _Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_: #
 	movq	%rax, %rbx
 .LBB4_67:                               # %ehcleanup33
 	leaq	168(%rsp), %rdi
-	callq	_ZN7gpumath5ArrayIdED2Ev
+	callq	_ZN7gpumath5ArrayIfED2Ev
 .LBB4_68:                               # %ehcleanup34
 	leaq	200(%rsp), %rdi
-	callq	_ZN7gpumath5ArrayIdED2Ev
+	callq	_ZN7gpumath5ArrayIfED2Ev
 .LBB4_69:                               # %ehcleanup36
 	leaq	72(%rsp), %rdi
-	callq	_ZN7gpumath5ArrayIdED2Ev
+	callq	_ZN7gpumath5ArrayIfED2Ev
 	leaq	104(%rsp), %rdi
-	callq	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev
+	callq	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 .Lfunc_end4:
-	.size	_Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_, .Lfunc_end4-_Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
+	.size	_Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_, .Lfunc_end4-_Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_
 	.cfi_endproc
-	.section	.gcc_except_table._Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,"aG",@progbits,_Z11correctnessIJddEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,comdat
+	.section	.gcc_except_table._Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,"aG",@progbits,_Z11correctnessIJffEEvNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_,comdat
 	.p2align	2, 0x0
 GCC_except_table4:
 .Lexception2:
@@ -1441,11 +1443,11 @@ __clang_call_terminate:                 # @__clang_call_terminate
 	.size	__clang_call_terminate, .Lfunc_end5-__clang_call_terminate
 	.cfi_endproc
                                         # -- End function
-	.section	.text._ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv,"axG",@progbits,_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv,comdat
-	.weak	_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv # -- Begin function _ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv
+	.section	.text._ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv,"axG",@progbits,_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv,comdat
+	.weak	_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv # -- Begin function _ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv
 	.p2align	4, 0x90
-	.type	_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv,@function
-_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv: # @_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv
+	.type	_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv,@function
+_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv: # @_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv
 .Lfunc_begin3:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -1468,7 +1470,7 @@ _ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv: # @_ZNSt5tupleIJN7gpumath5A
 	movl	$536870911, %esi                # imm = 0x1FFFFFFF
 	movl	%ebp, %edx
 	movl	%eax, %ecx
-	callq	_ZN7gpumath5ArrayIdEC2Eiii
+	callq	_ZN7gpumath5ArrayIfEC2Eiii
 .Ltmp134:
 	callq	omp_get_default_device@PLT
 .Ltmp135:
@@ -1483,9 +1485,9 @@ _ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv: # @_ZNSt5tupleIJN7gpumath5A
 	movl	$536870911, %esi                # imm = 0x1FFFFFFF
 	movl	%ebp, %edx
 	movl	%eax, %ecx
-	callq	_ZN7gpumath5ArrayIdEC2Eiii
+	callq	_ZN7gpumath5ArrayIfEC2Eiii
 .Ltmp139:
-# %bb.3:                                # %_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EEC2Ev.exit
+# %bb.3:                                # %_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EEC2Ev.exit
 	popq	%rbx
 	.cfi_def_cfa_offset 24
 	popq	%r14
@@ -1505,7 +1507,7 @@ _ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv: # @_ZNSt5tupleIJN7gpumath5A
 .Ltmp141:
 	callq	omp_target_free@PLT
 .Ltmp142:
-# %bb.6:                                # %_ZNSt10_Head_baseILm1EN7gpumath5ArrayIdEELb0EED2Ev.exit
+# %bb.6:                                # %_ZNSt10_Head_baseILm1EN7gpumath5ArrayIfEELb0EED2Ev.exit
 	movq	$0, 8(%rbx)
 	movq	%r14, %rdi
 	callq	_Unwind_Resume@PLT
@@ -1514,9 +1516,9 @@ _ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv: # @_ZNSt5tupleIJN7gpumath5A
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
 .Lfunc_end6:
-	.size	_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv, .Lfunc_end6-_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv
+	.size	_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv, .Lfunc_end6-_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv
 	.cfi_endproc
-	.section	.gcc_except_table._ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv,"aG",@progbits,_ZNSt5tupleIJN7gpumath5ArrayIdEES2_EEC2ILb1ELb1EEEv,comdat
+	.section	.gcc_except_table._ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv,"aG",@progbits,_ZNSt5tupleIJN7gpumath5ArrayIfEES2_EEC2ILb1ELb1EEEv,comdat
 	.p2align	2, 0x0
 GCC_except_table6:
 .Lexception3:
@@ -1554,14 +1556,14 @@ GCC_except_table6:
 	.p2align	2, 0x0
                                         # -- End function
 	.section	.rodata.cst8,"aM",@progbits,8
-	.p2align	3, 0x0                          # -- Begin function _ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_
+	.p2align	3, 0x0                          # -- Begin function _ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_
 .LCPI7_0:
 	.quad	0xbff0000000000000              # double -1
-	.section	.text._ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_,"axG",@progbits,_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_,comdat
-	.weak	_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_
+	.section	.text._ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_,"axG",@progbits,_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_,comdat
+	.weak	_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_
 	.p2align	4, 0x90
-	.type	_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_,@function
-_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_: # @_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_
+	.type	_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_,@function
+_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_: # @_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%r15
@@ -1576,25 +1578,29 @@ _ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_: # @_ZN7gpumath13uniform_ra
 	.cfi_offset %r14, -24
 	.cfi_offset %r15, -16
 	movq	%rdi, %rbx
-	movsd	%xmm0, 16(%rsp)
+	movss	%xmm0, 20(%rsp)
 	movl	16(%rdi), %eax
-	movl	%eax, 4(%rsp)
-	subsd	%xmm0, %xmm1
+	movl	%eax, 16(%rsp)
+	subss	%xmm0, %xmm1
 	xorps	%xmm0, %xmm0
-	cvtsi2sd	%eax, %xmm0
+	cvtsi2ss	%eax, %xmm0
+	cvtss2sd	%xmm1, %xmm1
+	cvtss2sd	%xmm0, %xmm0
 	addsd	.LCPI7_0(%rip), %xmm0
 	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 8(%rsp)
+	xorps	%xmm0, %xmm0
+	cvtsd2ss	%xmm1, %xmm0
+	movss	%xmm0, 12(%rsp)
 	movq	8(%rdi), %rcx
-	leaq	4(%rsp), %rdx
+	leaq	16(%rsp), %rdx
 	movq	%rdx, 56(%rsp)
 	movq	%rdx, 24(%rsp)
 	movq	%rcx, 64(%rsp)
 	movq	%rcx, 32(%rsp)
-	leaq	16(%rsp), %rcx
+	leaq	20(%rsp), %rcx
 	movq	%rcx, 72(%rsp)
 	movq	%rcx, 40(%rsp)
-	leaq	8(%rsp), %rcx
+	leaq	12(%rsp), %rcx
 	movq	%rcx, 80(%rsp)
 	movq	%rcx, 48(%rsp)
 	movabsq	$17179869186, %rcx              # imm = 0x400000002
@@ -1603,18 +1609,18 @@ _ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_: # @_ZN7gpumath13uniform_ra
 	movq	%rcx, 96(%rsp)
 	leaq	24(%rsp), %rcx
 	movq	%rcx, 104(%rsp)
-	leaq	.L.offload_sizes.24(%rip), %rcx
+	leaq	.L.offload_sizes.7(%rip), %rcx
 	movq	%rcx, 112(%rsp)
 	leaq	.L.offload_maptypes.8(%rip), %rcx
 	movq	%rcx, 120(%rsp)
-	xorpd	%xmm0, %xmm0
-	movupd	%xmm0, 128(%rsp)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 128(%rsp)
 	movq	%rax, 144(%rsp)
-	movupd	%xmm0, 152(%rsp)
-	movupd	%xmm0, 168(%rsp)
+	movups	%xmm0, 152(%rsp)
+	movups	%xmm0, 168(%rsp)
 	movl	$0, 184(%rsp)
 	leaq	.L__unnamed_1(%rip), %rdi
-	movq	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14.region_id@GOTPCREL(%rip), %r8
+	movq	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14.region_id@GOTPCREL(%rip), %r8
 	leaq	88(%rsp), %r9
 	movq	$-1, %rsi
 	xorl	%edx, %edx
@@ -1625,7 +1631,7 @@ _ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_: # @_ZN7gpumath13uniform_ra
 	movl	$18, %edx
 	movq	%r14, %rdi
 	callq	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
-	movl	$64, %esi
+	movl	$32, %esi
 	movq	%r14, %rdi
 	callq	_ZNSo9_M_insertImEERSoT_@PLT
 	movq	%rax, %r14
@@ -1661,7 +1667,7 @@ _ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_: # @_ZN7gpumath13uniform_ra
 	jne	.LBB7_6
 # %bb.5:                                # %if.then
 	movq	%rbx, %rdi
-	callq	_ZN7gpumath5ArrayIdE7to_hostEv
+	callq	_ZN7gpumath5ArrayIfE7to_hostEv
 .LBB7_6:                                # %if.end
 	addq	$192, %rsp
 	.cfi_def_cfa_offset 32
@@ -1676,14 +1682,14 @@ _ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_: # @_ZN7gpumath13uniform_ra
 	.cfi_def_cfa_offset 224
 	callq	_ZSt16__throw_bad_castv@PLT
 .Lfunc_end7:
-	.size	_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_, .Lfunc_end7-_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2_
+	.size	_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_, .Lfunc_end7-_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2_
 	.cfi_endproc
                                         # -- End function
-	.section	.text._ZN7gpumath5ArrayIdEC2Eiii,"axG",@progbits,_ZN7gpumath5ArrayIdEC2Eiii,comdat
-	.weak	_ZN7gpumath5ArrayIdEC2Eiii      # -- Begin function _ZN7gpumath5ArrayIdEC2Eiii
+	.section	.text._ZN7gpumath5ArrayIfEC2Eiii,"axG",@progbits,_ZN7gpumath5ArrayIfEC2Eiii,comdat
+	.weak	_ZN7gpumath5ArrayIfEC2Eiii      # -- Begin function _ZN7gpumath5ArrayIfEC2Eiii
 	.p2align	4, 0x90
-	.type	_ZN7gpumath5ArrayIdEC2Eiii,@function
-_ZN7gpumath5ArrayIdEC2Eiii:             # @_ZN7gpumath5ArrayIdEC2Eiii
+	.type	_ZN7gpumath5ArrayIfEC2Eiii,@function
+_ZN7gpumath5ArrayIfEC2Eiii:             # @_ZN7gpumath5ArrayIfEC2Eiii
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%rbp
@@ -1707,7 +1713,7 @@ _ZN7gpumath5ArrayIdEC2Eiii:             # @_ZN7gpumath5ArrayIdEC2Eiii
 	movl	%edx, 24(%rdi)
 	movb	$1, 28(%rdi)
 	movslq	%esi, %r14
-	shlq	$3, %r14
+	shlq	$2, %r14
 	movq	%r14, %rdi
 	callq	malloc@PLT
 	movq	%rax, (%rbx)
@@ -1749,7 +1755,7 @@ _ZN7gpumath5ArrayIdEC2Eiii:             # @_ZN7gpumath5ArrayIdEC2Eiii
 	callq	_ZNSo5flushEv@PLT
 	movslq	16(%rbx), %r14
 	movl	24(%rbx), %ebp
-	shlq	$3, %r14
+	shlq	$2, %r14
 .LBB8_6:                                # %if.end
 	movq	%r14, %rdi
 	movl	%ebp, %esi
@@ -1818,14 +1824,14 @@ _ZN7gpumath5ArrayIdEC2Eiii:             # @_ZN7gpumath5ArrayIdEC2Eiii
 	.cfi_def_cfa_offset 48
 	callq	_ZSt16__throw_bad_castv@PLT
 .Lfunc_end8:
-	.size	_ZN7gpumath5ArrayIdEC2Eiii, .Lfunc_end8-_ZN7gpumath5ArrayIdEC2Eiii
+	.size	_ZN7gpumath5ArrayIfEC2Eiii, .Lfunc_end8-_ZN7gpumath5ArrayIfEC2Eiii
 	.cfi_endproc
                                         # -- End function
-	.section	.text._ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,"axG",@progbits,_ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,comdat
-	.weak	_ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_ # -- Begin function _ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
+	.section	.text._ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,"axG",@progbits,_ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,comdat
+	.weak	_ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_ # -- Begin function _ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
 	.p2align	4, 0x90
-	.type	_ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,@function
-_ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_: # @_ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
+	.type	_ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,@function
+_ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_: # @_ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
 .Lfunc_begin4:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -1866,7 +1872,7 @@ _ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f6
 	movq	%r13, %rsi
 	movq	%rbp, %rdx
 	movl	$500, %ecx                      # imm = 0x1F4
-	callq	_ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
+	callq	_ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
 .Ltmp145:
 # %bb.1:                                # %invoke.cont
 	movsd	%xmm0, (%rsp)                   # 8-byte Spill
@@ -1930,7 +1936,7 @@ _ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f6
 	movq	%r14, %rsi
 	movq	%r12, %rdx
 	movl	$500, %ecx                      # imm = 0x1F4
-	callq	_ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
+	callq	_ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
 .Ltmp148:
 # %bb.8:                                # %invoke.cont8
 	movsd	%xmm0, (%rsp)                   # 8-byte Spill
@@ -2022,9 +2028,9 @@ _ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f6
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 .Lfunc_end9:
-	.size	_ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_, .Lfunc_end9-_ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
+	.size	_ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_, .Lfunc_end9-_ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
 	.cfi_endproc
-	.section	.gcc_except_table._ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,"aG",@progbits,_ZN7gpumath12compare_timeIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,comdat
+	.section	.gcc_except_table._ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,"aG",@progbits,_ZN7gpumath12compare_timeIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,comdat
 	.p2align	2, 0x0
 GCC_except_table9:
 .Lexception4:
@@ -2056,11 +2062,11 @@ GCC_except_table9:
 .Lcst_end4:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.text._ZN7gpumath5ArrayIdED2Ev,"axG",@progbits,_ZN7gpumath5ArrayIdED2Ev,comdat
-	.weak	_ZN7gpumath5ArrayIdED2Ev        # -- Begin function _ZN7gpumath5ArrayIdED2Ev
+	.section	.text._ZN7gpumath5ArrayIfED2Ev,"axG",@progbits,_ZN7gpumath5ArrayIfED2Ev,comdat
+	.weak	_ZN7gpumath5ArrayIfED2Ev        # -- Begin function _ZN7gpumath5ArrayIfED2Ev
 	.p2align	4, 0x90
-	.type	_ZN7gpumath5ArrayIdED2Ev,@function
-_ZN7gpumath5ArrayIdED2Ev:               # @_ZN7gpumath5ArrayIdED2Ev
+	.type	_ZN7gpumath5ArrayIfED2Ev,@function
+_ZN7gpumath5ArrayIfED2Ev:               # @_ZN7gpumath5ArrayIfED2Ev
 .Lfunc_begin5:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -2089,9 +2095,9 @@ _ZN7gpumath5ArrayIdED2Ev:               # @_ZN7gpumath5ArrayIdED2Ev
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
 .Lfunc_end10:
-	.size	_ZN7gpumath5ArrayIdED2Ev, .Lfunc_end10-_ZN7gpumath5ArrayIdED2Ev
+	.size	_ZN7gpumath5ArrayIfED2Ev, .Lfunc_end10-_ZN7gpumath5ArrayIfED2Ev
 	.cfi_endproc
-	.section	.gcc_except_table._ZN7gpumath5ArrayIdED2Ev,"aG",@progbits,_ZN7gpumath5ArrayIdED2Ev,comdat
+	.section	.gcc_except_table._ZN7gpumath5ArrayIfED2Ev,"aG",@progbits,_ZN7gpumath5ArrayIfED2Ev,comdat
 	.p2align	2, 0x0
 GCC_except_table10:
 .Lexception5:
@@ -2116,11 +2122,11 @@ GCC_except_table10:
 .Lttbase3:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.text._ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev,"axG",@progbits,_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev,comdat
-	.weak	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev # -- Begin function _ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev
+	.section	.text._ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev,"axG",@progbits,_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev,comdat
+	.weak	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev # -- Begin function _ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev
 	.p2align	4, 0x90
-	.type	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev,@function
-_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev: # @_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev
+	.type	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev,@function
+_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev: # @_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev
 .Lfunc_begin6:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -2138,7 +2144,7 @@ _ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev: # @_ZNSt11_Tuple_implILm0E
 .Ltmp153:
 	callq	omp_target_free@PLT
 .Ltmp154:
-# %bb.1:                                # %_ZNSt10_Head_baseILm0EN7gpumath5ArrayIdEELb0EED2Ev.exit
+# %bb.1:                                # %_ZNSt10_Head_baseILm0EN7gpumath5ArrayIfEELb0EED2Ev.exit
 	movq	$0, 40(%rbx)
 	movq	(%rbx), %rdi
 	callq	free@PLT
@@ -2148,7 +2154,7 @@ _ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev: # @_ZNSt11_Tuple_implILm0E
 .Ltmp156:
 	callq	omp_target_free@PLT
 .Ltmp157:
-# %bb.2:                                # %_ZNSt10_Head_baseILm1EN7gpumath5ArrayIdEELb0EED2Ev.exit
+# %bb.2:                                # %_ZNSt10_Head_baseILm1EN7gpumath5ArrayIfEELb0EED2Ev.exit
 	movq	$0, 8(%rbx)
 	popq	%rbx
 	.cfi_def_cfa_offset 8
@@ -2163,9 +2169,9 @@ _ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev: # @_ZNSt11_Tuple_implILm0E
 	movq	%rax, %rdi
 	callq	__clang_call_terminate
 .Lfunc_end11:
-	.size	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev, .Lfunc_end11-_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev
+	.size	_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev, .Lfunc_end11-_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev
 	.cfi_endproc
-	.section	.gcc_except_table._ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev,"aG",@progbits,_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIdEES2_EED2Ev,comdat
+	.section	.gcc_except_table._ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev,"aG",@progbits,_ZNSt11_Tuple_implILm0EJN7gpumath5ArrayIfEES2_EED2Ev,comdat
 	.p2align	2, 0x0
 GCC_except_table11:
 .Lexception6:
@@ -2194,11 +2200,11 @@ GCC_except_table11:
 .Lttbase4:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.text._ZN7gpumath5ArrayIdE7to_hostEv,"axG",@progbits,_ZN7gpumath5ArrayIdE7to_hostEv,comdat
-	.weak	_ZN7gpumath5ArrayIdE7to_hostEv  # -- Begin function _ZN7gpumath5ArrayIdE7to_hostEv
+	.section	.text._ZN7gpumath5ArrayIfE7to_hostEv,"axG",@progbits,_ZN7gpumath5ArrayIfE7to_hostEv,comdat
+	.weak	_ZN7gpumath5ArrayIfE7to_hostEv  # -- Begin function _ZN7gpumath5ArrayIfE7to_hostEv
 	.p2align	4, 0x90
-	.type	_ZN7gpumath5ArrayIdE7to_hostEv,@function
-_ZN7gpumath5ArrayIdE7to_hostEv:         # @_ZN7gpumath5ArrayIdE7to_hostEv
+	.type	_ZN7gpumath5ArrayIfE7to_hostEv,@function
+_ZN7gpumath5ArrayIfE7to_hostEv:         # @_ZN7gpumath5ArrayIfE7to_hostEv
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%rbp
@@ -2216,7 +2222,7 @@ _ZN7gpumath5ArrayIdE7to_hostEv:         # @_ZN7gpumath5ArrayIdE7to_hostEv
 	movq	(%rdi), %rdi
 	movq	8(%rbx), %rsi
 	movslq	16(%rbx), %rdx
-	shlq	$3, %rdx
+	shlq	$2, %rdx
 	movl	20(%rbx), %r9d
 	movl	24(%rbx), %eax
 	movl	%eax, (%rsp)
@@ -2292,14 +2298,14 @@ _ZN7gpumath5ArrayIdE7to_hostEv:         # @_ZN7gpumath5ArrayIdE7to_hostEv
 	.cfi_def_cfa_offset 48
 	callq	_ZSt16__throw_bad_castv@PLT
 .Lfunc_end12:
-	.size	_ZN7gpumath5ArrayIdE7to_hostEv, .Lfunc_end12-_ZN7gpumath5ArrayIdE7to_hostEv
+	.size	_ZN7gpumath5ArrayIfE7to_hostEv, .Lfunc_end12-_ZN7gpumath5ArrayIfE7to_hostEv
 	.cfi_endproc
                                         # -- End function
-	.section	.text._ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,"axG",@progbits,_ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,comdat
-	.weak	_ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi # -- Begin function _ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
+	.section	.text._ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,"axG",@progbits,_ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,comdat
+	.weak	_ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi # -- Begin function _ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
 	.p2align	4, 0x90
-	.type	_ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,@function
-_ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi: # @_ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
+	.type	_ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,@function
+_ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi: # @_ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
 .Lfunc_begin7:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -2422,7 +2428,7 @@ _ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1
 .Ltmp164:
 	movq	%r15, %rdi
 	movq	%r14, %rsi
-	callq	_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+	callq	_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
 	movsd	%xmm0, 48(%rsp)                 # 8-byte Spill
 .Ltmp165:
 # %bb.27:                               # %invoke.cont7
@@ -2554,9 +2560,9 @@ _ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 .Lfunc_end13:
-	.size	_ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi, .Lfunc_end13-_ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
+	.size	_ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi, .Lfunc_end13-_ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
 	.cfi_endproc
-	.section	.gcc_except_table._ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,"aG",@progbits,_ZN7gpumath8gpu_timeIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,comdat
+	.section	.gcc_except_table._ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,"aG",@progbits,_ZN7gpumath8gpu_timeIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,comdat
 	.p2align	2, 0x0
 GCC_except_table13:
 .Lexception7:
@@ -2835,11 +2841,11 @@ GCC_except_table14:
 .Lcst_end8:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.text._ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,"axG",@progbits,_ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,comdat
-	.weak	_ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi # -- Begin function _ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
+	.section	.text._ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,"axG",@progbits,_ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,comdat
+	.weak	_ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi # -- Begin function _ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
 	.p2align	4, 0x90
-	.type	_ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,@function
-_ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi: # @_ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
+	.type	_ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,@function
+_ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi: # @_ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
 .Lfunc_begin9:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -2962,7 +2968,7 @@ _ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5Arra
 .Ltmp199:
 	movq	%r15, %rdi
 	movq	%r14, %rsi
-	callq	_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
+	callq	_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
 	movsd	%xmm0, 48(%rsp)                 # 8-byte Spill
 .Ltmp200:
 # %bb.27:                               # %invoke.cont7
@@ -3094,9 +3100,9 @@ _ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5Arra
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 .Lfunc_end15:
-	.size	_ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi, .Lfunc_end15-_ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
+	.size	_ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi, .Lfunc_end15-_ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi
 	.cfi_endproc
-	.section	.gcc_except_table._ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,"aG",@progbits,_ZN7gpumath8gpu_timeIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,comdat
+	.section	.gcc_except_table._ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,"aG",@progbits,_ZN7gpumath8gpu_timeIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi,comdat
 	.p2align	2, 0x0
 GCC_except_table15:
 .Lexception9:
@@ -3140,11 +3146,11 @@ GCC_except_table15:
 .Lcst_end9:
 	.p2align	2, 0x0
                                         # -- End function
-	.section	.text._ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,"axG",@progbits,_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,comdat
-	.weak	_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE # -- Begin function _ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+	.section	.text._ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,"axG",@progbits,_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,comdat
+	.weak	_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE # -- Begin function _ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
 	.p2align	4, 0x90
-	.type	_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,@function
-_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE: # @_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+	.type	_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,@function
+_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE: # @_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%r15
@@ -3200,7 +3206,7 @@ _ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5Ar
 	movupd	%xmm0, 136(%rsp)
 	movl	$0, 168(%rsp)
 	leaq	.L__unnamed_1(%rip), %rdi
-	movq	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28.region_id@GOTPCREL(%rip), %r8
+	movq	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.region_id@GOTPCREL(%rip), %r8
 	leaq	72(%rsp), %r9
 	movq	%rbx, %rsi
 	xorl	%edx, %edx
@@ -3225,11 +3231,11 @@ _ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5Ar
 	.cfi_def_cfa_offset 224
 	leaq	.L.str.20(%rip), %rdi
 	leaq	.L.str.21(%rip), %rsi
-	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
+	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
 	movl	$16, %edx
 	callq	__assert_fail@PLT
 .Lfunc_end16:
-	.size	_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE, .Lfunc_end16-_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+	.size	_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE, .Lfunc_end16-_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
 	.cfi_endproc
                                         # -- End function
 	.section	.text._ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_mutateEmmPKcm,"axG",@progbits,_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_mutateEmmPKcm,comdat
@@ -3392,11 +3398,11 @@ _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_mutateEmmPKcm: # @_ZNSt
 	.size	_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_mutateEmmPKcm, .Lfunc_end17-_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_mutateEmmPKcm
 	.cfi_endproc
                                         # -- End function
-	.section	.text._ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE,"axG",@progbits,_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE,comdat
-	.weak	_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE # -- Begin function _ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
+	.section	.text._ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE,"axG",@progbits,_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE,comdat
+	.weak	_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE # -- Begin function _ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
 	.p2align	4, 0x90
-	.type	_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE,@function
-_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE: # @_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
+	.type	_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE,@function
+_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE: # @_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%r15
@@ -3452,7 +3458,7 @@ _ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS
 	movupd	%xmm0, 136(%rsp)
 	movl	$0, 168(%rsp)
 	leaq	.L__unnamed_1(%rip), %rdi
-	movq	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28.region_id@GOTPCREL(%rip), %r8
+	movq	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30.region_id@GOTPCREL(%rip), %r8
 	leaq	72(%rsp), %r9
 	movq	%rbx, %rsi
 	xorl	%edx, %edx
@@ -3477,18 +3483,18 @@ _ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS
 	.cfi_def_cfa_offset 224
 	leaq	.L.str.20(%rip), %rdi
 	leaq	.L.str.21(%rip), %rsi
-	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE(%rip), %rcx
+	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE(%rip), %rcx
 	movl	$16, %edx
 	callq	__assert_fail@PLT
 .Lfunc_end18:
-	.size	_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE, .Lfunc_end18-_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
+	.size	_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE, .Lfunc_end18-_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
 	.cfi_endproc
                                         # -- End function
-	.section	.text._ZN7gpumath5ArrayIdE7reshapeEi,"axG",@progbits,_ZN7gpumath5ArrayIdE7reshapeEi,comdat
-	.weak	_ZN7gpumath5ArrayIdE7reshapeEi  # -- Begin function _ZN7gpumath5ArrayIdE7reshapeEi
+	.section	.text._ZN7gpumath5ArrayIfE7reshapeEi,"axG",@progbits,_ZN7gpumath5ArrayIfE7reshapeEi,comdat
+	.weak	_ZN7gpumath5ArrayIfE7reshapeEi  # -- Begin function _ZN7gpumath5ArrayIfE7reshapeEi
 	.p2align	4, 0x90
-	.type	_ZN7gpumath5ArrayIdE7reshapeEi,@function
-_ZN7gpumath5ArrayIdE7reshapeEi:         # @_ZN7gpumath5ArrayIdE7reshapeEi
+	.type	_ZN7gpumath5ArrayIfE7reshapeEi,@function
+_ZN7gpumath5ArrayIfE7reshapeEi:         # @_ZN7gpumath5ArrayIfE7reshapeEi
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%r15
@@ -3505,7 +3511,7 @@ _ZN7gpumath5ArrayIdE7reshapeEi:         # @_ZN7gpumath5ArrayIdE7reshapeEi
 	movq	(%rdi), %rdi
 	callq	free@PLT
 	movslq	16(%rbx), %rdi
-	shlq	$3, %rdi
+	shlq	$2, %rdi
 	callq	malloc@PLT
 	movq	%rax, (%rbx)
 	testq	%rax, %rax
@@ -3549,7 +3555,7 @@ _ZN7gpumath5ArrayIdE7reshapeEi:         # @_ZN7gpumath5ArrayIdE7reshapeEi
 	movl	24(%rbx), %esi
 	callq	omp_target_free@PLT
 	movslq	16(%rbx), %rdi
-	shlq	$3, %rdi
+	shlq	$2, %rdi
 	movl	24(%rbx), %esi
 	callq	omp_target_alloc@PLT
 	movq	%rax, 8(%rbx)
@@ -3608,14 +3614,14 @@ _ZN7gpumath5ArrayIdE7reshapeEi:         # @_ZN7gpumath5ArrayIdE7reshapeEi
 	.cfi_def_cfa_offset 32
 	callq	_ZSt16__throw_bad_castv@PLT
 .Lfunc_end19:
-	.size	_ZN7gpumath5ArrayIdE7reshapeEi, .Lfunc_end19-_ZN7gpumath5ArrayIdE7reshapeEi
+	.size	_ZN7gpumath5ArrayIfE7reshapeEi, .Lfunc_end19-_ZN7gpumath5ArrayIfE7reshapeEi
 	.cfi_endproc
                                         # -- End function
-	.section	.text._ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,"axG",@progbits,_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,comdat
-	.weak	_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_ # -- Begin function _ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
+	.section	.text._ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,"axG",@progbits,_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,comdat
+	.weak	_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_ # -- Begin function _ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
 	.p2align	4, 0x90
-	.type	_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,@function
-_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_: # @_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
+	.type	_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_,@function
+_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_: # @_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%rbp
@@ -3659,25 +3665,25 @@ _ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainde
 .LBB20_8:                               # %if.end13
 	movq	%rbp, %rdi
 	movq	%r13, %rsi
-	callq	_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+	callq	_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
 	movq	%rbp, %rdi
 	movq	%rbx, %rsi
-	callq	_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
+	callq	_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
 	movq	%r14, %rdi
-	callq	_ZN7gpumath5ArrayIdE7to_hostEv
+	callq	_ZN7gpumath5ArrayIfE7to_hostEv
 	movq	%rbp, %rdi
-	callq	_ZN7gpumath5ArrayIdE7to_hostEv
+	callq	_ZN7gpumath5ArrayIfE7to_hostEv
 	cmpb	$0, 28(%r12)
 	je	.LBB20_10
 # %bb.9:                                # %if.then19
 	movq	%r12, %rdi
-	callq	_ZN7gpumath5ArrayIdE7to_hostEv
+	callq	_ZN7gpumath5ArrayIfE7to_hostEv
 .LBB20_10:                              # %if.end20
 	movq	%rbp, %rdi
 	movq	%r12, %rsi
-	callq	_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+	callq	_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
 	leaq	.L__unnamed_1(%rip), %rdi
-	leaq	_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined(%rip), %rdx
+	leaq	_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined(%rip), %rdx
 	movl	$5, %esi
 	movq	%r13, %rcx
 	movq	%r12, %r8
@@ -3706,32 +3712,32 @@ _ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainde
 .LBB20_1:                               # %if.then
 	.cfi_def_cfa_offset 64
 	movq	%r14, %rdi
-	callq	_ZN7gpumath5ArrayIdE9to_deviceEv
+	callq	_ZN7gpumath5ArrayIfE9to_deviceEv
 	cmpb	$0, 28(%rbp)
 	jne	.LBB20_4
 .LBB20_3:                               # %if.then5
 	movq	%rbp, %rdi
-	callq	_ZN7gpumath5ArrayIdE9to_deviceEv
+	callq	_ZN7gpumath5ArrayIfE9to_deviceEv
 	cmpb	$0, 28(%r13)
 	jne	.LBB20_6
 .LBB20_5:                               # %if.then9
 	movq	%r13, %rdi
-	callq	_ZN7gpumath5ArrayIdE9to_deviceEv
+	callq	_ZN7gpumath5ArrayIfE9to_deviceEv
 	cmpb	$0, 28(%rbx)
 	jne	.LBB20_8
 .LBB20_7:                               # %if.then12
 	movq	%rbx, %rdi
-	callq	_ZN7gpumath5ArrayIdE9to_deviceEv
+	callq	_ZN7gpumath5ArrayIfE9to_deviceEv
 	jmp	.LBB20_8
 .Lfunc_end20:
-	.size	_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_, .Lfunc_end20-_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
+	.size	_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_, .Lfunc_end20-_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_
 	.cfi_endproc
                                         # -- End function
-	.section	.text._ZN7gpumath5ArrayIdE9to_deviceEv,"axG",@progbits,_ZN7gpumath5ArrayIdE9to_deviceEv,comdat
-	.weak	_ZN7gpumath5ArrayIdE9to_deviceEv # -- Begin function _ZN7gpumath5ArrayIdE9to_deviceEv
+	.section	.text._ZN7gpumath5ArrayIfE9to_deviceEv,"axG",@progbits,_ZN7gpumath5ArrayIfE9to_deviceEv,comdat
+	.weak	_ZN7gpumath5ArrayIfE9to_deviceEv # -- Begin function _ZN7gpumath5ArrayIfE9to_deviceEv
 	.p2align	4, 0x90
-	.type	_ZN7gpumath5ArrayIdE9to_deviceEv,@function
-_ZN7gpumath5ArrayIdE9to_deviceEv:       # @_ZN7gpumath5ArrayIdE9to_deviceEv
+	.type	_ZN7gpumath5ArrayIfE9to_deviceEv,@function
+_ZN7gpumath5ArrayIfE9to_deviceEv:       # @_ZN7gpumath5ArrayIfE9to_deviceEv
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%rbp
@@ -3749,7 +3755,7 @@ _ZN7gpumath5ArrayIdE9to_deviceEv:       # @_ZN7gpumath5ArrayIdE9to_deviceEv
 	movq	(%rdi), %rsi
 	movq	8(%rdi), %rdi
 	movslq	16(%rbx), %rdx
-	shlq	$3, %rdx
+	shlq	$2, %rdx
 	movl	24(%rbx), %r9d
 	movl	20(%rbx), %eax
 	movl	%eax, (%rsp)
@@ -3825,14 +3831,14 @@ _ZN7gpumath5ArrayIdE9to_deviceEv:       # @_ZN7gpumath5ArrayIdE9to_deviceEv
 	.cfi_def_cfa_offset 48
 	callq	_ZSt16__throw_bad_castv@PLT
 .Lfunc_end21:
-	.size	_ZN7gpumath5ArrayIdE9to_deviceEv, .Lfunc_end21-_ZN7gpumath5ArrayIdE9to_deviceEv
+	.size	_ZN7gpumath5ArrayIfE9to_deviceEv, .Lfunc_end21-_ZN7gpumath5ArrayIfE9to_deviceEv
 	.cfi_endproc
                                         # -- End function
-	.section	.text._ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,"axG",@progbits,_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,comdat
-	.weak	_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE # -- Begin function _ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+	.section	.text._ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,"axG",@progbits,_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,comdat
+	.weak	_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE # -- Begin function _ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
 	.p2align	4, 0x90
-	.type	_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,@function
-_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE: # @_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+	.type	_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,@function
+_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE: # @_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%rbx
@@ -3866,7 +3872,7 @@ _ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5Ar
 	leaq	24(%rsp), %rax
 	movq	%rax, (%rsp)
 	leaq	.L__unnamed_1(%rip), %rdi
-	leaq	_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined(%rip), %rdx
+	leaq	_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined(%rip), %rdx
 	leaq	12(%rsp), %rcx
 	leaq	40(%rsp), %r8
 	leaq	32(%rsp), %r9
@@ -3884,35 +3890,35 @@ _ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5Ar
 	.cfi_def_cfa_offset 64
 	leaq	.L.str.20(%rip), %rdi
 	leaq	.L.str.21(%rip), %rsi
-	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
-	movl	$41, %edx
+	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
+	movl	$47, %edx
 	callq	__assert_fail@PLT
 .LBB22_6:                               # %cond.false5
 	leaq	.L.str.32(%rip), %rdi
 	leaq	.L.str.21(%rip), %rsi
-	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
-	movl	$42, %edx
+	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
+	movl	$48, %edx
 	callq	__assert_fail@PLT
 .LBB22_7:                               # %cond.false11
 	leaq	.L.str.33(%rip), %rdi
 	leaq	.L.str.21(%rip), %rsi
-	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
-	movl	$43, %edx
+	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
+	movl	$49, %edx
 	callq	__assert_fail@PLT
 .LBB22_8:                               # %cond.false24
 	leaq	.L.str.34(%rip), %rdi
 	leaq	.L.str.21(%rip), %rsi
-	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
-	movl	$53, %edx
+	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE(%rip), %rcx
+	movl	$60, %edx
 	callq	__assert_fail@PLT
 .Lfunc_end22:
-	.size	_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE, .Lfunc_end22-_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+	.size	_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE, .Lfunc_end22-_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
 	.cfi_endproc
                                         # -- End function
 	.text
-	.p2align	4, 0x90                         # -- Begin function _ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined
-	.type	_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined,@function
-_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined: # @_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined
+	.p2align	4, 0x90                         # -- Begin function _ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined
+	.type	_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined,@function
+_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined: # @_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%rbp
@@ -4015,19 +4021,21 @@ _ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainde
 	.cfi_def_cfa_offset 8
 	retq
 .Lfunc_end23:
-	.size	_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined, .Lfunc_end23-_ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined
+	.size	_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined, .Lfunc_end23-_ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst16,"aM",@progbits,16
-	.p2align	4, 0x0                          # -- Begin function _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+	.p2align	4, 0x0                          # -- Begin function _ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 .LCPI24_0:
-	.quad	0x7fffffffffffffff              # double NaN
-	.quad	0x7fffffffffffffff              # double NaN
-	.section	.text._ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,"axG",@progbits,_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,comdat
-	.weak	_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+	.long	0x7fffffff                      # float NaN
+	.long	0x7fffffff                      # float NaN
+	.long	0x7fffffff                      # float NaN
+	.long	0x7fffffff                      # float NaN
+	.section	.text._ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,"axG",@progbits,_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,comdat
+	.weak	_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 	.p2align	4, 0x90
-	.type	_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,@function
-_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE: # @_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+	.type	_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,@function
+_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE: # @_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 .Lfunc_begin10:
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.__gxx_personality_v0
@@ -4068,9 +4076,9 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 	movq	%rax, 64(%rsp)                  # 8-byte Spill
 	movq	(%rsi), %rbp
 	leaq	.L.str.17(%rip), %rsi
-	leaq	8(%rsp), %rdi
+	leaq	16(%rsp), %rdi
 	callq	_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_RKS8_
-	movq	16(%rsp), %rsi
+	movq	24(%rsp), %rsi
 	movq	%rsi, %rax
 	shrq	$2, %rax
 	movabsq	$2305843009213693951, %rcx      # imm = 0x1FFFFFFFFFFFFFFF
@@ -4078,20 +4086,20 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 	je	.LBB24_4
 # %bb.6:                                # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE15_M_check_lengthEmmPKc.exit.i.i
 	leaq	4(%rsi), %r15
-	movq	8(%rsp), %rax
-	leaq	24(%rsp), %r14
+	movq	16(%rsp), %rax
+	leaq	32(%rsp), %r14
 	movl	$15, %ecx
 	cmpq	%r14, %rax
 	je	.LBB24_8
 # %bb.7:                                # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE15_M_check_lengthEmmPKc.exit.i.i
-	movq	24(%rsp), %rcx
+	movq	32(%rsp), %rcx
 .LBB24_8:                               # %_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE15_M_check_lengthEmmPKc.exit.i.i
 	cmpq	%rcx, %r15
 	jbe	.LBB24_9
 # %bb.10:                               # %if.else.i.i.i
 .Ltmp218:
 	leaq	.L.str.18(%rip), %rcx
-	leaq	8(%rsp), %rdi
+	leaq	16(%rsp), %rdi
 	movl	$4, %r8d
 	xorl	%edx, %edx
 	callq	_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_mutateEmmPKcm
@@ -4100,22 +4108,22 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 .LBB24_9:                               # %if.end.i.i.i.i.i
 	movl	$1954051118, (%rax,%rsi)        # imm = 0x7478742E
 .LBB24_11:                              # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc.exit.i
-	movq	%r15, 16(%rsp)
-	movq	8(%rsp), %rax
+	movq	%r15, 24(%rsp)
+	movq	16(%rsp), %rax
 	movb	$0, (%rax,%r15)
 	leaq	88(%rsp), %r15
 	movq	%r15, 72(%rsp)
-	movq	8(%rsp), %rax
+	movq	16(%rsp), %rax
 	cmpq	%r14, %rax
 	je	.LBB24_12
 # %bb.14:                               # %if.else.i.i
 	movq	%rax, 72(%rsp)
-	movq	16(%rsp), %rax
-	movq	24(%rsp), %rcx
+	movq	24(%rsp), %rax
+	movq	32(%rsp), %rcx
 	movq	%rcx, 88(%rsp)
 	jmp	.LBB24_15
 .LBB24_12:                              # %if.then.i.i
-	movq	16(%rsp), %r12
+	movq	24(%rsp), %r12
 	movq	%r12, %rdx
 	movq	$-1, %rax
 	incq	%rdx
@@ -4127,9 +4135,9 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 	movq	%r12, %rax
 .LBB24_15:                              # %invoke.cont
 	movq	%rax, 80(%rsp)
-	movq	%r14, 8(%rsp)
-	movq	$0, 16(%rsp)
-	movb	$0, 24(%rsp)
+	movq	%r14, 16(%rsp)
+	movq	$0, 24(%rsp)
+	movb	$0, 32(%rsp)
 .Ltmp220:
 	leaq	104(%rsp), %rdi
 	leaq	72(%rsp), %rsi
@@ -4143,7 +4151,7 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 # %bb.17:                               # %if.then.i.i17
 	callq	_ZdlPv@PLT
 .LBB24_18:                              # %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
-	movq	8(%rsp), %rdi
+	movq	16(%rsp), %rdi
 	cmpq	%r14, %rdi
 	je	.LBB24_20
 # %bb.19:                               # %if.then.i.i19
@@ -4152,20 +4160,21 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 	cmpl	$0, 16(%rbx)
 	jle	.LBB24_21
 # %bb.28:                               # %for.body.preheader
-	xorpd	%xmm0, %xmm0
-	movsd	%xmm0, 40(%rsp)                 # 8-byte Spill
+	xorps	%xmm0, %xmm0
+	movss	%xmm0, 12(%rsp)                 # 4-byte Spill
 	xorl	%r13d, %r13d
 	leaq	104(%rsp), %r14
 	.p2align	4, 0x90
 .LBB24_29:                              # %for.body
                                         # =>This Inner Loop Header: Depth=1
 	movq	64(%rsp), %rax                  # 8-byte Reload
-	movsd	(%rax,%r13,8), %xmm0            # xmm0 = mem[0],zero
-	subsd	(%rbp,%r13,8), %xmm0
-	andpd	.LCPI24_0(%rip), %xmm0
+	movss	(%rax,%r13,4), %xmm0            # xmm0 = mem[0],zero,zero,zero
+	subss	(%rbp,%r13,4), %xmm0
+	andps	.LCPI24_0(%rip), %xmm0
+	movaps	%xmm0, 48(%rsp)                 # 16-byte Spill
+	cvtss2sd	%xmm0, %xmm0
 .Ltmp223:
 	movq	%r14, %rdi
-	movapd	%xmm0, 48(%rsp)                 # 16-byte Spill
 	callq	_ZNSo9_M_insertIdEERSoT_@PLT
 .Ltmp224:
 # %bb.30:                               # %invoke.cont25
@@ -4214,18 +4223,18 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 .Ltmp232:
 # %bb.39:                               # %invoke.cont27
                                         #   in Loop: Header=BB24_29 Depth=1
-	movapd	48(%rsp), %xmm0                 # 16-byte Reload
-	maxsd	40(%rsp), %xmm0                 # 8-byte Folded Reload
+	movaps	48(%rsp), %xmm0                 # 16-byte Reload
+	maxss	12(%rsp), %xmm0                 # 4-byte Folded Reload
 	incq	%r13
 	movslq	16(%rbx), %rax
-	movsd	%xmm0, 40(%rsp)                 # 8-byte Spill
+	movss	%xmm0, 12(%rsp)                 # 4-byte Spill
 	cmpq	%rax, %r13
 	jl	.LBB24_29
 	jmp	.LBB24_22
 .LBB24_21:
-	xorpd	%xmm0, %xmm0
+	xorps	%xmm0, %xmm0
 .LBB24_22:                              # %for.cond.cleanup
-	movapd	%xmm0, 48(%rsp)                 # 16-byte Spill
+	movaps	%xmm0, 48(%rsp)                 # 16-byte Spill
 	leaq	104(%rsp), %rdi
 	callq	_ZNSt14basic_ofstreamIcSt11char_traitsIcEED1Ev@PLT
 	movaps	48(%rsp), %xmm0                 # 16-byte Reload
@@ -4253,20 +4262,20 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 .LBB24_44:                              # %cond.false
 	leaq	.L.str.35(%rip), %rdi
 	leaq	.L.str.21(%rip), %rsi
-	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(%rip), %rcx
-	movl	$89, %edx
+	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(%rip), %rcx
+	movl	$105, %edx
 	callq	__assert_fail@PLT
 .LBB24_45:                              # %cond.false4
 	leaq	.L.str.36(%rip), %rdi
 	leaq	.L.str.21(%rip), %rsi
-	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(%rip), %rcx
-	movl	$90, %edx
+	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(%rip), %rcx
+	movl	$106, %edx
 	callq	__assert_fail@PLT
 .LBB24_46:                              # %cond.false9
 	leaq	.L.str.37(%rip), %rdi
 	leaq	.L.str.21(%rip), %rsi
-	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(%rip), %rcx
-	movl	$91, %edx
+	leaq	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(%rip), %rcx
+	movl	$107, %edx
 	callq	__assert_fail@PLT
 .LBB24_4:                               # %if.then.i.i.i
 .Ltmp237:
@@ -4287,8 +4296,8 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 .Ltmp239:
 	movq	%rax, %rbx
 .LBB24_26:                              # %ehcleanup
-	movq	8(%rsp), %rdi
-	leaq	24(%rsp), %rax
+	movq	16(%rsp), %rdi
+	leaq	32(%rsp), %rax
 	cmpq	%rax, %rdi
 	je	.LBB24_43
 # %bb.27:                               # %if.then.i.i26
@@ -4308,9 +4317,9 @@ _ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcS
 	movq	%rbx, %rdi
 	callq	_Unwind_Resume@PLT
 .Lfunc_end24:
-	.size	_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE, .Lfunc_end24-_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+	.size	_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE, .Lfunc_end24-_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 	.cfi_endproc
-	.section	.gcc_except_table._ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,"aG",@progbits,_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,comdat
+	.section	.gcc_except_table._ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,"aG",@progbits,_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,comdat
 	.p2align	2, 0x0
 GCC_except_table24:
 .Lexception10:
@@ -4378,7 +4387,7 @@ GCC_except_table24:
 	movq	(%rbx), %r14
 .Ltmp240:
 	movq	%r14, %rdi
-	callq	_ZN7gpumath5ArrayIdE7to_hostEv
+	callq	_ZN7gpumath5ArrayIfE7to_hostEv
 .Ltmp241:
 # %bb.1:                                # %invoke.cont.i
 	movq	8(%rbx), %r15
@@ -4394,8 +4403,8 @@ GCC_except_table24:
 	leaq	16(%rsp), %rdx
 	movq	%r15, %rdi
 	movq	%r14, %rsi
-	callq	_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
-	movsd	%xmm0, 8(%rsp)                  # 8-byte Spill
+	callq	_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+	movss	%xmm0, 12(%rsp)                 # 4-byte Spill
 .Ltmp245:
 # %bb.3:                                # %invoke.cont2.i
 	movq	16(%rsp), %rdi
@@ -4420,10 +4429,11 @@ GCC_except_table24:
 	callq	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
 .Ltmp249:
 # %bb.7:                                # %invoke.cont5.i
+	movss	12(%rsp), %xmm0                 # 4-byte Reload
+                                        # xmm0 = mem[0],zero,zero,zero
+	cvtss2sd	%xmm0, %xmm0
 .Ltmp250:
 	movq	%rbx, %rdi
-	movsd	8(%rsp), %xmm0                  # 8-byte Reload
-                                        # xmm0 = mem[0],zero
 	callq	_ZNSo9_M_insertIdEERSoT_@PLT
 .Ltmp251:
 # %bb.8:                                # %invoke.cont7.i
@@ -4535,7 +4545,7 @@ GCC_except_table25:
 	movq	(%rbx), %r14
 .Ltmp263:
 	movq	%r14, %rdi
-	callq	_ZN7gpumath5ArrayIdE7to_hostEv
+	callq	_ZN7gpumath5ArrayIfE7to_hostEv
 .Ltmp264:
 # %bb.1:                                # %invoke.cont.i
 	movq	8(%rbx), %r15
@@ -4551,8 +4561,8 @@ GCC_except_table25:
 	leaq	16(%rsp), %rdx
 	movq	%r15, %rdi
 	movq	%r14, %rsi
-	callq	_ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
-	movsd	%xmm0, 8(%rsp)                  # 8-byte Spill
+	callq	_ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+	movss	%xmm0, 12(%rsp)                 # 4-byte Spill
 .Ltmp268:
 # %bb.3:                                # %invoke.cont2.i
 	movq	16(%rsp), %rdi
@@ -4577,10 +4587,11 @@ GCC_except_table25:
 	callq	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
 .Ltmp272:
 # %bb.7:                                # %invoke.cont5.i
+	movss	12(%rsp), %xmm0                 # 4-byte Reload
+                                        # xmm0 = mem[0],zero,zero,zero
+	cvtss2sd	%xmm0, %xmm0
 .Ltmp273:
 	movq	%rbx, %rdi
-	movsd	8(%rsp), %xmm0                  # 8-byte Reload
-                                        # xmm0 = mem[0],zero
 	callq	_ZNSo9_M_insertIdEERSoT_@PLT
 .Ltmp274:
 # %bb.8:                                # %invoke.cont7.i
@@ -4669,9 +4680,9 @@ GCC_except_table26:
 	.p2align	2, 0x0
                                         # -- End function
 	.text
-	.p2align	4, 0x90                         # -- Begin function _ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined
-	.type	_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined,@function
-_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined: # @_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined
+	.p2align	4, 0x90                         # -- Begin function _ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined
+	.type	_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined,@function
+_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined: # @_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined
 	.cfi_startproc
 # %bb.0:                                # %entry
 	pushq	%rbp
@@ -4738,12 +4749,12 @@ _ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5Ar
 .LBB27_3:                               # %omp.inner.for.body
                                         # =>This Inner Loop Header: Depth=1
 	movq	(%r14), %rax
-	movsd	8(%rax,%r13,8), %xmm0           # xmm0 = mem[0],zero
+	movss	4(%rax,%r13,4), %xmm0           # xmm0 = mem[0],zero,zero,zero
 	movq	(%rbx), %rax
-	movsd	8(%rax,%r13,8), %xmm1           # xmm1 = mem[0],zero
-	callq	remainder@PLT
+	movss	4(%rax,%r13,4), %xmm1           # xmm1 = mem[0],zero,zero,zero
+	callq	remainderf@PLT
 	movq	(%r15), %rax
-	movsd	%xmm0, 8(%rax,%r13,8)
+	movss	%xmm0, 4(%rax,%r13,4)
 	movslq	8(%rsp), %rax
 	incq	%r13
 	cmpq	%rax, %r13
@@ -4769,7 +4780,7 @@ _ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5Ar
 	.cfi_def_cfa_offset 8
 	retq
 .Lfunc_end27:
-	.size	_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined, .Lfunc_end27-_ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined
+	.size	_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined, .Lfunc_end27-_ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined
 	.cfi_endproc
                                         # -- End function
 	.section	.text.startup,"ax",@progbits
@@ -4816,16 +4827,6 @@ _GLOBAL__sub_I_vararg.cpp:              # @_GLOBAL__sub_I_vararg.cpp
 	.byte	0                               # 0x0
 	.size	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28.region_id, 1
 
-	.type	.L.offload_sizes,@object        # @.offload_sizes
-	.section	.rodata.cst32,"aM",@progbits,32
-	.p2align	4, 0x0
-.L.offload_sizes:
-	.quad	4                               # 0x4
-	.quad	8                               # 0x8
-	.quad	4                               # 0x4
-	.quad	4                               # 0x4
-	.size	.L.offload_sizes, 32
-
 	.type	.L__unnamed_3,@object           # @0
 	.section	.rodata.str1.1,"aMS",@progbits,1
 .L__unnamed_3:
@@ -4861,12 +4862,12 @@ _GLOBAL__sub_I_vararg.cpp:              # @_GLOBAL__sub_I_vararg.cpp
 
 	.type	.L.str.3,@object                # @.str.3
 .L.str.3:
-	.asciz	"remainder"
-	.size	.L.str.3, 10
+	.asciz	"remainderf"
+	.size	.L.str.3, 11
 
 	.type	.L.str.4,@object                # @.str.4
 .L.str.4:
-	.asciz	"__ocml_remainder_f64"
+	.asciz	"__ocml_remainder_f32"
 	.size	.L.str.4, 21
 
 	.type	.L.str.6,@object                # @.str.6
@@ -4874,15 +4875,24 @@ _GLOBAL__sub_I_vararg.cpp:              # @_GLOBAL__sub_I_vararg.cpp
 	.asciz	"basic_string::_M_create"
 	.size	.L.str.6, 24
 
-	.type	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14.region_id,@object # @.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14.region_id
+	.type	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14.region_id,@object # @.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14.region_id
 	.section	.rodata,"a",@progbits
-	.weak	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14.region_id
-.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14.region_id:
+	.weak	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14.region_id
+.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14.region_id:
 	.byte	0                               # 0x0
-	.size	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14.region_id, 1
+	.size	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14.region_id, 1
+
+	.type	.L.offload_sizes.7,@object      # @.offload_sizes.7
+	.section	.rodata.cst32,"aM",@progbits,32
+	.p2align	4, 0x0
+.L.offload_sizes.7:
+	.quad	4                               # 0x4
+	.quad	8                               # 0x8
+	.quad	4                               # 0x4
+	.quad	4                               # 0x4
+	.size	.L.offload_sizes.7, 32
 
 	.type	.L.offload_maptypes.8,@object   # @.offload_maptypes.8
-	.section	.rodata.cst32,"aM",@progbits,32
 	.p2align	4, 0x0
 .L.offload_maptypes.8:
 	.quad	37                              # 0x25
@@ -4957,30 +4967,30 @@ _GLOBAL__sub_I_vararg.cpp:              # @_GLOBAL__sub_I_vararg.cpp
 	.asciz	"include/compare.h"
 	.size	.L.str.21, 18
 
-	.type	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,@object # @__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
-.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE:
-	.asciz	"double gpumath::apply_fun_gpu(std::tuple<Array<args>...> &, Array<T> &) [T = double, F = &remainder, args = <double, double>]"
-	.size	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE, 126
+	.type	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,@object # @__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE:
+	.asciz	"double gpumath::apply_fun_gpu(std::tuple<Array<args>...> &, Array<T> &) [T = float, F = &remainderf, args = <float, float>]"
+	.size	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE, 124
 
-	.type	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28.region_id,@object # @.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28.region_id
+	.type	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.region_id,@object # @.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.region_id
 	.section	.rodata,"a",@progbits
-	.weak	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28.region_id
-.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28.region_id:
+	.weak	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.region_id
+.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.region_id:
 	.byte	0                               # 0x0
-	.size	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28.region_id, 1
+	.size	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.region_id, 1
 
-	.type	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE,@object # @__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
+	.type	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE,@object # @__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE
 	.section	.rodata.str1.1,"aMS",@progbits,1
-.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE:
-	.asciz	"double gpumath::apply_fun_gpu(std::tuple<Array<args>...> &, Array<T> &) [T = double, F = &__ocml_remainder_f64, args = <double, double>]"
-	.size	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE, 137
+.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE:
+	.asciz	"double gpumath::apply_fun_gpu(std::tuple<Array<args>...> &, Array<T> &) [T = float, F = &__ocml_remainder_f32, args = <float, float>]"
+	.size	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE, 134
 
-	.type	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28.region_id,@object # @.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28.region_id
+	.type	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30.region_id,@object # @.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30.region_id
 	.section	.rodata,"a",@progbits
-	.weak	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28.region_id
-.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28.region_id:
+	.weak	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30.region_id
+.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30.region_id:
 	.byte	0                               # 0x0
-	.size	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28.region_id, 1
+	.size	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30.region_id, 1
 
 	.type	.L.offload_sizes.24,@object     # @.offload_sizes.24
 	.section	.rodata.cst32,"aM",@progbits,32
@@ -5022,10 +5032,10 @@ _GLOBAL__sub_I_vararg.cpp:              # @_GLOBAL__sub_I_vararg.cpp
 	.asciz	": omp_target_memcpy returned "
 	.size	.L.str.31, 30
 
-	.type	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,@object # @__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
-.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE:
-	.asciz	"double gpumath::apply_fun_cpu(std::tuple<Array<args>...> &, Array<T> &) [T = double, F = &remainder, args = <double, double>]"
-	.size	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE, 126
+	.type	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE,@object # @__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE
+.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE:
+	.asciz	"double gpumath::apply_fun_cpu(std::tuple<Array<args>...> &, Array<T> &) [T = float, F = &remainderf, args = <float, float>]"
+	.size	.L__PRETTY_FUNCTION__._ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE, 124
 
 	.type	.L.str.32,@object               # @.str.32
 .L.str.32:
@@ -5059,10 +5069,10 @@ _GLOBAL__sub_I_vararg.cpp:              # @_GLOBAL__sub_I_vararg.cpp
 	.asciz	"host_array.length() == dev_array.length()"
 	.size	.L.str.35, 42
 
-	.type	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,@object # @__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
-.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE:
-	.asciz	"T gpumath::cpu_abs_diff(const Array<T> &, Array<T> &, std::string) [T = double]"
-	.size	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIdEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE, 80
+	.type	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,@object # @__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE:
+	.asciz	"T gpumath::cpu_abs_diff(const Array<T> &, Array<T> &, std::string) [T = float]"
+	.size	.L__PRETTY_FUNCTION__._ZN7gpumath12cpu_abs_diffIfEET_RKNS_5ArrayIS1_EERS3_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE, 79
 
 	.type	.L.str.36,@object               # @.str.36
 .L.str.36:
@@ -5096,55 +5106,55 @@ _GLOBAL__sub_I_vararg.cpp:              # @_GLOBAL__sub_I_vararg.cpp
 	.section	.rodata.str1.16,"aMS",@progbits,1
 	.p2align	4, 0x0
 .omp_offloading.entry_name.38:
-	.asciz	"__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14"
+	.asciz	"__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14"
 	.size	.omp_offloading.entry_name.38, 86
 
-	.type	.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14,@object # @.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14
+	.type	.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14,@object # @.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14
 	.section	omp_offloading_entries,"aw",@progbits
-	.weak	.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14
-.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14:
-	.quad	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14.region_id
+	.weak	.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14
+.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14:
+	.quad	.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14.region_id
 	.quad	.omp_offloading.entry_name.38
 	.quad	0                               # 0x0
 	.long	0                               # 0x0
 	.long	0                               # 0x0
-	.size	.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14, 32
+	.size	.omp_offloading.entry.__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14, 32
 
 	.type	.omp_offloading.entry_name.39,@object # @.omp_offloading.entry_name.39
 	.section	.rodata.str1.16,"aMS",@progbits,1
 	.p2align	4, 0x0
 .omp_offloading.entry_name.39:
-	.asciz	"__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28"
-	.size	.omp_offloading.entry_name.39, 135
+	.asciz	"__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30"
+	.size	.omp_offloading.entry_name.39, 137
 
-	.type	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28,@object # @.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28
+	.type	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30,@object # @.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
 	.section	omp_offloading_entries,"aw",@progbits
-	.weak	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28
-.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28:
-	.quad	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28.region_id
+	.weak	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
+.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30:
+	.quad	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.region_id
 	.quad	.omp_offloading.entry_name.39
 	.quad	0                               # 0x0
 	.long	0                               # 0x0
 	.long	0                               # 0x0
-	.size	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28, 32
+	.size	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30, 32
 
 	.type	.omp_offloading.entry_name.40,@object # @.omp_offloading.entry_name.40
 	.section	.rodata.str1.16,"aMS",@progbits,1
 	.p2align	4, 0x0
 .omp_offloading.entry_name.40:
-	.asciz	"__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28"
+	.asciz	"__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30"
 	.size	.omp_offloading.entry_name.40, 139
 
-	.type	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28,@object # @.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28
+	.type	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30,@object # @.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30
 	.section	omp_offloading_entries,"aw",@progbits
-	.weak	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28
-.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28:
-	.quad	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28.region_id
+	.weak	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30
+.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30:
+	.quad	.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30.region_id
 	.quad	.omp_offloading.entry_name.40
 	.quad	0                               # 0x0
 	.long	0                               # 0x0
 	.long	0                               # 0x0
-	.size	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28, 32
+	.size	.omp_offloading.entry.__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30, 32
 
 	.section	.init_array.0,"aw",@init_array
 	.p2align	3, 0x90
@@ -5156,8 +5166,8 @@ _GLOBAL__sub_I_vararg.cpp:              # @_GLOBAL__sub_I_vararg.cpp
 	.section	.llvm.offloading,"e",@llvm_offloading
 	.p2align	3, 0x0
 .Lllvm.embedded.object:
-	.asciz	"\020\377\020\255\001\000\000\000\370I\000\000\000\000\000\000 \000\000\000\000\000\000\000(\000\000\000\000\000\000\000\002\000\001\000\000\000\000\000H\000\000\000\000\000\000\000\002\000\000\000\000\000\000\000\220\000\000\000\000\000\000\000dI\000\000\000\000\000\000i\000\000\000\000\000\000\000\207\000\000\000\000\000\000\000n\000\000\000\000\000\000\000u\000\000\000\000\000\000\000\000arch\000triple\000amdgcn-amd-amdhsa\000gfx906\000\000\000BC\300\3365\024\000\000\005\000\000\000b\f0$MY\276f\275\373\264O\033\310$D\0012\005\000!\f\000\000D\016\000\000\013\002!\000\002\000\000\000\026\000\000\000\007\201#\221A\310\004I\006\02029\222\001\204\f%\005\b\031\036\004\213b\200\030E\002B\222\013B\304\0202\0248\b\030K\n2b\210Hp\304!#D\022\207\214\020A\222\002d\310\b\261\024 CF\210 \311\0012b\204\030*(*\2201|\260\\\221 \306\310\000\000\000\211 \000\000,\000\000\000\"f\004\020\262B\202\211\021RB\202\211\221q\302PH\n\t&F\306\005Bb&\b\306`\262 \230#\000\003\232#@\362b8G\232\"J\230|d \232\351\237P\021\004A $\2010\002P\212C\020\004a\216 (D \f\311\034\001(L\026\024e8\026\246\004AQ\016!\b\004A\020\202\240$\207 ,\213 \bB\031\016!(\312!\004A\020\b\202\260\024!\020\312p\b\303\020@!\252\252\252Jq,\202 \224\344\020\204eY\004A(CUUE\250\252\"\004U\031\252*(C\020\004eH\252`  \r\204)\200a\004!\000\000\000\000Q\030\000\000\354\001\000\000\033\320$\370\377\377\377\377\001\020\0008\000\244a\035\312A\036\334\241\034\330\001 \334\341\035\332\200\036\344!\034\340\001\036\322\301\035\316\241\r\332!\034\350\001\035\000z\220\207z(\007\200\230\007z\b\207qX\2076\200\007yx\007z(\207q\240\207w\220\2076\020\207z0\007s(\007yh\203yH\007}(\007\000\017\000\202\036\302A\036\316\241\034\350\241\r\306\001\036\352\0018\007s\300\207<\200\003;\000\bz\b\007y8\207r\240\20760\207r\b\007z\250\007y(\207y\000\326 \016\354\240\r\304!\035\350\241\r\322\301\035\346\201\036\346\201\r\326`\034\322\241\r\322\301\035\346\201\036\346\201\r\326\200\034\330\241\r\322\301\035\346\201\036\346\201\r\326\200\034\336\201\036\342\240\r\322\301\035\346\201\036\346\201\r\326\200\034\336\201\036\342\000\016\332 \035\334a\036\350a\036\330`\r\310\341\035\350A\016\332 \035\334a\036\350a\036\330`\r\310\341\035\350\341\016\332 \035\334a\036\350a\036\330`\r\310\001\036\340\201\r\326\340\034\314\001\037\360\240\r\322\301\035\346\201\036\346\201\r\326\340\034\314\001\037\362\240\r\322\301\035\346\201\036\346\201\r\326`\036\332\240\035\312\241\035\344\241\034\302\201\035\350!\035\332\241\034\330`\r\346\241\r\332\241\034\332\201\036\322\241\035\312\241\r\322\301\035\346\201\036\330`\r\356!\034\354\241\034\314A\036\336\301\035\350a\036\322A\037\312\301\016\350\000 \352\301\035\322\301\034\336A\036\332\241\r\356\341\035\344a\035\332\340\034\344\341\035\352\001\036\332`\036\322A\037\312\001\240\007y\250\207r\00060B\000\220\002p\006A@\004i@l \006\001 \205\r\f1\000\244\000\234A\020\020A\032\020\033\230\202\000H\0018\203  \2024 6D\306\377\377\377\377\017\200)\000\247\000\370\001\360\007\200\004\364A`\013\303\006\342\b\000>\330@ \002\260l \222\377\377\377\377\037\000i\203\210(\377\377\377\377?\000\002\000\007\200D\270\303;\264\001=\310C8\300\003<\244\203;\234C\033\264C8\320\003:\000\364 \017\365P\016\0001\017\364\020\016\343\260\016m\000\017\362\360\016\364P\016\343@\017\357 \017m \016\365`\016\346P\016\362\320\006\363\220\016\372P\016\000\036\000\004=\204\203<\234C9\320C\033\214\003<\324\003p\016\346\200\017y\000\007v\000\020\364\020\016\362p\016\345@\017m`\016\345\020\016\364P\017\362P\016\363\000\254A\034\330A\033\210C:\320C\033\244\203;\314\003=\314\003\033\254\3018\244C\033\244\203;\314\003=\314\003\033\254\0019\260C\033\244\203;\314\003=\314\003\033\254\0019\274\003=\304A\033\244\203;\314\003=\314\003\033\254\0019\274\003=\304\001\034\264A:\270\303<\320\303<\260\301\032\220\303;\320\203\034\264A:\270\303<\320\303<\260\301\032\220\303;\320\303\035\264A:\270\303<\320\303<\260\301\032\220\003<\300\003\033\254\3019\230\003>\340A\033\244\203;\314\003=\314\003\033\254\3019\230\003>\344A\033\244\203;\314\003=\314\003\033\254\301<\264A;\224C;\310C9\204\003;\320C:\264C9\260\301\032\314C\033\264C9\264\003=\244C;\224C\033\244\203;\314\003=\260\301\032\334C8\330C9\230\203<\274\203;\320\303<\244\203>\224\203\035\320\001\260AY\002 \001\026\200\024\200j\003\302\b@\002,\000\265\201h\006\200\0246\020\016\001\220\302\006\350)\200\005 \005\340\f\200*\b\210 \r\210\r\bd\000\013@\n\000\035l\200\242\003X\000R\000\316\000\250\202\200\b\322\200\330\000I\b\260\000\244\000\234\001P\005\001\021\244\001\261\201\230\376\377\377\377\177\000\204\r\f5\000\244\000\234A\020 A\032 \033\230\212\000H\0018\203 @\2024@6@\326\001,\000)\000g\000TA\200\004i\200l\200.\004X\000R\000\316\000\250\202\000\t\322\000\3310a\377\377\377\377?\000\246\000\234\002\340\007\300\037\000\022P\007@\037\004\266\000l \262\000 \205\r$\242\375\377\377\377\377\000\b\300\032\000p\000H\204;\274C\033\320\203<\204\003<\300C:\270\3039\264A;\204\003=\240\003@\017\362P\017\345\000\020\363@\017\3410\016\353\320\006\360 \017\357@\017\3450\016\364\360\016\362\320\006\342P\017\346`\016\345 \017m0\017\351\240\017\345\000\340\001@\320C8\310\3039\224\003=\264\3018\300C=\000\347`\016\370\220\007p`\007\000A\017\341 \017\347P\016\364\320\006\346P\016\341@\017\365 \017\3450\017\300\032\304\201\035\264\2018\244\003=\264A:\270\303<\320\303<\260\301\032\214C:\264A:\270\303<\320\303<\260\301\032\220\003;\264A:\270\303<\320\303<\260\301\032\220\303;\320C\034\264A:\270\303<\320\303<\260\301\032\220\303;\320C\034\300A\033\244\203;\314\003=\314\003\033\254\0019\274\003=\310A\033\244\203;\314\003=\314\003\033\254\0019\274\003=\334A\033\244\203;\314\003=\314\003\033\254\0019\300\003<\260\301\032\234\2039\340\003\036\264A:\270\303<\320\303<\260\301\032\234\2039\340C\036\264A:\270\303<\320\303<\260\301\032\314C\033\264C9\264\203<\224C8\260\003=\244C;\224\003\033\254\301<\264A;\224C;\320C:\264C9\264A:\270\303<\320\003\033\254\301=\204\203=\224\2039\310\303;\270\003=\314C:\350C9\330\001\035\000\033\210\255\000Ha\003\302\035\300\002\220\002Pm@:\004X\000R\000\252\r \342\375\377\377\377\377\000\254\001 \021\356\360\016m@\017\362\020\016\360\000\017\351\340\016\347\320\006\355\020\016\364\200\016\000=\310C=\224\003@\314\003=\204\3038\254C\033\300\203<\274\003=\224\3038\320\303;\310C\033\210C=\230\2039\224\203<\264\301<\244\203>\224\003\200\007\000A\017\341 \017\347P\016\364\320\006\343\000\017\365\000\234\2039\340C\036\300\201\035\000\004=\204\203<\234C9\320C\033\230C9\204\003=\324\203<\224\303<\000k\020\007v\320\006\342\220\016\364\320\006\351\340\016\363@\017\363\300\006k0\016\351\320\006\351\340\016\363@\017\363\300\006k@\016\354\320\006\351\340\016\363@\017\363\300\006k@\016\357@\017q\320\006\351\340\016\363@\017\363\300\006k@\016\357@\017q\000\007m\220\016\3560\017\3640\017l\260\006\344\360\016\364 \007m\220\016\3560\017\3640\017l\260\006\344\360\016\364p\007m\220\016\3560\017\3640\017l\260\006\344\000\017\360\300\006kp\016\346\200\017x\320\006\351\340\016\363@\017\363\300\006kp\016\346\200\017y\320\006\351\340\016\363@\017\363\300\006k0\017m\320\016\345\320\016\362P\016\341\300\016\364\220\016\355P\016l\260\006\363\320\006\355P\016\355@\017\351\320\016\345\320\006\351\340\016\363@\017l\260\006\367\020\016\366P\016\346 \017\357\340\016\3640\017\351\240\017\345`\007t\000l\210\276\377\377\377\377\037\200S\000\374\000\370\003@\002\352\000\350\203\300\026\200\r\004\030\b\000\037l8\302\340\377\377\377\377\007@\nl\341\0176\020b@\000g\260\201\030\203\0028\203\r\004\031\030\300\031l \312\340\000\316`\003a\006\bp\006\033\2143\370\377\377\377\377\001X\003@\332@\240\001\000\220\002\000\000I\030\000\000\031\000\000\000\023\212@\030\210b\302`\034\310\204 \231\220(\013\3238\017\024I\023\202iB\021\b\003UMH\224\205i\234\007\262\256\t\0016\241\b\262\241q&$\332\3024\316\006q\335\204\301\313\206\t\211\2620\215\263A\\7!\370&\b\037\030L\b\302`B\221\210\301\030\220A\031L\030\02220\203\t\304\031\240A6\000\000\023\242ph\007r8\207qp\2076\b\207v \2076\b\207v \007t\230\207p\330\000\033\345\320\006\360\240\007v@\007z`\007t\320\006\360\020\007z`\007t\240\007v@\007m\000\017r\240\007s \007z0\007r\320\006\3600\007z0\007r\240\007s \007m\000\017t\240\007v@\007z`\007t\320\006\360P\007z0\007r\240\007s \007m\000\017v\240\007s \007z0\007r\320\006\360p\007z\020\007v\000\007z \007u`\007z \007u`\007z0\007r\320\006\360\200\007z\020\007r\200\007z\020\007r\200\007m\220\016v@\007z`\007t\320\006\366\020\007v\240\007q`\007m`\017r@\007z0\007r\320\006\3660\007r\240\007s \007m`\017t\200\007z`\007t\320\006\366\220\007v\240\007q \007x\320\006\366\020\007y \007z \007u`\007m`\017rP\007v\240\007rP\007v\320\006\366P\007q \007zP\007q \007m`\017q\000\007r@\007z\020\007p \007t\320\006\366 \007p@\007x\240\007r\000\007t\200\007m\340\016s \007z`\007t\320\006\2630\007r\320\006\241P\007mp\nq\320\006\356\220\016zp\007z\200\007+\032v`\007{h\0077h\207r\240\207p \207p\240\207pPz@\210\220\f2d\244\310\220\240\021\302\344\324\231\313\307/{X\036\226\237]c8|\307\004P\301\001\007\021\000\004\200\000\000\000\020P\000\260c\242\316 8\340 \002\200\000\020\000\000\000\002\n\000vL{\220\006\301\001\007\021\000\004\200\000\000\000\020P\000\260c\"\0070\b\0168\210\000 \000\004\000\000\200\200\002\200\035\023I\230Ap\300A\004\000\001 \000\000\000\004\024\000\354\230\324\342\f\210\001\025\222\000\000\200\000\000\000 \240\000`\307\024\033gP\034\251\220\020\000\000\004\000\000\000\001\005\000;&\3748\203\342P\205\204\000\000 \000\000\000\b(\000\3301\375\310\031\024\307*$\004\000\000\001\000\000@@\001\300\216\311T~a8B\001\002\000\001\000\000\000\000\002\n\000vLe\363\013\303\021\n\020\000\b\000\000\000\000\020P\000\260c\"!\230\030\216P\200\000@\000\000\000\000\200\200\002\200\035\023M\321\304p\204\002\004\000\002\000\000\000\000\004\024\000\354\230\320\f\035\206C\024 \000\000\000\001\000\000\000\240\000`\307\004s\3500\034\242\000\001\000\000\b\000\000\000\000\005\000;&\374\313\211\341\020\005\b\000\000@\000\000\000\000(\000\3301\305d\320\023\303!\n\020\000\000\200\000\000\000\000P\000@W\005\t\033\254 pH\005\252A- \273\000D\001\000\b\200\000\000\000\000\004\000\005\f\251j6\220\024 \000\000\000\000\000\001\000\000\000\000\000\n\030R\235m`5@\000\b\000\000\000\000\000\000\000\000\000\0240\244\352\333\200j\200\000\020\000\000\000\000\000\000\000\000\000(`H\025\273\001\0328@\000\f\000\000\000\002\000\000\000\000\000\0240\244\312\337\340{\200\000\030\000\000\000\004\000\000\000\000\000(`H\205\303\301;@\0000\020\000\000\000\000\000\000\000\020\000\0240\244:\351\000{\200\000\030\000\000\000\004\000\000\000\000\000(`H\365\323A\027\001\0010\000\000\000\b\000\000\000\000\000P\300\220\212\257\003I\002\002\240\000\000\000\020\000\000\000\000\000\240\200!\225k\007\330\004\004\300\000\000\000 \000\000\000\000\000@\001C*\363\016(\n\b\000\000\000\000@\000\000\000\000\000\200\002\206T\372\035\324\002\262\013@d\000\200\000\b\000\000\000@\000P\300\220\352\325\203w\200\000`8\000\000\000\000\000\000\000 \000(`H\345\367\001d\001\001\200\000\000\000\000\000\000\000\000\000P\300\220\312\365\003\223\270v\001\210\022\000\020\000\001\000\000\000\b\000\n\030R\321\242\000\026\030\000\f\n\000\000\000\000\000\000\000\004\000\005\f\251\350SH2 \000\026\000\000\000\001\000\000\000\000\000\n\030R\365\247\240\022\327.\000Q\002\000\002 \000\000\000\000\001@\001C\252\223\025\310\002\003\200\201\001\000\000\000\000\000\000\200\000\240\200!\325\032\013\215\006\004\000\002\000\000\000\000\000\000\000\000@\001C*<\026\272\r\b\000\004\000\000\000\000\000\000\000\000\200\002\206T\265,h\032\020\000\b\000\000\000\000\000\000\000\000\000\005\f\251\336Y\2508 \000\020\000\000\000\000\000\000\000\000\000\n\030R\221\264\320h@\000 \000\000\000\000\000\000\000\000\000\0240\244\212i\201\261\200\000@\000\000\000\000\000\000\000\000\000(`H\325\323B\224\001\001\200\000\000\000\000\000\000\000\000\000P\300\220\312\255\205\246\003\002\240\001\000\000\000\000\000\000\000\000\240\200!\325^\013\223\007\004\200\003\000\000\000\000\000\000\000\000@\001\022\033\004\n\0139\000\000d\201\000\000\000\000\037\000\000\0002\036\230\034\031\021L\220\214\t&G\306\004C\nF\000\212\245\b\212\020\244\b\021\3123\240\334\321m\023\027\n\247\f\212\035\3356q\2418J\240@\r\n\241\034\312\254 h(\202\021\000ZF\000H0\006\024\214\201\004c\200\301\030X B\255]\335\275v\277\357\356]\335\275v\277\357\356\035l\007\333\355\250\300\342\025{\301\nX\274d/X\001\213\327\354\005+\220\201\304\220X4\002\000\000\000\261\030\000\000\306\000\000\0003\b\200\034\304\341\034f\024\001=\210C8\204\303\214B\200\007yx\007s\230q\f\346\000\017\355\020\016\364\200\0163\fB\036\302\301\035\316\241\034f0\005=\210C8\204\203\033\314\003=\310C=\214\003=\314x\214tp\007{\b\007yH\207pp\007zp\003vx\207p \207\031\314\021\016\354\220\016\3410\017n0\017\343\360\016\360P\0163\020\304\035\336!\034\330!\035\302a\036f0\211;\274\203;\320C9\264\003<\274\203<\204\003;\314\360\024v`\007{h\0077h\207rh\0077\200\207p\220\207p`\007v(\007v\370\005vx\207w\200\207_\b\207q\030\207r\230\207y\230\201,\356\360\016\356\340\016\365\300\016\3540\003b\310\241\034\344\241\034\314\241\034\344\241\034\334a\034\312!\034\304\201\035\312a\006\326\220C9\310C9\230C9\310C9\270\3038\224C8\210\003;\224\303/\274\203<\374\202;\324\003;\260\303\f\307i\207pX\207rp\203th\007x`\207t\030\207t\240\207\031\316S\017\356\000\017\362P\016\344\220\016\343@\017\341 \016\354P\0163 (\035\334\301\036\302A\036\322!\034\334\201\036\334\340\034\344\341\035\352\001\036f\030Q8\260C:\234\203;\314P$v`\007{h\0077`\207wx\007x\230QL\364\220\017\360P\0163\036j\036\312a\034\350!\035\336\301\035~\001\036\344\241\034\314!\035\360a\006T\205\2038\314\303;\260C=\320C9\374\302<\344C;\210\303;\260\303\214\305\n\207y\230\207w\030\207t\b\007z(\007r\230\201\\\343\020\016\354\300\016\345P\016\3630#\301\322A\036\344\341\027\330\341\035\336\001\036fH\031;\260\203=\264\203\033\204\3038\214C9\314\303<\270\3019\310\303;\324\003<\314H\264q\b\007v`\007q\b\207qX\207\031\333\306\016\354`\017\355\340\006\360 \017\3450\017\345 \017\366P\016n\020\016\3430\016\3450\017\363\340\006\351\340\016\344P\016\3700#\342\354a\034\302\201\035\330\341\027\354!\035\346!\035\304!\035\330!\035\350!\037f \235;\274C=\270\0039\224\2039\314X\274pp\007wx\007z\b\007zH\207wp\207\031\313\347\016\3570\017\341\340\016\351@\017\351\240\017\3450\303\001\003s\250\007w\030\207_\230\207pp\207t\240\207t\320\207r\230\201\204A9\340\3038\260C=\220C9\314@\304\240\035\312\241\035\340A\036\336\301\034f$c0\016\341\300\016\3540\017\351@\017\3450C!\203u\030\007sH\207_\240\207|\200\207r\230\261\224\001<\214\303<\224\3038\320C:\274\203;\314\303\214\305\fH!\025Ba\036\346!\035\316\301\035R\201\024f g@\016\342p\016n@\016\345`\0163\0344@\207r\b\007x\b\007v`\207w\030\207yH\007z(\207\031G\032\314\203<\214\003;\274\3038\000\000\000\000y \000\000(\001\000\000r\036H C\210\f\031\tr2H #\201\214\221\221\321D\240\020(d<12B\216\220!\2438Q\250\005\351P\016t@\007\206\246\030MrH\350P\022\303\363,\006\000_ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2_kernelamdgpu_code_object_versionwchar_sizeopenmpopenmp-devicePIC LevelThinLTOEnableSplitLTOUnitclang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)AMD clang version 16.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-5.5.0 23144 5fe166b8eac068df976282939b880a75a3a63014)intomnipotent charSimple C++ TBAAany pointerdouble\246k\000\000\000\000\000\0000\202\020\274\301\bB@\007#\bA\035\214 \004v0\202\020\334\301\bB\020\007#\b\001\036\214 \004y0\202\020\350\301\b\202 \215 \b\336\b\202\020\006#\b\002\031\214 \004{0\202\020\360\301\bB\320\007#\b\201\037\214 \004\1770\202\260\210\302\f\007UY\301Ea3\034Te\t\027\225\315pP\2256l\0247\303AU\032qQ\324\fCWp3\f^\301\3150|\0057\303\000\006\0057\303\300\031a0\303\300\035b0\3030\006\b\031\3140\214AB\0063\fe\240p3\f\334B\3150p\f7\203\220Q3\004\315\f\2013C\020\3150@y`\0063\f\217\036\230\301\f\303\036\354\201\031\3140Hz`\0063\f}\320\007f0\3030\351\201\031\3140\374\301\037\230\301\265\001 \006b \006b \006b \006b \006\034'\006b \006b \006b \006b\240\007z\240\007z \006b \006h\200\006h\340\006n\200\006b \006\234eYn\340\006t\340\006t\340\0062\022\230\240\204\336\332\340\276\336\314\314\330\336\302\310\\\322\334\314\336F!\314\340\f\320 \r\022r\263\263ks\tss{\243\013\243K{s\233\033\205P\2035`\2036\310\210\215\315\256\315\245\355\215\254\216\255\314\305\214-\354ln\224\303\r\336\000\016\342@\016\346\200\016rbc\263ksaKs[+\223sy\203\243K{s\233\033\005H\351\r\256\314m\214\315\345m\214\315\305\256Ln.\355\315m\224\240\016Rac\263ksI#+s\243\033E\260\203;\000\000\251\030\000\000'\000\000\000\013\nr(\207w\200\007zXp\230C=\270\3038\260C9\320\303\202\346\034\306\241\r\350A\036\302\301\035\346!\035\350!\035\336\301\035\0264\343`\016\347P\017\341 \017\344@\017\341 \017\347P\016\364\260\200\201\007y(\207p`\007vx\207q\b\007z(\007rXp\234\3038\264\001;\244\203=\224\303\002k\034\330!\034\334\341\034\334 \034\344a\034\334 \034\350\201\036\302a\034\320\241\034\310a\034\302\201\035\330a\301\001\017\364 \017\341P\017\364\200\016\013\210u\030\007sH\007\000\000\000\000\321\020\000\000\032\000\000\000\007\314<\244\203;\234\003;\224\003=\240\203<\224C8\220\303\001pP\204\3039\224\203;\320\303\001\023\016\347P\016\356@\017m\360\016\356P\016m\020\016\363p`\274\203;\224C\033\204\303<\034@\367\360\016\362\260\016\347 \017\357P\017\360\320\006\357\340\016\345\320\006\3410\017\007\311=\274\203<\254\3039\310\303;\324\003<\000\000a \000\000\033\001\000\000\023\004H,\020\000\000\000\007\000\000\000\024\324@\331\006\224\002%#\000\264\024B\201\025\003\t\306\200\2011p0\002\000\000\000\0003\021A\240\007\2430\023\021\004z0\n3\021A\240\007\2430\023\021\004z0\n3\021`\020\350\001)\214\030\034C\b\202\201\302\n\310\307\f7\004\020\030\3142\bA\240Y\001<bP\f!\b\006\223),#\006\006\000\202`\320\274\202Sd!0\r\301\300\240\002\201\341\006\341\016\314`\226a8\202\\\004\316F\340|\004\316F\340\021\003\343\001A0hn\341\212\206\r\210\210\017\006`\304\300\030@\020\f\232[\270\240a\003\0022\006`\304\300\030@\020\f\232[\270\236a\003\342\211\203\001\03010\006\020\004\203\346\026.g\330\200p\370`\000F\f\210!\004\301\300\251\205\021\203\006\002A0xj\201R6a \n9\b(\n\306\210\201\001\200 \030t\240\020 \303\006\304\024\f\000Q\301\030n\b\0264\230e \214\240\203\203\024\nv\320\301a\022\005P\350\340@\215\302\036tp\250H\341\016:8X\245 \006\263\004\305@E\340\020Q1P\021HDU\244\260D\nK\244 \350\260\001\301\005\004\220\202\240\303\006\304\022\020\300\260\001\241\274\001\001\f\033\020\211\033\020\300\260\001\201\264\001\001\f\033\020\007\033\020\300\210A\023\201 \030H\340@\006Y(\254\301\032\214\203\030`e@_0H\f\202\201\201\000\002\303\006\004\031\004\003@c\020\f\f\b\020\03010\000\020\004\203n\026\202m\330\2000\203`\000\206\033\210\016\rf\031\n#\03010\006\020\004\203\b\035\324\000\ff\t\216\021\003c\000A0h\332\301\r\312`\304\300\030@\020\f\232vp\0033\03010\006\020\004\203\246\035\334\340\fF\f\214\001\004\301\240i\0077@\203\021\003\003\000A0h\332\241\r\310`\304\300\030@\020\f\250rX\003Q\230%\b\302\201\000\000\000}\000\000\000\326f\bN3\370\210\001\006 \202\323\f\365\355#7 9\314\343?\021!8\315\340O\007\321\370\210\3251\276\303<>R\3714\356#\366DH\023\361\030\230C\\\204\360S\022\021\375\2023\020\346D\\\f\322\030W\343;\314\343KS\204\f\204\217X\237\001\f\303\356#\366g\000\303\300\373\210\2055\013\321\030\323\341\033\213\023\000\213yU\002\360LTD\f\177\005D\322\017\fC$\371\2101\031\013\321\030\323aZ\216\3570\217/8L\340/\201\217\330\332\324T\317t\375\r\305\374\323\021\021\300 \371\2105\031\003Q=Sd\201\001\206\300<\271\217X\227\343;\314\343#\322\277\000\322\344#\007P\020\315\024a\246V\371\016\363\370\210\364/\2004\371\200$\000\322\344#\226V\371\016\363\370\202\303\004\376\022\370\200$\000\322\344#G\2409\314\343#MCD~\341D~\340\f\230\277D\376s\370\210\215q\002\360LTD\f\177\005D\322\017\fC$\371\200$\000\322\344#VfHT`\373\210\2711\276\303<>R\371t\355#wp\016\377\3570\317\357\024\305\342\000\003\322\030?^\3749\337\353\003p\353\377?\237\273\361P\f0\035\365M5H\341D\314\037\001\215A\210\210\347U\353\311\376\271\026E\000&\266\277\347\261\366\317\332\377\277\330\374\3570\317\357P\323\2024\304\340\023\0272\231Y!0\217\217\234\300CID\364\013\316@\370D3E\230m9\276\303<\276\3400\201O\005>bv\21549\021\301\020\221A\334>r\001\212\3400\214\323\370\0211\235\301\3430\217\2778\316\343\023\0272\371\210\241U\276\303<\276\3400\201O\005> \t\2004\371\210\275\035\002\363\344\266\217\\\001\3450\217\2174\r\021\371\205\023\371\2013`>bg\224\3570\217/M\0212\020> \t\2004\371\b\000\000\0011\000\000\030\000\000\000[\206&\330\203-\203\025\354\301\226\001\013\366`\313\240\005{\260e\340\202=\3302\204A\260\007[\0068\b\372`\313 \007A\037l\031\346 \350\203-\003\035\004}\260e\250\203\240\017\266\fv\020\364\301\226\001\017\202=\3302\344A\260\007[\206=\b\366`\313\300\007\301\036l\031\376 \330\003\000\000\000\000\000\000\000\000a \000\000\256\000\000\000\023\004F,\020\000\000\000\004\000\000\000\024\224\020-\205@\2021\200`\f\034\000\000\000\0003\021A\240\007\2430\023\021\004z0\n3\021A\240\007\2430\023\021\004z0\n\304\004c\270!p\0033\230e\b\212 \t\201\223\0208\017\2013\021x\304\300\030@\020\f\032Wh\224\021\003c\000A0h\\\241I\222\n \251\000\206\r\bF\030\200a\003b\t\006`\304\300\030@\020\f\032Xx\224a\003BQ\203\001\03010\006\020\004\203\006\026\236d\330\200H\352`\000\b\013\306\210A\003\201 \030<\254\360\004\221A\024\307\032\254\0015\301\310`\221\341\206\000\023\203Y\006B\b\310\t\306,\3010P\261\030B4d\020\000e\301\240,\030\030\f\"\200\301\000\002=\020<c\330\200\b\204\001@\304\000\201\f\026\031n\b\306@\ff\031\210!\03010\006\020\004\203(\027\270g\304\300\030@\020\f\032_\360\260\021\003c\000A0h|\301\313F\f\214\001\004\301\240\361\005O\03310\006\020\004\203\306\027\274m\226\240\320p \000\000\000S\000\000\000\326\264\370\201C5\303?!\203of\206\3404U\276\333X!8Mu\233\332\2014C\005D\222e\035\276\303<>\025\234\000\3460\217\2174\r\021\371\205\023\371\2013`\376\022\371\317aq\205\3404UnP\306B4\306tX\2241\020\3253E\266\305\370\016\363\370\210\364/\2004\331\327\344;\314\343#\322\277\000\322\344\003\222\000H\323\001\024D3E\230\301\021\3000\364\027\0009\314\343?\021!8\315\340O\007\321\330S\343?\021Q!\016%\371T\340\333Y\"0\217\3567\316\304\233\034\"0\217\3567\316dS\2044\021\217\211\021\202\323T\366\206\000Q\004`\310p\231\024q1HcL\214o,N\000,\377\204\f\376\0214\016\363\370\213\343<>q!\223yI\276\303<\2764E\310@\370\200$\000\322t\005\217\303<\376\023\021\202\323\f>\321\f\346\324\370ODT\210CI\376\022\370\226v\bNS\3455ma\216\3570\217\277\004> \t\2004\231\033\001\f\003\177\003\222\303<>\3224D\344\027N\344\007\316\200\031\230\343;\314\343S\201\017H\002 M\246\265\370\016\363\370\322\024!\003am\004C-\273u\r\002\363\030\326\341;\314\343/\001\000\0011\000\000\016\000\000\000[\006\"\330\203-\303\023\354\301\226\001\n\366`\313 \005{\260e\240\202=\3302T\301\036l\031\256`\017\266\f[\260\007[\206/\330\203-\003\030\004{\260e \203`\017\000\000\000\000\000a \000\000\033\001\000\000\023\004H,\020\000\000\000\007\000\000\000\024\324@\331\006\224\002%#\000\264\024B\201\025\003\t\306\200\2011p0\002\000\000\000\0003\021A\240\007\2430\023\021\004z0\n3\021A\240\007\2430\023\021\004z0\n3\021`\020\350\001)\214\030\034C\b\202\201\302\n\310\307\f7\004\020\030\3142\bA\240Y\001<bP\f!\b\006\223),#\006\006\000\202`\320\274\202Sd!0\r\301\300\240\002\201\341\006\341\016\314`\226a8\202\\\004\316F\340|\004\316F\340\021\003\343\001A0hn\341\212\206\r\210\210\017\006`\304\300\030@\020\f\232[\270\240a\003\0022\006`\304\300\030@\020\f\232[\270\236a\003\342\211\203\001\03010\006\020\004\203\346\026.g\330\200p\370`\000F\f\210!\004\301\300\251\205\021\203\006\002A0xj\201R6a \n9\b(\n\306\210\201\001\200 \030t\240\020 \303\006\304\024\f\000Q\301\030n\b\0264\230e \214\240\203\203\024\nv\320\301a\022\005P\350\340@\215\302\036tp\250H\341\016:8X\245 \006\263\004\305@E\340\020Q1P\021HDU\244\260D\nK\244 \350\260\001\301\005\004\220\202\240\303\006\304\022\020\300\260\001\241\274\001\001\f\033\020\211\033\020\300\260\001\201\264\001\001\f\033\020\007\033\020\300\210A\023\201 \030H\340@\006Y(\254\301\032\360\202\030`e@_0H\f\202\201\201\000\002\303\006\004\031\004\003@c\020\f\f\b\020\03010\000\020\004\203n\026\202m\330\2000\203`\000\206\033\210\016\rf\031\n#\03010\006\020\004\203\b\035\324\000\ff\t\216\021\003c\000A0h\332\301\r\312`\304\300\030@\020\f\232vp\0033\03010\006\020\004\203\246\035\334\340\fF\f\214\001\004\301\240i\0077@\203\021\003\003\000A0h\332\241\r\310`\304\300\030@\020\f\250rX\003Q\230%\b\302\201\000\000\000}\000\000\000\326f\bN3\370\210\001\006 \202\323\f\365\355#7 9\314\343?\021!8\315\340O\007\321\370\210\3251\276\303<>R\3714\356#\366DH\023\361\030\230C\\\204\360S\022\021\375\2023\020\346D\\\f\322\030W\343;\314\343KS\204\f\204\217X\237\001\f\303\356#\366g\000\303\300\373\210\2055\013\321\030\323\341\033\213\023\000\213yU\002\360LTD\f\177\005D\322\017\fC$\371\2101\031\013\321\030\323aZ\216\3570\217/8L\340/\201\217\330\332\324T\317t\375\r\305\374\323\021\021\300 \371\2105\031\003Q=Sd\201\001\206\300<\271\217X\227\343;\314\343#\322\277\000\322\344#\007P\020\315\024a\246V\371\016\363\370\210\364/\2004\371\200$\000\322\344#\226V\371\016\363\370\202\303\004\376\022\370\200$\000\322\344#G\2409\314\343#MCD~\341D~\340\f\230\277D\376s\370\210\215q\002\360LTD\f\177\005D\322\017\fC$\371\200$\000\322\344#VfHT`\373\210\2711\276\303<>R\371t\355#wp\016\377\3570\317\357\024\305\342\000\003\322\030?^\3749\337\353\003p\353\377?\237\273\361P\f0\035\365M5H\341D\314\037\001\215A\210\203\347U\353\311\376\271\026E\000&\266\277\347\261\366\317\332\377\277\324\370\3570\317\357P\323\2024\304\340\023\0272\231Y!0\217\217\234\300CID\364\013\316@\370D3E\230m9\276\303<\276\3400\201O\005>bv\21549\021\301\020\221A\334>r\001\212\3400\214\323\370\0211\235\301\3430\217\2778\316\343\023\0272\371\210\241U\276\303<\276\3400\201O\005> \t\2004\371\210\275\035\002\363\344\266\217\\\001\3450\217\2174\r\021\371\205\023\371\2013`>bg\224\3570\217/M\0212\020> \t\2004\371\b\000\000\0011\000\000\030\000\000\000[\206&\330\203-\203\025\354\301\226\001\013\366`\313\240\005{\260e\340\202=\3302\204A\260\007[\0068\b\372`\313 \007A\037l\031\346 \350\203-\003\035\004}\260e\250\203\240\017\266\fv\020\364\301\226\001\017\202=\3302\344A\260\007[\206=\b\366`\313\300\007\301\036l\031\376 \330\003\000\000\000\000\000\000\000\000a \000\000\256\000\000\000\023\004F,\020\000\000\000\004\000\000\000\024\224\020-\205@\2021\200`\f\034\000\000\000\0003\021A\240\007\2430\023\021\004z0\n3\021A\240\007\2430\023\021\004z0\n\304\004c\270!p\0033\230e\b\212 \t\201\223\0208\017\2013\021x\304\300\030@\020\f\032Wh\224\021\003c\000A0h\\\241I\222\n \251\000\206\r\bF\030\200a\003b\t\006`\304\300\030@\020\f\032Xx\224a\003BQ\203\001\03010\006\020\004\203\006\026\236d\330\200H\352`\000\b\013\306\210A\003\201 \030<\254\360\004\221A\024\307\032\254\0015\301\310`\221\341\206\000\023\203Y\006B\b\310\t\306,\3010P\261\030B4d\020\000e\025I\2412\322*2bp\000 \b\006\226+\b\301\320+\3013\206\r\210@ \000D\f\020\310`\221\341\206`\f\304`\226\201\030\202\021\003c\000A0\210r\201{F\f\214\001\004\301\240\361\005\017\03310\006\020\004\203\306\027\274l\304\300\030@\020\f\032_\360\264\021\003c\000A0h|\301\333f\t\n\r\007\002R\000\000\000\326\264\370\201C5\303?!\203of\206\3404U\276\333X!8Mu\233\332\2014C\005D\222e\035\276\303<>\025\234\000\3460\217\2174\r\021\371\205\023\371\2013`\376\022\371\317aq\205\3404UnP\306B4\306t\030[!8M\265\333\026\343;\314\343#\322\277\000\322d_\223\3570\217\217H\377\002H\223\017H\002 M\007P\020\315\024a\026e\fD\365L\221\301\021\3000\364\027\0009\314\343?\021!8\315\340O\007\321\330S\343?\021Q!\016%\371T\340\333Y\"0\217\3567\316\304\233\034\"0\217\3567\316dS\2044\021\217\211\021\202\323T\366\206\000Q\004`\310p\231\024q1HcL\214o,N\000,\377\204\f\376\0214\016\363\370\213\343<>q!\223yI\276\303<\2764E\310@\370\200$\000\322t\005\217\303<\376\023\021\202\323\f>\321\f\346\324\370ODT\210CI\376\022\370\226v\bNS\3455ma\216\3570\217\277\004> \t\2004\335\200\3440\217\2174\r\021\371\205\023\371\2013`\006\346\370\016\363\370T\340\003\222\000H\223i-\276\303<\2764E\310@X\327 0\217a\035\276\303<\376\022\000\000\0011\000\000\016\000\000\000[\006\"\330\203-\303\023\354\301\226\001\n\366`\313 \005{\260e\240\202=\3302T\301\036l\031\256`\017\266\f[\260\007[\206/\370\203-C\030\004\177\260e \203\340\017\000\000\000\000\000a \000\0001\001\000\000\023\004H,\020\000\000\000\b\000\000\000\024\324@\331\006\224\002%#\000\264\024B\201\225\377\377\377\377G1\220`\f\030\030\003\007#\000\000\0003\021A\240\007\2430\023\021\004z0\n3\021A\240\007\2430\023\021\004z0\n3\021`\020\350\001)\214\030\034C\b\202\201\322\n\b\0304\303\rA\004\006\263\fB\020\350\210A1\204 \030L\246\240\334\325\350\210\201\001\200 \0304\260\360\024Y\b\234Y\000\030X 0\334 \340\201\031\3142\fG\220\213\300\331\b\234\217\300\331\b<b`< \b\006\r.`\321\260\001\021\365\301\000\214\030\030\003\b\202A\203\013\0304l@@\306\000\214\030\030\003\b\202A\203\013\3303l@<r0\000#\006\306\000\202`\320\340\002\346\f\033\020N\037\f\300\210\0011\204 \0308\2660b\320@ \b\006\217-P\013'\fD1\007\001E\301\03010\000\020\004\203.\024\002d\330\200\230\202\001 *\030\303\r\301\202\006\263\f\204\021tp\220D\341\016:8L\243\020\n\t\t\332\301\241*\205>\350\340`\231B\036tp\270N\201\ff\t\212\201\212\000\"\242b\240\"\240\210\252Ha\211\024\226HA\320a\003\242\013\b \005A\207\r\b& \200a\003bQ\b`\330\200H\340\200\000\206\r\b\344\r\b`\330\2008\334\200\000F\f\232\b\004\301@\022\2072\330F\241\r\332`\027\306 3\003\002\203`\320\030\004\003\003\001\004\206\r\2102\b\006\200\310 \030\030\020 0b`\000 \b\006]-\004\334\260\001q\006\301\000\f7\020\036\032\3142\024F0b`\f \b\006\221:\254\201\030\314\022\034#\006\306\000\202`\320\274\003\034\230\301\210\2011\200 \0304\357\000\007g0b`\f \b\006\315;\300\001\032\214\030\030\003\b\202A\363\016p\220\006#\006\006\000\202`\320\274\303\033\224\301\210\2011\200 \030P\347\300\006\2440K\020\204\003\001\000\000\000\223\000\000\000VF\006\013\321\030\323\341\003\303\020\371R\344\000>\355\323>qM\021 L\376\024Q\215\340#&\030\200\bN3\324\267\217\330\223\2014\317\024\3317 9\314\343?\021!8\315\340O\007\321\370\210\3351\276\303<>R\3714\356#\326\325\370\016\363\370\322\024!\003\341#\026\346\020\027!\374\224DD\277\340\f\204\375\031\3000\354>b\201\001\0060\f\274\217\334\001N\374\277\303<\277S\024\213\003\fHc\374x\361\347|\257\017\300\275\377\377|\356\306C1\300t\3247\360<\013\366\027T\363\033\017%\016\261P\245\3370\f\0360\224\377\334G\004\003 \315@D\2367\016\203\347y\303\312N\371D=\013!\216\335s\262\177\256E\021\200\211m\375{\236\347\255'\213\377b\373{\336\277\330\374\3570\317\357P\323\2024\304\340\023\0272\331W%\000\317DE\304\360W@$\375\3000D\222\217X\223\341P\3233E\346d \3153E\2651\031\013\321\030\323a[\216\3570\217/8L\340/\201\217\030\333\324T\317t\375\r\305\374\323\021\021\300 \371\210\r\006\030\002\363\344>b^\216\3570\217\217H\377\002H\223\217\034@A4S\204\331Z\345;\314\343#\322\277\000\322\344\003\222\000H\223\217\230Z\345;\314\343\013\016\023\370K\340\003\222\000H\223\217\034\201\3460\217\2174\r\021\371\205\023\371\2013`\376\022\371\317\341#F\306\t\3003Q\0211\374\025\020I?0\f\221\344\003\222\000H\223\217\230\231!Q\201\355#\366\306\370\016\363\370H\345\323\265\217\330Y!0\217\217\234\300CID\364\013\316@\370D3E\230q9\276\303<\276\3400\201O\005>bx\21549\021\301\020\221A\334>r\001\212\3400\214\323\370\0211\235\301\3430\217\2778\316\343\023\0272\371\210\215\205\301B4\306t\370\002 M\304\340K\221\003\370\264O\373H#\021\321\344\023\327di\225\3570\217/8L\340S\201\017H\002 M>r\005\224\303<>\3224D\344\027N\344\007\316\200\371\210\301\035\002\363\344\266\217\030\032\345;\314\343KS\204\f\204\017H\002 M>bn\206\3404\203\217\000\000\000\000\0011\000\000\026\000\000\000[\006+\330\203-\003\026\354\301\226A\013\366`\313\300\005{\260e\b\203`\017\266\fq\020\364\301\226a\016\202>\3302\320A\320\007[\206:\b\372`\313`\007A\037l\031\356 \350\203-C\036\004{\260e\320\203`\017\266\f|\020\354\301\226\241\017\202=\3302\200B\260\007\000\000\000\000\000a \000\000\266\000\000\000\023\004E,\020\000\000\000\004\000\000\000\024\224\020-\205@\2021\200`\f\034\000\000\000\0003\021A\240\007\2430\023\021\004z0\n3\021A\240\007\2430\023\021\004z0\n\311\0040\334\020\270\201\031\3142\004D\220\204\300I\b\234\207\300\231\b<b`\f \b\006\215+4\312\210\2011\200 \0304\256\320$I\005\220T\000\303\006\004#\f\300\260\001\261\004\0030b`\f \b\006\r,<\312\260\001\241\250\301\000\214\030\030\003\b\202A\003\013O2l@$u0\000\204\005c\304\240\201@\020\f\036Vx\202\310 \212c\r\326\200\232`d\260\310pC\200\211\301,\303 \004\003\025K%\020\301@E\020\tH\320+\001\023(\250H\257\204\214\240\240\"#\006\206\004\202`\220\255\302\020\364J\360\216a\003\"\020\b\200\254``\200\200@\006\213\f7\004d \006\263\f\203\020\214\030\030\003\b\202A\244\013\0354b`\f \b\006\315/|\331\210\2011\200 \0304\277\360i#\006\306\000\202`\320\374\302\267\215\030\030\003\b\202A\363\013\0377K@h8\020Z\000\000\000\326\264\370\201C5\303?!\203oS\006\322<Sd\033\332!8M\225\327\265\215\025\202\323T\267e\035\276\303<>\025\230\224\2014\317\024\325\006e,DcL\207\245-\276\303<>R\371tM\333\327\344;\314\343#\322\277\000\322\344\003\222\000H\323\001\024D3E\230m1\276\303<>\"\375\013 Mff\bNS\345\274q\211\301B4\306t\370\3000D\276\0249\200O\373\264O\\S\004\b\223?ET#\230\\!8M\225\333Y\"0\217\3567\316\324_\000\3440\217\377D\204\3404\203?\035Dcq\0050\fumO\215\377DD\2058\224\344S\201os\210\300<\272\3378\223\211\021\202\323T\246\206\000Q\004`\310p\335@\3430\217\2778\316\343\023\0272\035\301\3430\217\377D\204\3404\203O4\20311\276\2618\001\260\374\0232\370\346%\371\016\363\370\322\024!\003\341\003\222\000H\223E\031\0165=Sdn\204\000,\21395\376\023\021\025\342P\222\277\004\276\2059\276\303<\376\022\370\200$\000\322do\n\020E\000\206\fWM\237\200\3440\217\2174\r\021\371\205\023\371\2013`\006\346\370\016\363\370T\340\003\222\000H\223i-\276\303<\2764E\310@\030[\002D\021\200!\303\305[\327 0\217a\035\276\303<\376\022\000\0011\000\000\r\000\000\000[\206'\330\203-\003\024\354\301\226A\n\366`\313@\005{\260e\250\202=\3302\\\301\036l\031\274\340\017\266\f`\020\374\301\226a\f\202?\3302\220A\260\007\000\000\000\000\000a \000\0001\001\000\000\023\004H,\020\000\000\000\b\000\000\000\024\324@\331\006\224\002%#\000\264\024B\201\225\377\377\377\377G1\220`\f\030\030\003\007#\000\000\0003\021A\240\007\2430\023\021\004z0\n3\021A\240\007\2430\023\021\004z0\n3\021`\020\350\001)\214\030\034C\b\202\201\322\n\b\0304\303\rA\004\006\263\fB\020\350\210A1\204 \030L\246\240\334\325\350\210\201\001\200 \0304\260\360\024Y\b\234Y\000\030X 0\334 \340\201\031\3142\fG\220\213\300\331\b\234\217\300\331\b<b`< \b\006\r.`\321\260\001\021\365\301\000\214\030\030\003\b\202A\203\013\0304l@@\306\000\214\030\030\003\b\202A\203\013\3303l@<r0\000#\006\306\000\202`\320\340\002\346\f\033\020N\037\f\300\210\0011\204 \0308\2660b\320@ \b\006\217-P\013'\fD1\007\001E\301\03010\000\020\004\203.\024\002d\330\200\230\202\001 *\030\303\r\301\202\006\263\f\204\021tp\220D\341\016:8L\243\020\n\t\t\332\301\241*\205>\350\340`\231B\036tp\270N\201\ff\t\212\201\212\000\"\242b\240\"\240\210\252Ha\211\024\226HA\320a\003\242\013\b \005A\207\r\b& \200a\003bQ\b`\330\200H\340\200\000\206\r\b\344\r\b`\330\2008\334\200\000F\f\232\b\004\301@\022\2072\330F\241\r\332\000\027\306 3\003\002\203`\320\030\004\003\003\001\004\206\r\2102\b\006\200\310 \030\030\020 0b`\000 \b\006]-\004\334\260\001q\006\301\000\f7\020\036\032\3142\024F0b`\f \b\006\221:\254\201\030\314\022\034#\006\306\000\202`\320\274\003\034\230\301\210\2011\200 \0304\357\000\007g0b`\f \b\006\315;\300\001\032\214\030\030\003\b\202A\363\016p\220\006#\006\006\000\202`\320\274\303\033\224\301\210\2011\200 \030P\347\300\006\2440K\020\204\003\001\000\000\000\223\000\000\000&\030\200\bN3\324\267\217\330\223\2014\317\024\3317 9\314\343?\021!8\315\340O\007\321\370\210\3351\276\303<>R\3714\356#\326\325\370\016\363\370\322\024!\003\341#\026\346\020\027!\374\224DD\277\340\f\204\375\031\3000\354>b\201\001\0060\f\274\217X\031\031,DcL\207\017\fC\344K\221\003\370\264O\373\3045E\2000\371SD5\202\217\330W%\000\317DE\304\360W@$\375\3000D\222\217X\223\341P\3233E\346d \3153E\2651\031\013\321\030\323a[\216\3570\217/8L\340/\201\217\030\333\324T\317t\375\r\305\374\323\021\021\300 \371\210\r\006\030\002\363\344>b^\216\3570\217\217H\377\002H\223\217\034@A4S\204\331Z\345;\314\343#\322\277\000\322\344\003\222\000H\223\217\230Z\345;\314\343\013\016\023\370K\340\003\222\000H\223\217\034\201\3460\217\2174\r\021\371\205\023\371\2013`\376\022\371\317\341#F\306\t\3003Q\0211\374\025\020I?0\f\221\344\003\222\000H\223\217\230\231!Q\201\355#\366\306\370\016\363\370H\345\323\265\217\330Y!0\217\217\334\001O\374\277\303<\277S\024\213\003\fHc\374x\361\347|\257\017\300\275\377\377|\356\306C1\300t\3247\360<\013\366\027T\363\033\017%\01610\224\377l\323\377\357\b\314\362G\004\003 \315@D\177\241\343\2367\016\203\347y\303\312N\371D=\013!\216\335s\262\177\256E\021\200\211m\375{\236\347\255'k\377b\373{\336\277\330\374\3570\317\357P\323\2024\304\340\023\0272\235\300CID\364\013\316@\370D3E\230q9\276\303<\276\3400\201O\005>bx\21549\021\301\020\221A\334>r\001\212\3400\214\323\370\0211\235\301\3430\217\2778\316\343\023\0272\371\210\215\205\301B4\306t\370\002 M\304\340K\221\003\370\264O\373H#\021\321\344\023\327di\225\3570\217/8L\340S\201\017H\002 M>r\005\224\303<>\3224D\344\027N\344\007\316\200\371\210\301\035\002\363\344\266\217\030\032\345;\314\343KS\204\f\204\017H\002 M>bn\206\3404\203\217\000\0011\000\000\026\000\000\000[\006+\330\203-\003\026\354\301\226A\013\366`\313\300\005{\260e\b\203`\017\266\fq\020\364\301\226a\016\202>\3302\320A\320\007[\206:\b\372`\313`\007A\037l\031\356 \350\203-C\036\004{\260e\320\203`\017\266\f|\020\354\301\226\241\017\202=\3302\200B\260\007\000\000\000\000\000a \000\000N\001\000\000\023\004K,\020\000\000\000\032\000\000\000\024\024M\t\325@\325\024Z\315\024O\301\037\320R\b%P\001$\030\003\b\306\300\001U#\000c\004 \b\202 \b\202 \b\202\310\030\001\b\202 \b\202 \b\202 1F\000\202 \b\202 \b\202\376\177\214\021\200 \b\202 \b\202 \377\017c\004 \b\202 \b\202 \210\377\307\030\001\b\202 \b\202 \b\342\377\000\000\000\0003\021A\240\007\2430\023\021\004z0\n3\021A\240\007\2430\023\021\004z0\n\311\0050\334\020\370\201\031\3142\004J\220\204\300I\b\234\207\300\231\b<b`\f \b\006\215/X\312\210\2011\200 \0304\276`%I\006\001$\031\0040l@0\302\000\f\033\020K0\000#\006\306\000\202`\320\200\003\246\f\033\020\212\036\f\300\210\2011\200 \0304\340\200%\303\006DR\n\003@h\020\214\021\203\006\002A0xx\301\n\300\300 \212c\017\366\200\232`d\260\310pC\200\006b0\313\220\b\0019\301\230%\030\006*\026C\230\013$\203\000z%\244\201@AEz%\250\001AAEF\f\n\000\004\301@\313\205a\304\240\000@\020\f4]\020\206\033\204@\230e \216`\304\240\000@\020\f\266]\030F\f\n\000\004\301@\333\005b\304\300\000@\020\f\270]\b\340`\304\240\000@\020\f6_(0\200\003\020\0301(\000\020\004\003\355\027\216\021\003\003\000A0\340~!p\205;\210\2702\020h\270A\270\0033\230e(\214`\240\242\232\n\210\030\250\b\246\002!\216\020d\304\240\000@\020\f\264r\b*\200\021\203\003\000A0\260\314!H\212\341\206 \016\210\351\206%\016\202\033\002\03010\000\020\004\003\216\035\202P\300\344\017@`\270A\371\0031\230e(\214`\240\"\360\b\242\030\250\250\324\200@\n\024B\001\004F\f\f\000\004\301\200\223\007!8)\220\021\203\002\000A0\320\346!\250\000F\f\016\000\004\301\300\242\207\340\"\206\033\202? \246\033\262?\bn\b \215\200N\b\005\031n\b:\341\006v\320\341\206\000\037\302\340\220\200\207\033\2120\bN\b\364\214`\247\033\310`\025\202[\202\03010\000\020\004\003\256$\0024\3109X\366\002Y\320\034\226=!\340\f\252\235%@\206\033\350\300\025\210\263\003Y\220\341\206\300\016\204\033\002=<\210\005\031n\320\203@\270!\330\374\003q\307\020\202_\310?\020w\f!\b\207\013\006\276\300\034\362\202\223\330\f*\253\000F\f\016\000\004\301\300\312\tS\bPa\272!H\205e\270\341\024L!\03010\000\020\004\203l'\314a\025\246\033\202A\230%@\006**60\204c\270\201\025\322!\230n8\007!\030np\205u8F\f\f\000\004\301\300\373\211X\220\207\013\004\235n \326!\350\225\360\017\2670l@\004\002\001`.\334\002\bd\260\310pC@\022b0\313\220\f\301\210\2011\200 \030DzA\017\3400b`\f \b\006\315_\340C:\214\030\030\003\b\202A\363\027\370\240\016#\006\306\000\202`\320\374\005>\254\303\210\2011\200 \0304\177\201\017\3540K\240h8\020i\000\000\000\326\264\370\201C5\303?!\203oS\006\322<Sd\333\\!8Mu\233\336\2014C\005D\322\031,\376\3428\017q!\223\217X\332\341;\314\343S\301\t`\016\363\370H\323\020\221_8\221\0378\003\346/\221\377\034&e \3153E\265A\031\013\321\030\323q\b\331\377;\002\263\374\021\301\000H3\020\321_\350\270O\\\310dv\206\3404U\336\333\333\344;\314\343#\322\277\000\322\344\003\222\000H\323\001\024D3E\230\2551\276\303<>\"\375\013 M\306&\006\013\321\030\323\341\003\303\020\371R\344\000>\355\323>qM\021 L\376\024Q\215`w\212\300<\272\3378SM[\336!8M\225\327\266I\007\024\202\323T\371\005@\016\363\370OD\bN3\370\323A4\026\035P\000\303P\327\366\324\370ODT\210CI>\025\3706\035\200\b\314\243\373\2153\231\034!8Me{\b\020E\000\206\f\327%4\016\363\370\213\343<>q!\323)<\016\363\370OD\bN3\370D3\030\023\343\033\213\023\000\313?!\203on\222\3570\217/M\0212\020> \t\2004Y\224\341P\3233E\346\324\370ODT\210CI\376\022\370\026\347\370\016\363\370K\340\003\222\000H\223A\007(@\024\001\0302\\5}\005\214\377D\304A\000\003\021\371\310\rH\016\363\370H\323\020\221_8\221\0378\003fp\216\3570\217O\005> \t\2004\231\332\342;\314\343KS\204\f\204\365%@\024\001\0302\\\274\265\r\002\363\030\332\341;\314\343/\001\000\0011\000\000\r\000\000\000[\206'\330\203-\003\024\354\301\226A\n\366`\313@\005{\260e\250\202=\3302\\\301\036l\031\266`\017\266\f`\020\374\301\226A\f\202?\3302\350C\360\007\000\000\000\000\000\301 \000\000E\000\000\000\243\004\311P\001\"\252\000!2\204\210\020!B\304\b\211\032@\210\f!\"D\210\0201BR\016\020\"c\204\304\274 D\206\210\021\022\362\200\020\031BRZ\020\"d\204\204\324 d\204d\3340B%QKK\3141\000\212\301\001\306\004\207\305\305\206FGa\334\002\fs\b\000\201p\220\241Q\036\265\264\304\034\003\240\030\034|LpX\\lht\324\307-\3000\207\000\020\b\007\031\032\025RKL\3141\000\212\301\201\310\004\207\305\305\206FG\211\334\002\fs\b@\201p\2201\242Q$\265\304\304\034\003\240\030\034\224LpX\\lhtT\311-\030\0060\207\000\020\b\007\031\032\006P+A\201\005\324JP`\002\265\022\024\330@\255\004\005FP+A\201\025\340BP`\006\270 \024\024\330\001.\b\005\005\206\200\013BA\201%\320R@`\n\264\024\020\330\002-\005\004\306@K\001\2015P\001\2019P\001\201=P\001\201AP\001\201E\330A\001\220\240\260\300\000\000\000\000q \000\000\t\000\000\0002\016\020\"\204\022\363\013\210\001\351\200\036\300\017\370\321\035\201!\215\023(\002\\\201$\370\026X\262\232\001\000\000\000\000\000\000\000e\f\000\0009\001\000\000\022\003\224\270\031\000\000\000\003\000\000\000\316\n\000\0002\000\000\000L\000\000\000\001\000\000\000X\000\000\000\000\000\000\000X\000\000\000/\000\000\000\300\004\000\000\001\000\000\000\000\013\000\000\021\000\000\000\021\013\000\000\016\000\000\000\024\000\000\000\000\000\000\000\330\004\000\000\000\000\000\000\000\000\000\000/\000\000\000\000\000\000\000@\005\000\000U\000\000\000@\005\000\000U\000\000\000\377\377\377\377\022$\000\000\225\005\000\000\022\000\000\000\225\005\000\000\022\000\000\000\377\377\377\377\b$\000\000\247\005\000\000\026\000\000\000\247\005\000\000\026\000\000\000\377\377\377\377\b,\000\000\275\005\000\000\024\000\000\000\275\005\000\000\024\000\000\000\377\377\377\377\b,\000\000\321\005\000\000(\000\000\000\321\005\000\000(\000\000\000\377\377\377\377\b$\000\000\371\005\000\000\037\000\000\000\371\005\000\000\037\000\000\000\377\377\377\377\b$\000\000\030\006\000\000o\000\000\000\030\006\000\000o\000\000\000\377\377\377\377\000 \000\000\207\006\000\000\030\000\000\000\207\006\000\000\030\000\000\000\377\377\377\377\b$\000\000\237\006\000\000\035\000\000\000\237\006\000\000\035\000\000\000\377\377\377\377\b$\000\000\274\006\000\000\022\000\000\000\274\006\000\000\022\000\000\000\377\377\377\377\b$\000\000\316\006\000\000\030\000\000\000\316\006\000\000\030\000\000\000\377\377\377\377\b$\000\000\346\006\000\000\024\000\000\000\346\006\000\000\024\000\000\000\377\377\377\377\b$\000\000\372\006\000\000U\000\000\000\372\006\000\000U\000\000\000\377\377\377\377\022$\000\000O\007\000\000o\000\000\000O\007\000\000o\000\000\000\377\377\377\377\000 \000\000\276\007\000\000\020\000\000\000\276\007\000\000\020\000\000\000\377\377\377\377\b,\000\000\316\007\000\000\206\000\000\000\316\007\000\000\206\000\000\000\377\377\377\377\022$\000\000T\b\000\000\240\000\000\000T\b\000\000\240\000\000\000\377\377\377\377\000 \000\000\364\b\000\000\t\000\000\000\364\b\000\000\t\000\000\000\377\377\377\377\b$\000\000\375\b\000\000\212\000\000\000\375\b\000\000\212\000\000\000\377\377\377\377\022$\000\000\207\t\000\000\244\000\000\000\207\t\000\000\244\000\000\000\377\377\377\377\000 \000\000+\n\000\000\r\000\000\000+\n\000\000\r\000\000\000\377\377\377\377\b,\000\0008\n\000\000\035\000\000\0008\n\000\000\035\000\000\000\377\377\377\377\b,\000\000U\n\000\000\032\000\000\000U\n\000\000\032\000\000\000\377\377\377\377\b,\000\000o\n\000\000\025\000\000\000o\n\000\000\025\000\000\000\377\377\377\377\b,\000\000\204\n\000\000\r\000\000\000\204\n\000\000\r\000\000\000\377\377\377\377\b,\000\000\221\n\000\000\f\000\000\000\221\n\000\000\f\000\000\000\377\377\377\377\b,\000\000\235\n\000\000\021\000\000\000\235\n\000\000\021\000\000\000\377\377\377\377\b,\000\000\256\n\000\000\r\000\000\000\256\n\000\000\r\000\000\000\377\377\377\377\b,\000\000\273\n\000\000\023\000\000\000\273\n\000\000\023\000\000\000\377\377\377\377\b,\000\000\000\000\000\000\024\000\000\000\000\000\000\000\024\000\000\000\377\377\377\377\021\004\000\000\024\000\000\000'\000\000\000\024\000\000\000'\000\000\000\377\377\377\377\021\004\000\000;\000\000\000)\000\000\000;\000\000\000)\000\000\000\377\377\377\377\021\004\000\000d\000\000\000 \000\000\000d\000\000\000 \000\000\000\377\377\377\377\021\004\000\000\204\000\000\000&\000\000\000\204\000\000\000&\000\000\000\377\377\377\377\021\004\000\000\252\000\000\000'\000\000\000\252\000\000\000'\000\000\000\377\377\377\377\000\030\000\000\321\000\000\000'\000\000\000\321\000\000\000'\000\000\000\377\377\377\377\000\030\000\000\370\000\000\000'\000\000\000\370\000\000\000'\000\000\000\377\377\377\377\000\030\000\000\037\001\000\000'\000\000\000\037\001\000\000'\000\000\000\377\377\377\377\000\030\000\000F\001\000\000_\000\000\000F\001\000\000_\000\000\000\377\377\377\377\222\004\000\000\245\001\000\000_\000\000\000\245\001\000\000_\000\000\000\377\377\377\377\222\004\000\000\004\002\000\000\220\000\000\000\004\002\000\000\220\000\000\000\377\377\377\377\222\004\000\000\224\002\000\000\224\000\000\000\224\002\000\000\224\000\000\000\377\377\377\377\222\004\000\000(\003\000\000h\000\000\000(\003\000\000h\000\000\000\377\377\377\377\020\004\000\000\220\003\000\000h\000\000\000\220\003\000\000h\000\000\000\377\377\377\377\020\004\000\000\370\003\000\000\231\000\000\000\370\003\000\000\231\000\000\000\377\377\377\377\020\004\000\000\221\004\000\000\235\000\000\000\221\004\000\000\235\000\000\000\377\377\377\377\020\004\000\000.\005\000\000\022\000\000\000.\005\000\000\022\000\000\000\377\377\377\377\004\f\000\000\000\000\000\000\000\000\000\000\024\000\000\000\000\000\000\000\037\013\000\000\r\000\000\000\000\000\000\000]\f\000\000\316\002\000\000\022\003\224l.\000\000\000__omp_rtl_debug_kind__omp_rtl_assume_teams_oversubscription__omp_rtl_assume_threads_oversubscription__omp_rtl_assume_no_thread_state__omp_rtl_assume_no_nested_parallelismanon.a186cc97d2b23127422a034eff9562de.0anon.a186cc97d2b23127422a034eff9562de.1anon.a186cc97d2b23127422a034eff9562de.2anon.a186cc97d2b23127422a034eff9562de.3__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_exec_mode__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_exec_mode__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_exec_mode__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_nested_parallelism__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_nested_parallelism__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_nested_parallelismllvm.compiler.used__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28__kmpc_target_initllvm.lifetime.start.p5llvm.lifetime.end.p5__kmpc_get_hardware_num_threads_in_block__kmpc_distribute_static_init_4__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_omp_outlined_omp_outlined__kmpc_for_static_init_4__kmpc_distribute_static_fini__kmpc_parallel_51__kmpc_global_thread_num__kmpc_target_deinit__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_omp_outlined_omp_outlinedllvm.fmuladd.f64__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_omp_outlined_omp_outlinedremainder__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_omp_outlined_omp_outlinedllvm.fabs.f64llvm.amdgcn.frexp.exp.i32.f64llvm.amdgcn.frexp.mant.f64llvm.amdgcn.ldexp.f64llvm.rint.f64llvm.fma.f64llvm.copysign.f64llvm.smin.i32llvm.is.fpclass.f6417.0.0git 644a4067312448b17ec2109ccfd0dd02a2f789c8amdgcn-amd-amdhsasrc/vararg.cppllvm.metadata\000\000\000\000\000\000\000"
-	.size	.Lllvm.embedded.object, 18936
+	.asciz	"\020\377\020\255\001\000\000\000\330I\000\000\000\000\000\000 \000\000\000\000\000\000\000(\000\000\000\000\000\000\000\002\000\001\000\000\000\000\000H\000\000\000\000\000\000\000\002\000\000\000\000\000\000\000\220\000\000\000\000\000\000\000DI\000\000\000\000\000\000i\000\000\000\000\000\000\000\207\000\000\000\000\000\000\000n\000\000\000\000\000\000\000u\000\000\000\000\000\000\000\000arch\000triple\000amdgcn-amd-amdhsa\000gfx906\000\000\000BC\300\3365\024\000\000\005\000\000\000b\f0$MY\276f\275\373\264O\033\310$D\0012\005\000!\f\000\000/\016\000\000\013\002!\000\002\000\000\000\026\000\000\000\007\201#\221A\310\004I\006\02029\222\001\204\f%\005\b\031\036\004\213b\200\030E\002B\222\013B\304\0202\0248\b\030K\n2b\210Hp\304!#D\022\207\214\020A\222\002d\310\b\261\024 CF\210 \311\0012b\204\030*(*\2201|\260\\\221 \306\310\000\000\000\211 \000\000+\000\000\000\"f\004\020\262B\202\211\021RB\202\211\221q\302PH\n\t&F\306\005Bb&\b\304`\262 \230#\000\003\232#@\362b8G\232\"J\230|d \232\351\237P\021\004A $\2010\002P\212C\020\004a\216 (D \f\311\034\001(L\026\024e8\026\246\004AQ\016!\b\004A\020\202\240$\207 ,\213 \bB\031\016!(\312!\004A\020\b\202\260\024!\020\312p\b\303\f@!\252\252\252Jq,\202 \224\344\020\204eY\004A(CUUE\250\252\"\004U\031\252*(C\020\004eH\252`  \r\204)\000\000\000\000Q\030\000\000\335\001\000\000\033\320$\370\377\377\377\377\001\020\0008\000\244a\035\312A\036\334\241\034\330\001 \334\341\035\332\200\036\344!\034\340\001\036\322\301\035\316\241\r\332!\034\350\001\035\000z\220\207z(\007\200\230\007z\b\207qX\2076\200\007yx\007z(\207q\240\207w\220\2076\020\207z0\007s(\007yh\203yH\007}(\007\000\017\000\202\036\302A\036\316\241\034\350\241\r\306\001\036\352\0018\007s\300\207<\200\003;\000\bz\b\007y8\207r\240\20760\207r\b\007z\250\007y(\207y\000\326 \016\354\240\r\304!\035\350\241\r\322\301\035\346\201\036\346\201\r\326`\034\322\241\r\322\301\035\346\201\036\346\201\r\326\200\034\330\241\r\322\301\035\346\201\036\346\201\r\326\200\034\336\201\036\342\240\r\322\301\035\346\201\036\346\201\r\326\200\034\336\201\036\342\000\016\332 \035\334a\036\350a\036\330`\r\310\341\035\350A\016\332 \035\334a\036\350a\036\330`\r\310\341\035\350\341\016\332 \035\334a\036\350a\036\330`\r\310\001\036\340\201\r\326\340\034\314\001\037\360\240\r\322\301\035\346\201\036\346\201\r\326\340\034\314\001\037\362\240\r\322\301\035\346\201\036\346\201\r\326`\036\332\240\035\312\241\035\344\241\034\302\201\035\350!\035\332\241\034\330`\r\346\241\r\332\241\034\332\201\036\322\241\035\312\241\r\322\301\035\346\201\036\330`\r\356!\034\354\241\034\314A\036\336\301\035\350a\036\322A\037\312\301\016\350\000 \352\301\035\322\301\034\336A\036\332\241\r\356\341\035\344a\035\332\340\034\344\341\035\352\001\036\332`\036\322A\037\312\001\240\007y\250\207r\00060B\000\220\002p\006A@\004i@l \006\001 \205\r\f1\000\244\000\234A\020\020A\032\020\033\230\202\000H\0018\203  \2024 6D\306\377\377\377\377\017\200)\000\247\000\370\001\360\007\200\004\364A`\013\303\006\342\b\000>\330@ \002\260l \222\377\377\377\377\037\000i\203\210(\377\377\377\377?\000\002\000\007\200D\270\303;\264\001=\310C8\300\003<\244\203;\234C\033\264C8\320\003:\000\364 \017\365P\016\0001\017\364\020\016\343\260\016m\000\017\362\360\016\364P\016\343@\017\357 \017m \016\365`\016\346P\016\362\320\006\363\220\016\372P\016\000\036\000\004=\204\203<\234C9\320C\033\214\003<\324\003p\016\346\200\017y\000\007v\000\020\364\020\016\362p\016\345@\017m`\016\345\020\016\364P\017\362P\016\363\000\254A\034\330A\033\210C:\320C\033\244\203;\314\003=\314\003\033\254\3018\244C\033\244\203;\314\003=\314\003\033\254\0019\260C\033\244\203;\314\003=\314\003\033\254\0019\274\003=\304A\033\244\203;\314\003=\314\003\033\254\0019\274\003=\304\001\034\264A:\270\303<\320\303<\260\301\032\220\303;\320\203\034\264A:\270\303<\320\303<\260\301\032\220\303;\320\303\035\264A:\270\303<\320\303<\260\301\032\220\003<\300\003\033\254\3019\230\003>\340A\033\244\203;\314\003=\314\003\033\254\3019\230\003>\344A\033\244\203;\314\003=\314\003\033\254\301<\264A;\224C;\310C9\204\003;\320C:\264C9\260\301\032\314C\033\264C9\264\003=\244C;\224C\033\244\203;\314\003=\260\301\032\334C8\330C9\230\203<\274\203;\320\303<\244\203>\224\203\035\320\001\260AY\002 \001\026\200\024\200j\003\302\b@\002,\000\265\201h\006\200\0246\020\016\001\220\302\006\350)\200\005 \005\340\f\200*\b\210 \r\210\r\bd\000\013@\n\000\035l\200\242\003X\000R\000\316\000\250\202\200\b\322\200\330\000I\b\260\000\244\000\234\001P\005\001\021\244\001\261\201\230\376\377\377\377\177\000\204\r\023\365\377\377\377\377\003`\n\300)\000~\000\374\001 \001u\000\364A`\013\300\006\242\n\000R\330@\"\326\377\377\377\377\017\200\000\254\001\000\007\200D\270\303;\264\001=\310C8\300\003<\244\203;\234C\033\264C8\320\003:\000\364 \017\365P\016\0001\017\364\020\016\343\260\016m\000\017\362\360\016\364P\016\343@\017\357 \017m \016\365`\016\346P\016\362\320\006\363\220\016\372P\016\000\036\000\004=\204\203<\234C9\320C\033\214\003<\324\003p\016\346\200\017y\000\007v\000\020\364\020\016\362p\016\345@\017m`\016\345\020\016\364P\017\362P\016\363\000\254A\034\330A\033\210C:\320C\033\244\203;\314\003=\314\003\033\254\3018\244C\033\244\203;\314\003=\314\003\033\254\0019\260C\033\244\203;\314\003=\314\003\033\254\0019\274\003=\304A\033\244\203;\314\003=\314\003\033\254\0019\274\003=\304\001\034\264A:\270\303<\320\303<\260\301\032\220\303;\320\203\034\264A:\270\303<\320\303<\260\301\032\220\303;\320\303\035\264A:\270\303<\320\303<\260\301\032\220\003<\300\003\033\254\3019\230\003>\340A\033\244\203;\314\003=\314\003\033\254\3019\230\003>\344A\033\244\203;\314\003=\314\003\033\254\301<\264A;\224C;\310C9\204\003;\320C:\264C9\260\301\032\314C\033\264C9\264\003=\244C;\224C\033\244\203;\314\003=\260\301\032\334C8\330C9\230\203<\274\203;\320\303<\244\203>\224\203\035\320\001\260\201\270\n\200\0246 \330\001,\000)\000\325\006$C\200\005 \005\240\332\000\"\332\377\377\377\377\017\300\032\000\022\341\016\357\320\006\364 \017\341\000\017\360\220\016\356p\016m\320\016\341@\017\350\000\320\203<\324C9\000\304<\320C8\214\303:\264\001<\310\303;\320C9\214\003=\274\203<\264\2018\324\2039\230C9\310C\033\314C:\350C9\000x\000\020\364\020\016\362p\016\345@\017m0\016\360P\017\3009\230\003>\344\001\034\330\001@\320C8\310\3039\224\003=\264\2019\224C8\320C=\310C9\314\003\260\006q`\007m \016\351@\017m\220\016\3560\017\3640\017l\260\006\343\220\016m\220\016\3560\017\3640\017l\260\006\344\300\016m\220\016\3560\017\3640\017l\260\006\344\360\016\364\020\007m\220\016\3560\017\3640\017l\260\006\344\360\016\364\020\007p\320\006\351\340\016\363@\017\363\300\006k@\016\357@\017r\320\006\351\340\016\363@\017\363\300\006k@\016\357@\017w\320\006\351\340\016\363@\017\363\300\006k@\016\360\000\017l\260\006\347`\016\370\200\007m\220\016\3560\017\3640\017l\260\006\347`\016\370\220\007m\220\016\3560\017\3640\017l\260\006\363\320\006\355P\016\355 \017\345\020\016\354@\017\351\320\016\345\300\006k0\017m\320\016\345\320\016\364\220\016\355P\016m\220\016\3560\017\364\300\006kp\017\341`\017\345`\016\362\360\016\356@\017\363\220\016\372P\016v@\007\300\206h\373\377\377\377\377\0018\005\300\017\200?\000$\240\016\200>\bl\001\330@p\002\300\007\033\216\356\377\377\377\377\007@\nl\341\0176\020\036\001\234\301\006\342+\2003\330@\200\201\001\234\301\006\"\f\016\340\f6\020b\200\000g\260\301\030\203\377\377\377\377\037\2005\000\244\r\004\031\000\000)\000\000\000\000I\030\000\000\025\000\000\000\023\212@\030\210b\302`\034\310\204 \231\220(\013\3238\017\024I\023\202iB@M(\202jh\234\t\211\2650\215sAX6a\320\252aB\242,L\343\\\020\226M\b\266\t\302\306M\b\272\tE\342}`\020\006\023\206\004\f\304`\0021\006dP\r\000\000\000\023\242ph\007r8\207qp\2076\b\207v \2076\b\207v \007t\230\207p\330\000\033\345\320\006\360\240\007v@\007z`\007t\320\006\360\020\007z`\007t\240\007v@\007m\000\017r\240\007s \007z0\007r\320\006\3600\007z0\007r\240\007s \007m\000\017t\240\007v@\007z`\007t\320\006\360P\007z0\007r\240\007s \007m\000\017v\240\007s \007z0\007r\320\006\360p\007z\020\007v\000\007z \007u`\007z \007u`\007z0\007r\320\006\360\200\007z\020\007r\200\007z\020\007r\200\007m\220\016v@\007z`\007t\320\006\366\020\007v\240\007q`\007m`\017r@\007z0\007r\320\006\3660\007r\240\007s \007m`\017t\200\007z`\007t\320\006\366\220\007v\240\007q \007x\320\006\366\020\007y \007z \007u`\007m`\017rP\007v\240\007rP\007v\320\006\366P\007q \007zP\007q \007m`\017q\000\007r@\007z\020\007p \007t\320\006\366 \007p@\007x\240\007r\000\007t\200\007m\340\016s \007z`\007t\320\006\2630\007r\320\006\241P\007mp\nq\320\006\356\220\016zp\007z\200\007+\032v`\007{h\0077h\207r\240\207p \207p\240\207pPz@\210\220\f2d\244\310\220\240\021\302\344\324\231\313\307/{X\036\226\237]c8|\307\004P\301\021\007\021\000\004\200\000\000\000\020P\000\260c\242\316 8\342 \002\200\000\020\000\000\000\002\n\000vL{\220\006\301\021\007\021\000\004\200\000\000\000\020P\000\260c\"\0070\b\2168\210\000 \000\004\000\000\200\200\002\200\035\023I\230Ap\304A\004\000\001 \000\000\000\004\024\000\354\230\324\342\f\210A\025\222\000\000\200\000\000\000 \240\000`\307\024\033gP\034\253\220\020\000\000\004\000\000\000\001\005\000;&\3748\203\342`\205\204\000\000 \000\000\000\b(\000\3301\375\310\031\024G+$\004\000\000\001\000\000@@\001\300\216\311T~a8F\001\002\000\001\000\000\000\000\002\n\000vLe\363\013\3031\n\020\000\b\000\000\000\000\020P\000\260c\"!\231\030\216Q\200\000@\000\000\000\000\200\200\002\200\035\223M\321\304p\214\002\004\000\002\000\000\000\000\004\024\000\354\230\324\f\035\206\203\024 \000\000\000\001\000\000\000\240\000`\307$s\3500\034\244\000\001\000\000\b\000\000\000\000\005\000;&\375\333\211\341 \005\b\000\000@\000\000\000\000(\000\3301\325d\320\023\303A\n\020\000\000\200\000\000\000\000P\000@Y\005\t\033\256 pHE\252A- \273\000D\001\000\b\200\000\000\000\000\004\000\005\f\251r6\220\024 \000\000\000\000\000\001\000\000\000\000\000\n\030R\255m`5@\000\b\000\000\000\000\000\000\000\000\000\0240\244\n\335\200j\200\000\020\000\000\000\000\000\000\000\000\000(`HU\273\001\0328@\000\f\000\000\000\002\000\000\000\000\000\0240\244\352\337\340{\200\000\030\000\000\000\004\000\000\000\000\000(`H\305\303\301;@\0000\020\000\000\000\000\000\000\000\020\000\0240\244Z\351\000{\200\000\030\000\000\000\004\000\000\000\000\000(`H5\326A\027\001\0010\000\000\000\b\000\000\000\000\000P\300\220\n\264\003I\002\002\240\000\000\000\020\000\000\000\000\000\240\200!\225l\007\330\004\004\300\000\000\000 \000\000\000\000\000@\001C*\365\016(\n\b\000\000\000\000@\000\000\000\000\000\200\002\206T\376\035\324\002\262\013@\024\000\200\000\b\000\000\000@\000P\300\220j\326\203w\200\000` \000\000\000\000\000\000\000 \000(`H%\372\001d\001\001`\000\000\000\000\000\000\000\000\000P\300\220J\366\003\224\270v\001\210\016\000\020\000\001\000\000\000\b\000\n\030R\351\242 \026\030\000\f\b\000\000\000\000\000\000\000\004\000\005\f\251\370SP2 \000\022\000\000\000\001\000\000\000\000\000\n\030R\231\250\240\022\327.\000\321\001\000\002 \000\000\000\000\001@\001C*\230\025\310\002\003\200A\001\000\000\000\000\000\000\200\000\240\200!\025\035\013\215\006\004\200\001\000\000\000\000\000\000\000\000@\001C\252P\026\272\r\b\000\003\000\000\000\000\000\000\000\000\200\002\206T\276,h\032\020\000\006\000\000\000\000\000\000\000\000\000\005\f\251\360Y\2508 \000\f\000\000\000\000\000\000\000\000\000\n\030R\265\2640i@\000\030\000\000\000\000\000\000\000\000\000\0240\244\002k\241\321\200\0000\000\000\000\000\000\000\000\000\000(`H\325\326\002c\001\001`\000\000\000\000\000\000\000\000\000P\300\220*\257\205(\003\002\300\000\000\000\000\000\000\000\000\000\240\200!\225j\013M\007\004\300\002\000\000\000\000\000\000\000\000@\001C\252\333\026&\017\b\000\006\000\000\000\000\000\000\000\000\200\002$6\b\024nq\000\000\310\002\001\037\000\000\0002\036\230\034\031\021L\220\214\t&G\306\004C\nF\000\212\245\b\212\020\244\b\021\3123\240\334\321m\023\027\212\247\f\212\035\3356q\2418J\240p\n\324\240\020\312\241\314\n\202\206\"\030\001\240e\004\200\004c@\301\030H0\006\030\214\201\005\"\324\332\325\335k\367\373\356\336\325\335k\367\373\356\336\301v\260\335\216\n,`2X\254\200\005l\006\213\025\260\200\321`\261\002\031H\024\215G$\000\000\261\030\000\000\306\000\000\0003\b\200\034\304\341\034f\024\001=\210C8\204\303\214B\200\007yx\007s\230q\f\346\000\017\355\020\016\364\200\0163\fB\036\302\301\035\316\241\034f0\005=\210C8\204\203\033\314\003=\310C=\214\003=\314x\214tp\007{\b\007yH\207pp\007zp\003vx\207p \207\031\314\021\016\354\220\016\3410\017n0\017\343\360\016\360P\0163\020\304\035\336!\034\330!\035\302a\036f0\211;\274\203;\320C9\264\003<\274\203<\204\003;\314\360\024v`\007{h\0077h\207rh\0077\200\207p\220\207p`\007v(\007v\370\005vx\207w\200\207_\b\207q\030\207r\230\207y\230\201,\356\360\016\356\340\016\365\300\016\3540\003b\310\241\034\344\241\034\314\241\034\344\241\034\334a\034\312!\034\304\201\035\312a\006\326\220C9\310C9\230C9\310C9\270\3038\224C8\210\003;\224\303/\274\203<\374\202;\324\003;\260\303\f\307i\207pX\207rp\203th\007x`\207t\030\207t\240\207\031\316S\017\356\000\017\362P\016\344\220\016\343@\017\341 \016\354P\0163 (\035\334\301\036\302A\036\322!\034\334\201\036\334\340\034\344\341\035\352\001\036f\030Q8\260C:\234\203;\314P$v`\007{h\0077`\207wx\007x\230QL\364\220\017\360P\0163\036j\036\312a\034\350!\035\336\301\035~\001\036\344\241\034\314!\035\360a\006T\205\2038\314\303;\260C=\320C9\374\302<\344C;\210\303;\260\303\214\305\n\207y\230\207w\030\207t\b\007z(\007r\230\201\\\343\020\016\354\300\016\345P\016\3630#\301\322A\036\344\341\027\330\341\035\336\001\036fH\031;\260\203=\264\203\033\204\3038\214C9\314\303<\270\3019\310\303;\324\003<\314H\264q\b\007v`\007q\b\207qX\207\031\333\306\016\354`\017\355\340\006\360 \017\3450\017\345 \017\366P\016n\020\016\3430\016\3450\017\363\340\006\351\340\016\344P\016\3700#\342\354a\034\302\201\035\330\341\027\354!\035\346!\035\304!\035\330!\035\350!\037f \235;\274C=\270\0039\224\2039\314X\274pp\007wx\007z\b\007zH\207wp\207\031\313\347\016\3570\017\341\340\016\351@\017\351\240\017\3450\303\001\003s\250\007w\030\207_\230\207pp\207t\240\207t\320\207r\230\201\204A9\340\3038\260C=\220C9\314@\304\240\035\312\241\035\340A\036\336\301\034f$c0\016\341\300\016\3540\017\351@\017\3450C!\203u\030\007sH\207_\240\207|\200\207r\230\261\224\001<\214\303<\224\3038\320C:\274\203;\314\303\214\305\fH!\025Ba\036\346!\035\316\301\035R\201\024f g@\016\342p\016n@\016\345`\0163\0344@\207r\b\007x\b\007v`\207w\030\207yH\007z(\207\031G\032\314\203<\214\003;\274\3038\000\000\000\000y \000\000+\001\000\000r\036H C\210\f\031\tr2H #\201\214\221\221\321D\240\020(d<12B\216\220!\2438Q\251\005\351p\016t@\007\206\246\030MrH\350P\022\303\363,\005\000_ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2_kernelamdgpu_code_object_versionwchar_sizeopenmpopenmp-devicePIC LevelThinLTOEnableSplitLTOUnitclang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)AMD clang version 16.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-5.6.0 23243 be997b2f3651a41597d7a41441fff8ade4ac59ac)intomnipotent charSimple C++ TBAAany pointerfloat\000\000\000&n\000\000\000\000\000\0000\202\020\300\301\bBP\007#\b\201\035\214 \004w0\202\020\340\301\bB \007#\bA\036\214 \004z0\202\020\354\301\bB\300\007#\b\2024\202 x#\bB\030\214 \bd0\202\020\364\301\bB\340\007#\b\301\037\214 \004\2400\202\020\204\302\b\302B\n3\034Te\005\027\205\315pP\225%\\T6\303AU\332\260Q\334\f\007UiDGQ3\f^\301\3150|\0057\303\000\006\0057\303\020\006\0057\303\300\031b0\303\300\035c0\303@\006H\031\3140\220AR\0063\ff\240p3\f\334B\3150p\f7\203\220Q3\004\315\f\2013C\020\3150@zp\0063\f\317\036\234\301\f\003\037\360\301\031\3140H{p\0063\f~\340\007g0\3030\355\301\031\3140\200\002(\234\301\271\001 \006b \006b \006b \006b \006b\300qb \006b \006b \006b \006z\240\007z\240\007b \006h\200\006h\200\006n\340\006h \006b\300Y\226\345\006n@\007n@\007n #\201\tJ\350\255\r\356\353\315\314\214\355-\214\314%\315\315\354m\024\342\f\320 \r\324 !7;\2736\22707\2677\2720\272\2647\267\271Q\2105`\2036p\203\214\330\330\354\332\\\332\336\310\352\330\312\\\314\330\302\316\346F9\336\000\016\342@\016\346\200\016\352 '66\2736\027\2664\267\26529\22778\272\2647\267\271Q\200\224\336\340\312\334\306\330\\\336\306\330\\\354\312\344\346\322\336\334F\t\354 \02566\2736\2274\26227\272Q\204;\300\003\000\000\000\251\030\000\000'\000\000\000\013\nr(\207w\200\007zXp\230C=\270\3038\260C9\320\303\202\346\034\306\241\r\350A\036\302\301\035\346!\035\350!\035\336\301\035\0264\343`\016\347P\017\341 \017\344@\017\341 \017\347P\016\364\260\200\201\007y(\207p`\007vx\207q\b\007z(\007rXp\234\3038\264\001;\244\203=\224\303\002k\034\330!\034\334\341\034\334 \034\344a\034\334 \034\350\201\036\302a\034\320\241\034\310a\034\302\201\035\330a\301\001\017\364 \017\341P\017\364\200\016\013\210u\030\007sH\007\000\000\000\000\321\020\000\000\032\000\000\000\007\314<\244\203;\234\003;\224\003=\240\203<\224C8\220\303\001pP\204\3039\224\203;\320\303\001\023\016\347P\016\356@\017m\360\016\356P\016m\020\016\363p`\274\203;\224C\033\204\303<\034@\367\360\016\362\260\016\347 \017\357P\017\360\320\006\357\340\016\345\320\006\3410\017\007\311=\274\203<\254\3039\310\303;\324\003<\000\000a \000\000\033\001\000\000\023\004H,\020\000\000\000\007\000\000\000\024\324@\331\006\224\002%#\000\264\024B\201\025\003\t\306\200\2011p0\002\000\000\000\0003\021A\260\007\2430\023\021\004{0\n3\021A\260\007\2430\023\021\004{0\n3\021`\020\354\001)\214\030\034C\b\202\201\342\n\310\307\f7\004\020\030\3142\bA\240Y\001<bP\f!\b\006\023*,#\006\006\000\202`\320\304\202Sd!0\r\301\300\240\002\201\341\006\001\017\314`\226a8\202\\\004\316F\340|\004\316F\340\021\003\243\001A0hr\341\212\206\r\210\250\017\006`\304\300\030@\020\f\232\\\270\240a\003\0022\006`\304\300\030@\020\f\232\\\270\236a\003\342\221\203\001\03010\006\020\004\203&\027.g\330\200p\372`\000F\f\210!\004\301\300\271\205\021\203\306\001A0xn\201R6a \2129\b(\n\306\210\201\001\200 \030t\241\020 \303\006\304\024\f\000Q\301\030n\b\0264\230e \214\240\203\203$\nw\320\301a\032\205P\350\340@\221\002\037tp\250J\341\016:8X\246 \006\263\004\305@E\340\020Q1P\021HDU\244\260D\nK\244 \350\260\001\301\005\004\220\202\240\303\006\304\022\020\300\260\001\241\274\001\001\f\033\020\211\033\020\300\260\001\201\264\001\001\f\033\020\007\033\020\300\210A\363\200 \030H\342@\006\231(\254\301\032\224\203\030`e@_0H\f\202\201\201\000\002\303\006\004\031\004\003@c\020\f\f\b\020\03010\000\020\004\203\216\026\202m\330\2000\203`\000\206\033\210\016\rf\031\n#\03010\006\020\004\203H\035\324\000\ff\t\216\021\003c\000A0h\336\301\r\312`\304\300\030@\020\f\232wp\0033\03010\006\020\004\203\346\035\334\340\fF\f\214\001\004\301\240y\0077@\203\021\003\003\000A0h\336\241\r\310`\304\300\030@\020\f\250sX\003Q\230%\b\302\201\000\000\000}\000\000\000\366f\bN3\370\210\t\006 \202\323\f\365\355#7 9\314\343?\021!8\315\340O\007\321\370\210\3351\276\303<>R\3714\356#\026EH\023\361\230\230C\\\204\360S\022\021\375\2023\020\006E\\\f\322\230W\343;\314\343KS\204\f\204\217\330\237\001\f\303\356#\026\030`\000\303\300\373\210\2155\013\321\030\323\341\033\213\023\000\213\201U\002\360LTD\f\177\005D\322\017\fC$\371\2109\031\013\321\030\323a\\\216\3570\217/8L\340/\201\217X\333\324T\317t\375\r\305\374\323\021\021\300 \371\210=\031\003Q=Sd\203\001\206\300<\271\217\330\227\343;\314\343#\322\277\000\322\344#\007P\020\315\024a\306V\371\016\363\370\210\364/\2004\371\200$\000\322\344#\266V\371\016\363\370\202\303\004\376\022\370\200$\000\322\344#G\2409\314\343#MCD~\341D~\340\f\230\277D\376s\370\210\225q\002\360LTD\f\177\005D\322\017\fC$\371\200$\000\322\344#vfHT`\373\210\3011\276\303<>R\371t\355#wp\016\377\3570\317\357\024\305\342\000\003\322\030?^\3749\337\353\003p\353\377?\237\273\361P\f0\035\365M5H\341D\314\037\001\215A\210\210\347U\353\311\376\271\026E\000&\266\277\347\261\366\317\332\377\277\330\374\3570\317\357P\323\2024\304\340\023\0272\031Z!0\217\217\234\300CID\364\013\316@\370D3E\230u9\276\303<\276\3400\201O\005>bx\21549\021\301\020\221A\334>r\001\212\3400\214\323\370\0211\235\301\3430\217\2778\316\343\023\0272\371\210\251U\276\303<\276\3400\201O\005> \t\2004\371\210\305\035\002\363\344\266\217\\\001\3450\217\2174\r\021\371\205\023\371\2013`>bi\224\3570\217/M\0212\020> \t\2004\371\b\000\0011\000\000\030\000\000\000[\206&\340\203-\203\025\360\301\226\001\013\370`\313\240\005|\260e\340\002>\3302\204A\300\007[\0068\b\374`\313 \007\201\037l\031\346 \360\203-\003\035\004~\260e\250\203\300\017\266\fv\020\370\301\226\001\017\002>\3302\344A\300\007[\206=\b\370`\313\300\007\001\037l\031\376 \340\003\000\000\000\000\000\000\000\000a \000\000\256\000\000\000\023\004F,\020\000\000\000\004\000\000\000\024\224\020-\205@\2021\200`\f\034\000\000\000\0003\021A\260\007\2430\023\021\004{0\n3\021A\260\007\2430\023\021\004{0\n\304\004c\270!x\0033\230e\b\212 \t\201\223\0208\017\2013\021x\304\300\030@\020\f\032Xh\224\021\003c\000A0h`\241I\222\n \251\000\206\r\bF\030\200a\003b\t\006`\304\300\030@\020\f\032Yx\224a\003BY\203\001\03010\006\020\004\203F\026\236d\330\200H\354`\000\b\013\306\210A\343\200 \030<\256\360\004\221A\024\007\033\260\0015\301\310`\221\341\206\000\023\203Y\006B\b\310\t\306,\3010P\261\030B4d\020\000e\301\240,\030\030\f\"\200\301\000\002=\020<c\330\200\b\204\001@\304\000\201\f\026\031n\b\306@\ff\031\210!\03010\006\020\004\203h\027\270g\304\300\030@\020\f\032p\360\260\021\003c\000A0h\300\301\313F\f\214\001\004\301\240\001\007O\03310\006\020\004\203\006\034\274m\226\240\320p \000\000\000S\000\000\000\366\264\370\201C5\303?!\203oh\206\3404U\276[Y!8Mu\033\333\2014C\005D\222m\035\276\303<>\025\234\000\3460\217\2174\r\021\371\205\023\371\2013`\376\022\371\317as\205\3404UnR\306B4\306t\330\2241\020\3253E\326\305\370\016\363\370\210\364/\2004Y\330\344;\314\343#\322\277\000\322\344\003\222\000H\323\001\024D3E\230\311\021\3000\364\027\0009\314\343?\021!8\315\340O\007\321XT\343?\021Q!\016%\371T\340[Z\"0\217\3567\316\304\033\035\"0\217\3567\316dU\2044\021\217\221\021\202\323T\026\207\000Q\004`\310p\031\025q1HcN\214o,N\000,\377\204\f\376\0214\016\363\370\213\343<>q!\223\201I\276\303<\2764E\310@\370\200$\000\322t\005\217\303<\376\023\021\202\323\f>\321\f\006\325\370ODT\210CI\376\022\370\266v\bNS\3455mc\216\3570\217\277\004> \t\2004\031\034\001\f\003\177\003\222\303<>\3224D\344\027N\344\007\316\200\231\230\343;\314\343S\201\017H\002 M\306\265\370\016\363\370\322\024!\003ao\004C-\273}\r\002\363\230\326\341;\314\343/\001\000\0011\000\000\016\000\000\000[\006\"\340\203-\303\023\360\301\226\001\n\370`\313 \005|\260e\240\002>\3302T\001\037l\031\256\200\017\266\f[\300\007[\206/\340\203-\003\030\004|\260e \203\200\017\000\000\000\000\000a \000\000\033\001\000\000\023\004H,\020\000\000\000\007\000\000\000\024\324@\331\006\224\002%#\000\264\024B\201\025\003\t\306\200\2011p0\002\000\000\000\0003\021A\260\007\2430\023\021\004{0\n3\021A\260\007\2430\023\021\004{0\n3\021`\020\354\001)\214\030\034C\b\202\201\342\n\310\307\f7\004\020\030\3142\bA\240Y\001<bP\f!\b\006\023*,#\006\006\000\202`\320\304\202Sd!0\r\301\300\240\002\201\341\006\001\017\314`\226a8\202\\\004\316F\340|\004\316F\340\021\003\243\001A0hr\341\212\206\r\210\250\017\006`\304\300\030@\020\f\232\\\270\240a\003\0022\006`\304\300\030@\020\f\232\\\270\236a\003\342\221\203\001\03010\006\020\004\203&\027.g\330\200p\372`\000F\f\210!\004\301\300\271\205\021\203\306\001A0xn\201R6a \2129\b(\n\306\210\201\001\200 \030t\241\020 \303\006\304\024\f\000Q\301\030n\b\0264\230e \214\240\203\203$\nw\320\301a\032\205P\350\340@\221\002\037tp\250J\341\016:8X\246 \006\263\004\305@E\340\020Q1P\021HDU\244\260D\nK\244 \350\260\001\301\005\004\220\202\240\303\006\304\022\020\300\260\001\241\274\001\001\f\033\020\211\033\020\300\260\001\201\264\001\001\f\033\020\007\033\020\300\210A\363\200 \030H\342@\006\231(\254\301\032\370\202\030`e@_0H\f\202\201\201\000\002\303\006\004\031\004\003@c\020\f\f\b\020\03010\000\020\004\203\216\026\202m\330\2000\203`\000\206\033\210\016\rf\031\n#\03010\006\020\004\203H\035\324\000\ff\t\216\021\003c\000A0h\336\301\r\312`\304\300\030@\020\f\232wp\0033\03010\006\020\004\203\346\035\334\340\fF\f\214\001\004\301\240y\0077@\203\021\003\003\000A0h\336\241\r\310`\304\300\030@\020\f\250sX\003Q\230%\b\302\201\000\000\000}\000\000\000\366f\bN3\370\210\t\006 \202\323\f\365\355#7 9\314\343?\021!8\315\340O\007\321\370\210\3351\276\303<>R\3714\356#\026EH\023\361\230\230C\\\204\360S\022\021\375\2023\020\006E\\\f\322\230W\343;\314\343KS\204\f\204\217\330\237\001\f\303\356#\026\030`\000\303\300\373\210\2155\013\321\030\323\341\033\213\023\000\213\201U\002\360LTD\f\177\005D\322\017\fC$\371\2109\031\013\321\030\323a\\\216\3570\217/8L\340/\201\217X\333\324T\317t\375\r\305\374\323\021\021\300 \371\210=\031\003Q=Sd\203\001\206\300<\271\217\330\227\343;\314\343#\322\277\000\322\344#\007P\020\315\024a\306V\371\016\363\370\210\364/\2004\371\200$\000\322\344#\266V\371\016\363\370\202\303\004\376\022\370\200$\000\322\344#G\2409\314\343#MCD~\341D~\340\f\230\277D\376s\370\210\225q\002\360LTD\f\177\005D\322\017\fC$\371\200$\000\322\344#vfHT`\373\210\3011\276\303<>R\371t\355#\206V\b\314\343#wp\016\377\3570\317\357\024\305\342\000\003\322\030?^\3749\337\353\003p\353\377?\237\273\361P\f0\035\365M5H\341D\314\037\001\215A\210\205\347U\353\311\376\271\026E\000&\266\277\347\261\366\317\332\377\277\324\370\3570\317\357P\323\2024\304\340\023\0272\235\300CID\364\013\316@\370D3E\230u9\276\303<\276\3400\201O\005>bx\21549\021\301\020\221A\334>r\001\212\3400\214\323\370\0211\235\301\3430\217\2778\316\343\023\0272\371\210\251U\276\303<\276\3400\201O\005> \t\2004\371\210\305\035\002\363\344\266\217\\\001\3450\217\2174\r\021\371\205\023\371\2013`>bi\224\3570\217/M\0212\020> \t\2004\371\b\000\0011\000\000\030\000\000\000[\206&\340\203-\203\025\360\301\226\001\013\370`\313\240\005|\260e\340\002>\3302\204A\300\007[\0068\b\374`\313 \007\201\037l\031\346 \360\203-\003\035\004~\260e\250\203\300\017\266\fv\020\370\301\226\001\017\002>\3302\344A\300\007[\206=\b\370`\313\300\007\001\037l\031\376 \340\003\000\000\000\000\000\000\000\000a \000\000\256\000\000\000\023\004F,\020\000\000\000\004\000\000\000\024\224\020-\205@\2021\200`\f\034\000\000\000\0003\021A\260\007\2430\023\021\004{0\n3\021A\260\007\2430\023\021\004{0\n\304\004c\270!x\0033\230e\b\212 \t\201\223\0208\017\2013\021x\304\300\030@\020\f\032Xh\224\021\003c\000A0h`\241I\222\n \251\000\206\r\bF\030\200a\003b\t\006`\304\300\030@\020\f\032Yx\224a\003BY\203\001\03010\006\020\004\203F\026\236d\330\200H\354`\000\b\013\306\210A\343\200 \030<\256\360\004\221A\024\007\033\260\0015\301\310`\221\341\206\000\023\203Y\006B\b\310\t\306,\3010P\261\030B4d\020\000e\325H\2412\322\2521bp\000 \b\006\026,\b\301\320+\3013\206\r\210@\030\000D\f\020\310`\221\341\206`\f\304`\226\201\030\202\021\003c\000A0\210v\201{F\f\214\001\004\301\240\001\007\017\03310\006\020\004\203\006\034\274l\304\300\030@\020\f\032p\360\264\021\003c\000A0h\300\301\333f\t\n\r\007\002R\000\000\000\366\264\370\201C5\303?!\203oh\206\3404U\276[Y!8Mu\033\333\2014C\005D\222m\035\276\303<>\025\234\000\3460\217\2174\r\021\371\205\023\371\2013`\376\022\371\317as\205\3404UnR\306B4\306t\230[!8M\265[\027\343;\314\343#\322\277\000\322da\223\3570\217\217H\377\002H\223\017H\002 M\007P\020\315\024a6e\fD\365L\221\311\021\3000\364\027\0009\314\343?\021!8\315\340O\007\321XT\343?\021Q!\016%\371T\340[Z\"0\217\3567\316\304\033\035\"0\217\3567\316dU\2044\021\217\221\021\202\323T\026\207\000Q\004`\310p\031\025q1HcN\214o,N\000,\377\204\f\376\0214\016\363\370\213\343<>q!\223\201I\276\303<\2764E\310@\370\200$\000\322t\005\217\303<\376\023\021\202\323\f>\321\f\006\325\370ODT\210CI\376\022\370\266v\bNS\3455mc\216\3570\217\277\004> \t\2004\335\200\3440\217\2174\r\021\371\205\023\371\2013`&\346\370\016\363\370T\340\003\222\000H\223q-\276\303<\2764E\310@\330\327 0\217i\035\276\303<\376\022\000\000\0011\000\000\016\000\000\000[\006\"\340\203-\303\023\360\301\226\001\n\370`\313 \005|\260e\240\002>\3302T\001\037l\031\256\200\017\266\f[\300\007[\206/\000\205-C\030\004\240\260e \203\000\024\000\000\000\000\000a \000\0001\001\000\000\023\004H,\020\000\000\000\b\000\000\000\024\324@\331\006\224\002%#\000\264\024B\201\225\377\377\377\377G1\220`\f\030\030\003\007#\000\000\0003\021A\260\007\2430\023\021\004{0\n3\021A\260\007\2430\023\021\004{0\n3\021`\020\354\001)\214\030\034C\b\202\201\362\n\b\0304\303\rA\004\006\263\fB\020\350\210A1\204 \030L\250\240\334\325\350\210\201\001\200 \0304\262\360\024Y\b\234Y\000\030X 0\334 \344\201\031\3142\fG\220\213\300\331\b\234\217\300\331\b<b`4 \b\006\215.`\321\260\001\021\371\301\000\214\030\030\003\b\202A\243\013\0304l@@\306\000\214\030\030\003\b\202A\243\013\3303l@<s0\000#\006\306\000\202`\320\350\002\346\f\033\020\216\037\f\300\210\0011\204 \0308\2700b\3208 \b\006\017.P\013'\fDA\007\001E\301\03010\000\020\004\203N\024\002d\330\200\230\202\001 *\030\303\r\301\202\006\263\f\204\021tp\220F\001\017:8L\244 \n\t\t\332\301\2412\005?\350\340`\235B\036tp\270P\201\ff\t\212\201\212\000\"\242b\240\"\240\210\252Ha\211\024\226HA\320a\003\242\013\b \005A\207\r\b& \200a\003bQ\b`\330\200H\340\200\000\206\r\b\344\r\b`\330\2008\334\200\000F\f\232\007\004\301@\"\2072\330H\241\r\332\240\027\306 3\003\002\203`\320\030\004\003\003\001\004\206\r\2102\b\006\200\310 \030\030\020 0b`\000 \b\006\235-\004\334\260\001q\006\301\000\f7\020\036\032\3142\024F0b`\f \b\006\021;\254\201\030\314\022\034#\006\306\000\202`\320\304\003\034\230\301\210\2011\200 \0304\361\000\007g0b`\f \b\006M<\300\001\032\214\030\030\003\b\202A\023\017p\220\006#\006\006\000\202`\320\304\303\033\224\301\210\2011\200 \030P\351\300\006\2440K\020\204\003\001\000\000\000\223\000\000\000vF\006\013\321\030\323\341\003\303\020\371R\344\000>\355\323>qM\021 L\376\024Q\215\340#F\030\200\bN3\324\267\217X\224\2014\317\024\3317 9\314\343?\021!8\315\340O\007\321\370\210\3451\276\303<>R\3714\356#\366\325\370\016\363\370\322\024!\003\341#6\346\020\027!\374\224DD\277\340\f\304\035\350\304\377;\314\363;E\2618\300\2004\306\217\027\177\316\367\372\000\334\373\377\317\347n<\024\003LG}\003\317\263`\177A5\277\361Pb\021\013U\372\025E\341\001C\371\3175\035\021\f\2004\003\021\025\2367\026\205\347y\303\312N\371D=\013!\216\335s\262\177\256E\021\200\211m\375{\236\347\255'\213\377b\373{\336\277\334\364\3570\317\357P\323\2024\304\340\023\0272Y`\200\001\f\303\356#6\030`\000\303\300\373\210\205U\002\360LTD\f\177\005D\322\017\fC$\371\210=\031\0165=SdP\006\322<ST\233\223\261\020\2151\035\326\345\370\016\363\370\202\303\004\376\022\370\210\271MM\365L\327\337P\314?\035\021\001\f\222\217Xa\200!0O\356#\006\346\370\016\363\370\210\364/\2004\371\310\001\024D3E\230\265U\276\303<>\"\375\013 M> \t\2004\371\210\261U\276\303<\276\3400\201\277\004> \t\2004\371\310\021h\016\363\370H\323\020\221_8\221\0378\003\346/\221\377\034>bf\234\000<\023\025\021\303_\001\221\364\003\303\020I> \t\2004\371\210\241\031\022\025\330>bq\214\3570\217\217T>]\373\210\245\025\002\363\370\310\t<\224DD\277\340\f\204O4S\204\231\227\343;\314\343\013\016\023\370T\340#\246\327H\223\023\021\f\021\031\304\355#\027\240\b\016\3038\215\037\021\323\031<\016\363\370\213\343<>q!\223\217XY\030,DcL\207/\000\322D\f\276\0249\200O\373\264\2174\022\021M>qM\266V\371\016\363\370\202\303\004>\025\370\200$\000\322\344#W@9\314\343#MCD~\341D~\340\f\230\217\230\334!0On\373\210\251Q\276\303<\2764E\310@\370\200$\000\322\344#\006g\bN3\370\b\000\0011\000\000\026\000\000\000[\006+\340\203-\003\026\360\301\226A\013\370`\313\300\005|\260e\b\203\200\017\266\fq\020\370\301\226a\016\002?\3302\320A\340\007[\206:\b\374`\313`\007\201\037l\031\356 \360\203-C\036\004|\260e\320\203\200\017\266\f|\020\360\301\226\241\017\002>\3302\200B\300\007\000\000\000\000\000a \000\000\266\000\000\000\023\004E,\020\000\000\000\004\000\000\000\024\224\020-\205@\2021\200`\f\034\000\000\000\0003\021A\260\007\2430\023\021\004{0\n3\021A\260\007\2430\023\021\004{0\n\311\0040\334\020\274\201\031\3142\004D\220\204\300I\b\234\207\300\231\b<b`\f \b\006\r,4\312\210\2011\200 \0304\260\320$I\005\220T\000\303\006\004#\f\300\260\001\261\004\0030b`\f \b\006\215,<\312\260\001\241\254\301\000\214\030\030\003\b\202A#\013O2l@$v0\000\204\005c\304\240q@\020\f\036Wx\202\310 \212\203\r\330\200\232`d\260\310pC\200\211\301,\303 \004\003\025K%\020\301@E\020\tH\320+\001\023(\250F\257\204\214\240\240\032#\006\006\004\202`\220\265\302\020\364J\360\216a\003\"\020\006\200\254``\200\200@\006\213\f7\004d \006\263\f\203\020\214\030\030\003\b\202A\304\013\0354b`\f \b\006M8|\331\210\2011\200 \0304\341\360i#\006\306\000\202`\320\204\303\267\215\030\030\003\b\202A\023\016\0377K@h8\020Z\000\000\000\366\264\370\201C5\303?!\203oU\006\322<Sd\233\332!8M\225\327\265\225\025\202\323T\267m\035\276\303<>\025\030\225\2014\317\024\325&e,DcL\207\255-\276\303<>R\371tM[\330\344;\314\343#\322\277\000\322\344\003\222\000H\323\001\024D3E\230u1\276\303<>\"\375\013 M\206f\bNS\345\274y\211\301B4\306t\370\3000D\276\0249\200O\373\264O\\S\004\b\223?ET#\030]!8M\225[Z\"0\217\3567\316\324_\000\3440\217\377D\204\3404\203?\035Dcs\0050\fumQ\215\377DD\2058\224\344S\201ou\210\300<\272\3378\223\221\021\202\323T\306\206\000Q\004`\310p\335@\3430\217\2778\316\343\023\0272\035\301\3430\217\377D\204\3404\203O4\20391\276\2618\001\260\374\0232\370\006&\371\016\363\370\322\024!\003\341\003\222\000H\223M\031\0165=Sdp\204\000,\213A5\376\023\021\025\342P\222\277\004\276\2159\276\303<\376\022\370\200$\000\322dq\n\020E\000\206\fWM\237\200\3440\217\2174\r\021\371\205\023\371\2013`&\346\370\016\363\370T\340\003\222\000H\223q-\276\303<\2764E\310@\230[\002D\021\200!\303\305\333\327 0\217i\035\276\303<\376\022\000\0011\000\000\r\000\000\000[\206'\340\203-\003\024\360\301\226A\n\370`\313@\005|\260e\250\002>\3302\\\001\037l\031\274\000\024\266\f`\020\200\302\226a\f\002P\3302\220A\300\007\000\000\000\000\000a \000\0002\001\000\000\023\004H,\020\000\000\000\b\000\000\000\024\324@\331\006\224\002%#\000\264\024B\201\225\377\377\377\377G1\220`\f\030\030\003\007#\000\000\0003\021A\260\007\2430\023\021\004{0\n3\021A\260\007\2430\023\021\004{0\n3\021`\020\354\001)\214\030\034C\b\202\201\362\n\b\0304\303\rA\004\006\263\fB\020\350\210A1\204 \030L\250\240\334\325\350\210\201\001\200 \0304\262\360\024Y\b\234Y\000\030X 0\334 \344\201\031\3142\fG\220\213\300\331\b\234\217\300\331\b<b`4 \b\006\215.`\321\260\001\021\371\301\000\214\030\030\003\b\202A\243\013\0304l@@\306\000\214\030\030\003\b\202A\243\013\3303l@<s0\000#\006\306\000\202`\320\350\002\346\f\033\020\216\037\f\300\210\0011\204 \0308\2700b\3208 \b\006\017.P\013'\fDA\007\001E\301\03010\000\020\004\203N\024\002d\330\200\230\202\001 *\030\303\r\301\202\006\263\f\204\021tp\220F\001\017:8L\244 \n\t\t\332\301\2412\005?\350\340`\235B\036tp\270P\201\ff\t\212\201\212\000\"\242b\240\"\240\210\252Ha\211\024\226HA\320a\003\242\013\b \005A\207\r\b& \200a\003bQ\b`\330\200H\340\200\000\206\r\b\344\r\b`\330\2008\334\200\000F\f\232\007\004\301@\"\2072\330H\241\r\332@\027\306 3\003\002\203`\320\030\004\003\003\001\004\206\r\2102\b\006\200\310 \030\030\020 0b`\000 \b\006\235-\004\334\260\001q\006\301\000\f7\020\036\032\3142\024F0b`\f \b\006\021;\254\201\030\314\022\034#\006\306\000\202`\320\304\003\034\230\301\210\2011\200 \0304\361\000\007g0b`\f \b\006M<\300\001\032\214\030\030\003\b\202A\023\017p\220\006#\006\006\000\202`\320\304\303\033\224\301\210\2011\200 \030P\351\300\006\2440K\020\204\003\001\000\000\000\224\000\000\000w\300\023\377\3570\317\357\024\305\342\000\003\322\030?^\3749\337\353\003p\357\377?\237\273\361P\f0\035\365\r<\317\202\375\005\325\374\306C\211E\f\f\345?\333\364\377;\002\263\374\021\301\000H3\020\321_\334\266\347\215E\341y\336\260\262S>Q\317B\210c\367\234\354\237kQ\004`b[\377\236\347y\353\311\332\277\330\376\236\367/7\375;\314\363;\324\264 \r1\370\304\205LF\030\200\bN3\324\267\217X\224\2014\317\024\3317 9\314\343?\021!8\315\340O\007\321\370\210\3451\276\303<>R\3714\356#\366\325\370\016\363\370\322\024!\003\341#6\346\020\027!\374\224DD\277\340\f\204\005\006\030\3000\354>b\203\001\0060\f\274\217\330\031\031,DcL\207\017\fC\344K\221\003\370\264O\373\3045E\2000\371SD5\202\217XX%\000\317DE\304\360W@$\375\3000D\222\217\330\223\341P\3233E\006e \3153E\2659\031\013\321\030\323a]\216\3570\217/8L\340/\201\217\230\333\324T\317t\375\r\305\374\323\021\021\300 \371\210\025\006\030\002\363\344>b`\216\3570\217\217H\377\002H\223\217\034@A4S\204Y[\345;\314\343#\322\277\000\322\344\003\222\000H\223\217\030[\345;\314\343\013\016\023\370K\340\003\222\000H\223\217\034\201\3460\217\2174\r\021\371\205\023\371\2013`\376\022\371\317\341#f\306\t\3003Q\0211\374\025\020I?0\f\221\344\003\222\000H\223\217\030\232!Q\201\355#\026\307\370\016\363\370H\345\323\265\217XZ!0\217\217\234\300CID\364\013\316@\370D3E\230y9\276\303<\276\3400\201O\005>bz\21549\021\301\020\221A\334>r\001\212\3400\214\323\370\0211\235\301\3430\217\2778\316\343\023\0272\371\210\225\205\301B4\306t\370\002 M\304\340K\221\003\370\264O\373H#\021\321\344\023\327dk\225\3570\217/8L\340S\201\017H\002 M>r\005\224\303<>\3224D\344\027N\344\007\316\200\371\210\311\035\002\363\344\266\217\230\032\345;\314\343KS\204\f\204\017H\002 M>bp\206\3404\203\217\000\000\000\000\0011\000\000\026\000\000\000[\006+\340\203-\003\026\360\301\226A\013\370`\313\300\005|\260e\b\203\200\017\266\fq\020\370\301\226a\016\002?\3302\320A\340\007[\206:\b\374`\313`\007\201\037l\031\356 \360\203-C\036\004|\260e\320\203\200\017\266\f|\020\360\301\226\241\017\002>\3302\200B\300\007\000\000\000\000\000a \000\000E\001\000\000\023\004K,\020\000\000\000\021\000\000\000\024\024F\t\325@e\024L]T    D\301\037\320R\b$\030\003\b\306\300\001U#\000c\004 \b\202 (\214\021\200 \b\202`0F\000\202 \310\377\301\030\001\b\202 \374\007c\004 \b\202\360\007\0003\021A\260\007\2430\023\021\004{0\n3\021A\260\007\2430\023\021\004{0\n\231\0050\334\020\360\201\031\3142\004J\220\204\300I\b\234\207\300\231\b<b`\f \b\006M/L\312\210\2011\200 \0304\2750%\031\006\001d\030\0040l@0\302\000\f\033\020K0\000#\006\306\000\202`\320\374B\245\f\033\020\n\036\f\300\210\2011\200 \0304\277P%\303\006D2\n\003@e\020\214\021\203\306\001A0xv\241\n:\203(\216<\310\003j\202\221\301\"\303\rA\031\210\301,C\"\004\344\004c\226`\030\250X\f\341-\220\f\002\350\225`\006\002\005\325\350\225p\006\004\005\325\0301(\000\020\004\003\r\027\206\021\203\002\000A0\320rA\030n\020\002a\226\2018\202\021\203\002\000A0\330ta\0301(\000\020\004\003M\027\210\021\003\003\000A0\340t!h\203\021\203\002\000A0\330z\241\300\240\r@`\304\240\000@\020\f4_8F\f\f\000\004\301\200\363\205\200\025\356 b\304\240\000@\020\f\264_\020\206\033\004:0\203Y\206\302\b\006*\252\251\200\210\201\212`*\020\342\bAF\f\n\000\004\301@\033\207\240\002\03018\000\020\004\003\213\034\202\244\030n\b\340\200\230nX\340 \270!\200\021\003\003\000A0\340\326!\360\003L\370\000\004\206\033\024>\020\203Y\206\302\b\006*\002\217 \212\201\212J\r\b\244@\301\017@`\304\300\000@\020\f\270x\020\202\223\002\0311(\000\020\004\003-\036\202\n`\304\340\000@\020\f,y\b.b\270!\360\003b\272!\363\203\340\206\000\322\b\350\004P\220\341\206\240\023nP\007\035n\b\354!\f\016\tx\270\241\b\203\340\204@\317\bv\272\201\fT!\270%\210\021\003\003\000A0\340H\"@\203\234\203`/\230\005\315!\330\023\002\316\240\332Y\002d\270\201\016\\\2018;\210\005\031n\b\354@\270!\320\303\203X\220\341\006=\b\204\013\206\315?\b6\375 \330\013\004\276\300$\362\202\221\330\f*\253\000F\f\016\000\004\301\300\n\013R\bLa\272!8\205d\270\241\024H!\03010\000\020\004\203\354&\306!\025\246\033\202A\230%@\006**40\204c\270A\025\314!\230n \007!\030n`\005t8F\f\f\000\004\301\300\333\211Wh\207\013\004\235n \320!\350\225\240\017\2650l@\004\302\000\340-\324\002\bd\260\310pC\360\017b0\313\220\f\301\210\2011\200 \030Dw\021\017\2760b`\f \b\006\r_\314\3039\214\030\030\003\b\202A\303\027\363\200\016#\006\306\000\202`\320\360\305<\244\303\210\2011\200 \0304|1\017\3520K\240h8\020\000\000\000i\000\000\000\366\264\370\201C5\303?!\203oU\006\322<Sd\233\\!8Mu[\336\2014C\005D\322\031,\376\3428\017q!\223\217\030\332\341;\314\343S\301\t`\016\363\370H\323\020\221_8\221\0378\003\346/\221\377\034Fe \3153E\265I\031\013\321\030\323au\206\3404U\336\233\333\344;\314\343#\322\277\000\322\344\003\222\000H\323\001\024D3E\230\2511\276\303<>\"\375\013 M\266&\006\013\321\030\323\341\003\303\020\371R\344\000>\355\323>qM\021 L\376\024Q\215`v\212\300<\272\3378SM\033\336!8M\225\327\266=\007\024\202\323T\371\005@\016\363\370OD\bN3\370\323A4\207\220\375\277#0\313\037\021\f\2004\003\021\375\305m\373\304\205L\346\034P\000\303P\327\026\325\370ODT\210CI>\025\370\006\035\200\b\314\243\373\2153Y\034!8Mez\b\020E\000\206\f\327%4\016\363\370\213\343<>q!\323)<\016\363\370OD\bN3\370D3\230\023\343\033\213\023\000\313?!\203om\222\3570\217/M\0212\020> \t\2004\331\224\341P\3233E\006\325\370ODT\210CI\376\022\370\006\347\370\016\363\370K\340\003\222\000H\2235\007(@\024\001\0302\\5}\005\214\377D\304A\000\003\021\371\310\rH\016\363\370H\323\020\221_8\221\0378\003fo\216\3570\217O\005> \t\2004Y\332\342;\314\343KS\204\f\204\361%@\024\001\0302\\\274\261\r\002\363\330\331\341;\314\343/\001\000\0011\000\000\r\000\000\000[\206'\340\203-\003\024\360\301\226A\n\370`\313@\005|\260e\250\002>\3302\\\001\037l\031\266\200\017\266\f`\020\200\302\226A\f\002P\3302\340C\000\n\000\000\000\000\000\301 \000\000E\000\000\000\243\004\311P\001\"\252\000!2\204\210\020!B\304\b\211\032@\210\f!\"D\210\0201BR\016\020\"c\204\304\274 D\206\210\021\022\362\200\020\031BRZ\020\"d\204\204\324 d\204d\3340B%QKK\3141\000\212\301\001\306\004\207\305\305\206FGa\334\002\fs\b\000\201p\220\241Q\036\265\264\304\034\003\240\030\034|LpX\\lht\324\307-\3000\207\000\020\b\007\031\032\025RKL\3141\000\212\301\201\310\004\207\305\305\206FG\211\334\002\fs\b@\201p\2201\242Q$\265\304\304\034\003\240\030\034\224LpX\\lhtT\311-\020\0060\207\000\020\b\007\031\032\006P+A\201\005\324JP`\002\265\022\024\330@\255\004\005FP+A\201\025\340BP`\006\270 \024\024\330\001.\b\005\005\206\200\013BA\201%\320R@`\n\264\024\020\330\002-\005\004\306@K\001\2015P\001\2019P\001\201=P\001\201AP\001\201E\330A\001\220\240\260\300\000\000\000\000q \000\000\t\000\000\0002\016\020\"\204\022\346\013\2101\350\200\036\263\017\370\001\035\201!\200\023(2[\201$\353\026X\362\231\001\000\000\000\000\000\000\000e\f\000\000?\001\000\000\022\003\224\360\031\000\000\000\003\000\000\000\352\n\000\0002\000\000\000L\000\000\000\001\000\000\000X\000\000\000\000\000\000\000X\000\000\0000\000\000\000\330\004\000\000\001\000\000\000\034\013\000\000\021\000\000\000-\013\000\000\016\000\000\000\024\000\000\000\000\000\000\000\360\004\000\000\000\000\000\000\000\000\000\0000\000\000\000\000\000\000\000D\005\000\000U\000\000\000D\005\000\000U\000\000\000\377\377\377\377\022$\000\000\231\005\000\000\022\000\000\000\231\005\000\000\022\000\000\000\377\377\377\377\b$\000\000\253\005\000\000\026\000\000\000\253\005\000\000\026\000\000\000\377\377\377\377\b,\000\000\301\005\000\000\024\000\000\000\301\005\000\000\024\000\000\000\377\377\377\377\b,\000\000\325\005\000\000(\000\000\000\325\005\000\000(\000\000\000\377\377\377\377\b$\000\000\375\005\000\000\037\000\000\000\375\005\000\000\037\000\000\000\377\377\377\377\b$\000\000\034\006\000\000o\000\000\000\034\006\000\000o\000\000\000\377\377\377\377\000 \000\000\213\006\000\000\030\000\000\000\213\006\000\000\030\000\000\000\377\377\377\377\b$\000\000\243\006\000\000\035\000\000\000\243\006\000\000\035\000\000\000\377\377\377\377\b$\000\000\300\006\000\000\022\000\000\000\300\006\000\000\022\000\000\000\377\377\377\377\b$\000\000\322\006\000\000\030\000\000\000\322\006\000\000\030\000\000\000\377\377\377\377\b$\000\000\352\006\000\000\024\000\000\000\352\006\000\000\024\000\000\000\377\377\377\377\b$\000\000\376\006\000\000U\000\000\000\376\006\000\000U\000\000\000\377\377\377\377\022$\000\000S\007\000\000o\000\000\000S\007\000\000o\000\000\000\377\377\377\377\000 \000\000\302\007\000\000\020\000\000\000\302\007\000\000\020\000\000\000\377\377\377\377\b,\000\000\322\007\000\000\210\000\000\000\322\007\000\000\210\000\000\000\377\377\377\377\022$\000\000Z\b\000\000\242\000\000\000Z\b\000\000\242\000\000\000\377\377\377\377\000 \000\000\374\b\000\000\n\000\000\000\374\b\000\000\n\000\000\000\377\377\377\377\b$\000\000\006\t\000\000\212\000\000\000\006\t\000\000\212\000\000\000\377\377\377\377\022$\000\000\220\t\000\000\244\000\000\000\220\t\000\000\244\000\000\000\377\377\377\377\000 \000\0004\n\000\000\r\000\000\0004\n\000\000\r\000\000\000\377\377\377\377\b,\000\000A\n\000\000\035\000\000\000A\n\000\000\035\000\000\000\377\377\377\377\b,\000\000^\n\000\000\032\000\000\000^\n\000\000\032\000\000\000\377\377\377\377\b,\000\000x\n\000\000\025\000\000\000x\n\000\000\025\000\000\000\377\377\377\377\b,\000\000\215\n\000\000\023\000\000\000\215\n\000\000\023\000\000\000\377\377\377\377\b,\000\000\240\n\000\000\r\000\000\000\240\n\000\000\r\000\000\000\377\377\377\377\b,\000\000\255\n\000\000\f\000\000\000\255\n\000\000\f\000\000\000\377\377\377\377\b,\000\000\271\n\000\000\021\000\000\000\271\n\000\000\021\000\000\000\377\377\377\377\b,\000\000\312\n\000\000\r\000\000\000\312\n\000\000\r\000\000\000\377\377\377\377\b,\000\000\327\n\000\000\023\000\000\000\327\n\000\000\023\000\000\000\377\377\377\377\b,\000\000\000\000\000\000\024\000\000\000\000\000\000\000\024\000\000\000\377\377\377\377\021\004\000\000\024\000\000\000'\000\000\000\024\000\000\000'\000\000\000\377\377\377\377\021\004\000\000;\000\000\000)\000\000\000;\000\000\000)\000\000\000\377\377\377\377\021\004\000\000d\000\000\000 \000\000\000d\000\000\000 \000\000\000\377\377\377\377\021\004\000\000\204\000\000\000&\000\000\000\204\000\000\000&\000\000\000\377\377\377\377\021\004\000\000\252\000\000\000'\000\000\000\252\000\000\000'\000\000\000\377\377\377\377\000\030\000\000\321\000\000\000'\000\000\000\321\000\000\000'\000\000\000\377\377\377\377\000\030\000\000\370\000\000\000'\000\000\000\370\000\000\000'\000\000\000\377\377\377\377\000\030\000\000\037\001\000\000'\000\000\000\037\001\000\000'\000\000\000\377\377\377\377\000\030\000\000F\001\000\000_\000\000\000F\001\000\000_\000\000\000\377\377\377\377\222\004\000\000\245\001\000\000_\000\000\000\245\001\000\000_\000\000\000\377\377\377\377\222\004\000\000\004\002\000\000\222\000\000\000\004\002\000\000\222\000\000\000\377\377\377\377\222\004\000\000\226\002\000\000\224\000\000\000\226\002\000\000\224\000\000\000\377\377\377\377\222\004\000\000*\003\000\000h\000\000\000*\003\000\000h\000\000\000\377\377\377\377\020\004\000\000\222\003\000\000h\000\000\000\222\003\000\000h\000\000\000\377\377\377\377\020\004\000\000\372\003\000\000\233\000\000\000\372\003\000\000\233\000\000\000\377\377\377\377\020\004\000\000\225\004\000\000\235\000\000\000\225\004\000\000\235\000\000\000\377\377\377\377\020\004\000\0002\005\000\000\022\000\000\0002\005\000\000\022\000\000\000\377\377\377\377\004\f\000\000\000\000\000\000\000\000\000\000\024\000\000\000\000\000\000\000;\013\000\000\r\000\000\000\000\000\000\000]\f\000\000\325\002\000\000\022\003\224\250.\000\000\000__omp_rtl_debug_kind__omp_rtl_assume_teams_oversubscription__omp_rtl_assume_threads_oversubscription__omp_rtl_assume_no_thread_state__omp_rtl_assume_no_nested_parallelismanon.7f2580fb3e0cfd92d7f426dede78abcc.0anon.7f2580fb3e0cfd92d7f426dede78abcc.1anon.7f2580fb3e0cfd92d7f426dede78abcc.2anon.7f2580fb3e0cfd92d7f426dede78abcc.3__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_exec_mode__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_exec_mode__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_exec_mode__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_nested_parallelism__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_nested_parallelism__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_nested_parallelismllvm.compiler.used__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28__kmpc_target_initllvm.lifetime.start.p5llvm.lifetime.end.p5__kmpc_get_hardware_num_threads_in_block__kmpc_distribute_static_init_4__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_omp_outlined_omp_outlined__kmpc_for_static_init_4__kmpc_distribute_static_fini__kmpc_parallel_51__kmpc_global_thread_num__kmpc_target_deinit__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_omp_outlined_omp_outlinedllvm.fmuladd.f32__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_omp_outlined_omp_outlinedremainderf__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_omp_outlined_omp_outlinedllvm.fabs.f32llvm.amdgcn.frexp.exp.i32.f32llvm.amdgcn.frexp.mant.f32llvm.amdgcn.ldexp.f32llvm.amdgcn.rcp.f32llvm.rint.f32llvm.fma.f32llvm.copysign.f32llvm.smin.i32llvm.is.fpclass.f3217.0.0git 644a4067312448b17ec2109ccfd0dd02a2f789c8amdgcn-amd-amdhsasrc/vararg.cppllvm.metadata\000\000\000\000\000\000\000"
+	.size	.Lllvm.embedded.object, 18904
 
 	.section	".linker-options","e",@llvm_linker_options
 	.hidden	DW.ref.__gxx_personality_v0
@@ -5172,10 +5182,10 @@ DW.ref.__gxx_personality_v0:
 	.section	".note.GNU-stack","",@progbits
 	.addrsig
 	.addrsig_sym __gxx_personality_v0
-	.addrsig_sym _ZN7gpumath16compare_accuracyIdXcvPFdddEadL_Z9remainderEEXadL_Z20__ocml_remainder_f64EEJddEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined
+	.addrsig_sym _ZN7gpumath16compare_accuracyIfXcvPFfffEadL_Z10remainderfEEXadL_Z20__ocml_remainder_f32EEJffEEEvRSt5tupleIJDpNS_5ArrayIT2_EEEERNS4_IT_EESC_SC_NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESI_.omp_outlined
 	.addrsig_sym .omp_task_entry.
 	.addrsig_sym .omp_task_entry..29
-	.addrsig_sym _ZN7gpumath13apply_fun_cpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined
+	.addrsig_sym _ZN7gpumath13apply_fun_cpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE.omp_outlined
 	.addrsig_sym _GLOBAL__sub_I_vararg.cpp
 	.addrsig_sym .omp_offloading.requires_reg
 	.addrsig_sym _Unwind_Resume
@@ -5184,6 +5194,6 @@ DW.ref.__gxx_personality_v0:
 	.addrsig_sym .__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28.region_id
 	.addrsig_sym _ZSt4cout
 	.addrsig_sym _ZSt4cerr
-	.addrsig_sym .__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14.region_id
-	.addrsig_sym .__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9remainderEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28.region_id
-	.addrsig_sym .__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_remainder_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28.region_id
+	.addrsig_sym .__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14.region_id
+	.addrsig_sym .__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10remainderfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.region_id
+	.addrsig_sym .__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_remainder_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30.region_id

@@ -173,11 +173,11 @@ __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2
 .Lfunc_end0:
 	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28, .Lfunc_end0-__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28
 
-	.protected	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14
-	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14
+	.protected	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14
+	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14
 	.p2align	8
-	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14,@function
-__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14:
+	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14,@function
+__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14:
 	v_cmp_eq_u32_e32 vcc, 0, v0
 	s_and_saveexec_b64 s[0:1], vcc
 	s_cbranch_execz .LBB1_2
@@ -266,13 +266,13 @@ __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2
 	s_cbranch_execz .LBB1_12
 	ds_read_b32 v3, v11
 	v_ashrrev_i32_e32 v2, 31, v1
-	v_lshlrev_b64 v[5:6], 3, v[1:2]
+	v_lshlrev_b64 v[5:6], 2, v[1:2]
 	v_mov_b32_e32 v7, s15
 	v_add_co_u32_e64 v5, s[0:1], s14, v5
 	s_waitcnt lgkmcnt(0)
 	v_ashrrev_i32_e32 v4, 31, v3
 	v_addc_co_u32_e64 v6, s[0:1], v7, v6, s[0:1]
-	v_lshlrev_b64 v[7:8], 3, v[3:4]
+	v_lshlrev_b64 v[7:8], 2, v[3:4]
 	s_mov_b64 s[6:7], 0
 	v_mov_b32_e32 v9, v1
 .LBB1_11:
@@ -280,16 +280,16 @@ __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2
 	v_mov_b32_e32 v14, s17
 	v_mov_b32_e32 v15, s18
 	v_mov_b32_e32 v16, s19
-	flat_load_dwordx2 v[17:18], v[13:14]
-	flat_load_dwordx2 v[19:20], v[15:16]
-	v_cvt_f64_i32_e32 v[13:14], v9
+	flat_load_dword v2, v[13:14]
+	flat_load_dword v4, v[15:16]
+	v_cvt_f32_i32_e32 v13, v9
 	v_add_u32_e32 v9, v3, v9
 	v_ashrrev_i32_e32 v10, 31, v9
 	v_cmp_lt_u64_e64 s[0:1], s[2:3], v[9:10]
 	s_or_b64 s[6:7], s[0:1], s[6:7]
 	s_waitcnt vmcnt(0) lgkmcnt(0)
-	v_fma_f64 v[13:14], v[13:14], v[19:20], v[17:18]
-	flat_store_dwordx2 v[5:6], v[13:14]
+	v_fmac_f32_e32 v2, v13, v4
+	flat_store_dword v[5:6], v2
 	v_add_co_u32_e64 v5, s[0:1], v5, v7
 	v_addc_co_u32_e64 v6, s[0:1], v6, v8, s[0:1]
 	s_andn2_b64 exec, exec, s[6:7]
@@ -306,7 +306,7 @@ __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2
 	s_endpgm
 	.section	.rodata,#alloc
 	.p2align	6, 0x0
-	.amdhsa_kernel __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14
+	.amdhsa_kernel __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14
 		.amdhsa_group_segment_fixed_size 4
 		.amdhsa_private_segment_fixed_size 0
 		.amdhsa_kernarg_size 32
@@ -324,7 +324,7 @@ __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2
 		.amdhsa_system_sgpr_workgroup_id_z 0
 		.amdhsa_system_sgpr_workgroup_info 0
 		.amdhsa_system_vgpr_workitem_id 0
-		.amdhsa_next_free_vgpr 21
+		.amdhsa_next_free_vgpr 17
 		.amdhsa_next_free_sgpr 21
 		.amdhsa_reserve_flat_scratch 0
 		.amdhsa_reserve_xnack_mask 1
@@ -345,13 +345,13 @@ __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2
 	.end_amdhsa_kernel
 	.text
 .Lfunc_end1:
-	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14, .Lfunc_end1-__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14
+	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14, .Lfunc_end1-__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14
 
-	.protected	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28
-	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28
+	.protected	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
+	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
 	.p2align	8
-	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28,@function
-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28:
+	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30,@function
+__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30:
 	v_cmp_eq_u32_e64 s[0:1], 0, v0
 	s_and_saveexec_b64 s[2:3], s[0:1]
 	s_cbranch_execz .LBB2_2
@@ -459,7 +459,7 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafte
 	s_endpgm
 	.section	.rodata,#alloc
 	.p2align	6, 0x0
-	.amdhsa_kernel __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28
+	.amdhsa_kernel __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
 		.amdhsa_group_segment_fixed_size 4
 		.amdhsa_private_segment_fixed_size 0
 		.amdhsa_kernarg_size 32
@@ -498,13 +498,13 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafte
 	.end_amdhsa_kernel
 	.text
 .Lfunc_end2:
-	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28, .Lfunc_end2-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28
+	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30, .Lfunc_end2-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
 
-	.protected	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28
-	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28
+	.protected	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30
+	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30
 	.p2align	8
-	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28,@function
-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28:
+	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30,@function
+__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30:
 	v_cmp_eq_u32_e64 s[0:1], 0, v0
 	s_and_saveexec_b64 s[2:3], s[0:1]
 	s_cbranch_execz .LBB3_2
@@ -586,15 +586,15 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafte
 	ds_read_b32 v6, v3
 	s_mov_b64 s[26:27], 0
 .LBB3_11:
-	v_lshlrev_b64 v[7:8], 3, v[1:2]
+	v_lshlrev_b64 v[7:8], 2, v[1:2]
 	v_mov_b32_e32 v2, s21
 	v_add_co_u32_e32 v9, vcc, s20, v7
 	v_addc_co_u32_e32 v10, vcc, v2, v8, vcc
 	v_mov_b32_e32 v12, s23
 	v_add_co_u32_e32 v11, vcc, s22, v7
 	v_addc_co_u32_e32 v12, vcc, v12, v8, vcc
-	flat_load_dwordx2 v[13:14], v[9:10]
-	flat_load_dwordx2 v[15:16], v[11:12]
+	flat_load_dword v13, v[9:10]
+	flat_load_dword v14, v[11:12]
 	v_mov_b32_e32 v9, s19
 	v_add_co_u32_e32 v7, vcc, s18, v7
 	v_addc_co_u32_e32 v8, vcc, v9, v8, vcc
@@ -603,46 +603,34 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafte
 	v_ashrrev_i32_e32 v2, 31, v1
 	v_cmp_lt_u64_e32 vcc, s[14:15], v[1:2]
 	s_waitcnt vmcnt(0)
-	v_sub_co_u32_e64 v11, s[4:5], 0, v13
-	v_subb_co_u32_e64 v10, s[4:5], v5, v14, s[4:5]
-	v_sub_co_u32_e64 v17, s[4:5], 0, v15
-	v_subb_co_u32_e64 v18, s[4:5], v5, v16, s[4:5]
-	v_cmp_gt_i64_e64 s[4:5], 0, v[15:16]
-	v_cmp_gt_i64_e64 s[10:11], 0, v[13:14]
-	v_cndmask_b32_e64 v18, v16, v18, s[4:5]
-	v_cndmask_b32_e64 v12, v14, v10, s[10:11]
-	v_cndmask_b32_e64 v11, v13, v11, s[10:11]
-	v_cndmask_b32_e64 v17, v15, v17, s[4:5]
-	v_cmp_lt_i64_e64 s[4:5], v[11:12], v[17:18]
-	v_cmp_eq_u64_e64 s[10:11], -1, v[11:12]
-	v_cndmask_b32_e64 v18, -1, 1, s[4:5]
-	v_cndmask_b32_e64 v17, -1, 0, s[4:5]
-	v_add_co_u32_e64 v11, s[12:13], v18, v11
-	v_addc_co_u32_e64 v12, s[12:13], v17, v12, s[12:13]
-	v_sub_co_u32_e64 v17, s[12:13], 0, v11
-	v_subb_co_u32_e64 v18, s[12:13], v5, v12, s[12:13]
-	v_cmp_gt_i64_e64 s[12:13], 0, v[11:12]
-	s_and_b64 s[4:5], s[10:11], s[4:5]
-	v_cndmask_b32_e64 v11, v11, v17, s[12:13]
-	v_cndmask_b32_e64 v12, v12, v18, s[12:13]
-	v_cmp_u_f64_e64 s[6:7], v[15:16], v[15:16]
-	v_cndmask_b32_e64 v12, v12, v5, s[4:5]
-	v_cndmask_b32_e64 v11, v11, 0, s[4:5]
-	v_cmp_u_f64_e64 s[4:5], v[13:14], v[13:14]
-	v_and_b32_e32 v19, 0x7fffffff, v14
-	v_and_b32_e32 v20, 0x7fffffff, v16
-	v_or_b32_e32 v9, v15, v13
-	v_or_b32_e32 v10, v20, v19
-	v_cmp_eq_u64_e64 s[8:9], v[13:14], v[15:16]
-	v_cmp_eq_u64_e64 s[10:11], 0, v[9:10]
-	s_or_b64 s[8:9], s[8:9], s[10:11]
-	v_cndmask_b32_e64 v9, v11, v13, s[4:5]
-	v_cndmask_b32_e64 v10, v12, v14, s[4:5]
-	s_or_b64 s[4:5], s[6:7], s[8:9]
-	v_cndmask_b32_e64 v10, v10, v16, s[4:5]
-	v_cndmask_b32_e64 v9, v9, v15, s[4:5]
+	v_sub_u32_e32 v9, 0x80000000, v13
+	v_sub_u32_e32 v10, 0x80000000, v14
+	v_cmp_gt_i32_e64 s[4:5], 0, v14
+	v_cmp_gt_i32_e64 s[10:11], 0, v13
+	v_cndmask_b32_e64 v9, v13, v9, s[10:11]
+	v_cndmask_b32_e64 v10, v14, v10, s[4:5]
+	v_and_b32_e32 v11, 0x7fffffff, v13
+	v_and_b32_e32 v12, 0x7fffffff, v14
+	v_cmp_ge_i32_e64 s[4:5], v9, v10
+	v_or_b32_e32 v11, v12, v11
+	v_cndmask_b32_e64 v10, 1, -1, s[4:5]
+	v_cmp_eq_u32_e64 s[8:9], v13, v14
+	v_cmp_ne_u32_e64 s[10:11], -1, v9
+	v_cmp_eq_u32_e64 s[12:13], 0, v11
+	v_add_u32_e32 v9, v10, v9
+	s_or_b64 s[12:13], s[8:9], s[12:13]
+	v_sub_u32_e32 v10, 0x80000000, v9
+	v_cmp_gt_i32_e64 s[8:9], 0, v9
+	v_cndmask_b32_e64 v9, v9, v10, s[8:9]
+	s_or_b64 s[4:5], s[10:11], s[4:5]
+	v_cmp_u_f32_e64 s[6:7], v14, v14
+	v_cndmask_b32_e64 v9, v5, v9, s[4:5]
+	v_cmp_u_f32_e64 s[4:5], v13, v13
+	v_cndmask_b32_e64 v9, v9, v13, s[4:5]
+	s_or_b64 s[4:5], s[6:7], s[12:13]
+	v_cndmask_b32_e64 v9, v9, v14, s[4:5]
 	s_or_b64 s[26:27], vcc, s[26:27]
-	flat_store_dwordx2 v[7:8], v[9:10]
+	flat_store_dword v[7:8], v9
 	s_andn2_b64 exec, exec, s[26:27]
 	s_cbranch_execnz .LBB3_11
 .LBB3_12:
@@ -658,7 +646,7 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafte
 	s_endpgm
 	.section	.rodata,#alloc
 	.p2align	6, 0x0
-	.amdhsa_kernel __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28
+	.amdhsa_kernel __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30
 		.amdhsa_group_segment_fixed_size 4
 		.amdhsa_private_segment_fixed_size 0
 		.amdhsa_kernarg_size 32
@@ -676,7 +664,7 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafte
 		.amdhsa_system_sgpr_workgroup_id_z 0
 		.amdhsa_system_sgpr_workgroup_info 0
 		.amdhsa_system_vgpr_workitem_id 0
-		.amdhsa_next_free_vgpr 21
+		.amdhsa_next_free_vgpr 15
 		.amdhsa_next_free_sgpr 31
 		.amdhsa_reserve_flat_scratch 0
 		.amdhsa_reserve_xnack_mask 1
@@ -697,7 +685,7 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafte
 	.end_amdhsa_kernel
 	.text
 .Lfunc_end3:
-	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28, .Lfunc_end3-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28
+	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30, .Lfunc_end3-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30
 
 	.protected	__omp_rtl_device_environment
 	.type	__omp_rtl_device_environment,@object
@@ -716,26 +704,26 @@ __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2
 	.byte	2
 	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_exec_mode, 1
 
-	.protected	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode
-	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode,@object
-	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode
-__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode:
+	.protected	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode
+	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode,@object
+	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode
+__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode:
 	.byte	2
-	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode, 1
+	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_exec_mode, 1
 
-	.protected	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_exec_mode
-	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_exec_mode,@object
-	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_exec_mode
-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_exec_mode:
+	.protected	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_exec_mode
+	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_exec_mode,@object
+	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_exec_mode
+__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_exec_mode:
 	.byte	2
-	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_exec_mode, 1
+	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_exec_mode, 1
 
-	.protected	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_exec_mode
-	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_exec_mode,@object
-	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_exec_mode
-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_exec_mode:
+	.protected	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_exec_mode
+	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_exec_mode,@object
+	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_exec_mode
+__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_exec_mode:
 	.byte	2
-	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_exec_mode, 1
+	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_exec_mode, 1
 
 	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_nested_parallelism,@object
 	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_nested_parallelism
@@ -743,23 +731,23 @@ __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2
 	.byte	0
 	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_nested_parallelism, 1
 
-	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism,@object
-	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism
-__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism:
+	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism,@object
+	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism
+__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism:
 	.byte	0
-	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism, 1
+	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism, 1
 
-	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_nested_parallelism,@object
-	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_nested_parallelism
-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_nested_parallelism:
+	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_nested_parallelism,@object
+	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_nested_parallelism
+__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_nested_parallelism:
 	.byte	0
-	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_nested_parallelism, 1
+	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_nested_parallelism, 1
 
-	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_nested_parallelism,@object
-	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_nested_parallelism
-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_nested_parallelism:
+	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_nested_parallelism,@object
+	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_nested_parallelism
+__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_nested_parallelism:
 	.byte	0
-	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_nested_parallelism, 1
+	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_nested_parallelism, 1
 
 	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_nested_parallelism.8,@object
 	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_nested_parallelism.8
@@ -767,23 +755,23 @@ __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2
 	.byte	0
 	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIiEEvRNS_5ArrayIT_EES2_S2__l28_nested_parallelism.8, 1
 
-	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism.9,@object
-	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism.9
-__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism.9:
+	.type	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism.9,@object
+	.weak	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism.9
+__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism.9:
 	.byte	0
-	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism.9, 1
+	.size	__omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14_nested_parallelism.9, 1
 
-	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_nested_parallelism.10,@object
-	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_nested_parallelism.10
-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_nested_parallelism.10:
+	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_nested_parallelism.10,@object
+	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_nested_parallelism.10
+__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_nested_parallelism.10:
 	.byte	0
-	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28_nested_parallelism.10, 1
+	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30_nested_parallelism.10, 1
 
-	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_nested_parallelism.11,@object
-	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_nested_parallelism.11
-__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_nested_parallelism.11:
+	.type	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_nested_parallelism.11,@object
+	.weak	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_nested_parallelism.11
+__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_nested_parallelism.11:
 	.byte	0
-	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28_nested_parallelism.11, 1
+	.size	__omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30_nested_parallelism.11, 1
 
 	.no_dead_strip	__omp_rtl_device_environment
 	.section	".linker-options",#exclude
@@ -791,7 +779,7 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafte
 	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
 	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
 	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
-	.ident	"AMD clang version 16.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-5.5.0 23144 5fe166b8eac068df976282939b880a75a3a63014)"
+	.ident	"AMD clang version 16.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-5.6.0 23243 be997b2f3651a41597d7a41441fff8ade4ac59ac)"
 	.section	".note.GNU-stack"
 	.amdgpu_metadata
 ---
@@ -854,12 +842,12 @@ amdhsa.kernels:
       - 2
       - 0
     .max_flat_workgroup_size: 1024
-    .name:           __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14
+    .name:           __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14
     .private_segment_fixed_size: 0
     .sgpr_count:     25
     .sgpr_spill_count: 0
-    .symbol:         __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIdEEvRNS_5ArrayIT_EES2_S2__l14.kd
-    .vgpr_count:     21
+    .symbol:         __omp_offloading_4f_5896da36__ZN7gpumath13uniform_rangeIfEEvRNS_5ArrayIT_EES2_S2__l14.kd
+    .vgpr_count:     17
     .vgpr_spill_count: 0
     .wavefront_size: 64
   - .args:
@@ -886,11 +874,11 @@ amdhsa.kernels:
       - 2
       - 0
     .max_flat_workgroup_size: 1024
-    .name:           __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28
+    .name:           __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
     .private_segment_fixed_size: 0
     .sgpr_count:     19
     .sgpr_spill_count: 0
-    .symbol:         __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z9nextafterEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l28.kd
+    .symbol:         __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z10nextafterfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.kd
     .vgpr_count:     8
     .vgpr_spill_count: 0
     .wavefront_size: 64
@@ -918,12 +906,12 @@ amdhsa.kernels:
       - 2
       - 0
     .max_flat_workgroup_size: 1024
-    .name:           __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28
+    .name:           __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30
     .private_segment_fixed_size: 0
     .sgpr_count:     35
     .sgpr_spill_count: 0
-    .symbol:         __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z20__ocml_nextafter_f64EEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l28.kd
-    .vgpr_count:     21
+    .symbol:         __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z20__ocml_nextafter_f32EEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS2_IT_EE_l30.kd
+    .vgpr_count:     15
     .vgpr_spill_count: 0
     .wavefront_size: 64
 amdhsa.target:   amdgcn-amd-amdhsa--gfx906

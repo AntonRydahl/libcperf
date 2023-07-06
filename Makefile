@@ -1,4 +1,4 @@
-APP ?=driver64
+APP ?=vararg
 
 OPT ?=-O3
 
