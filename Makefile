@@ -43,7 +43,7 @@ CFLAGS += -foffload-lto
 LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomptarget
 LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomp
 LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -lomptarget.devicertl
-LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -L/g/g92/rydahl1/LLVM2/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu
+LDFLAGS += -L/g/g92/rydahl1/LLVM2/install/lib -L/g/g92/rydahl1/LLVM2/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu -lm
 #LDFLAGS += -Xlinker --verbose
 
 # Compiling source to binary

@@ -4,8 +4,8 @@
 	.type	copysignf.internalized,@function
 copysignf.internalized:
 	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
-	s_brev_b32 s4, -2
-	v_bfi_b32 v0, s4, v0, v1
+	s_brev_b32 s4, 1
+	v_bfi_b32 v0, s4, v1, v0
 	s_setpc_b64 s[30:31]
 .Lfunc_end0:
 	.size	copysignf.internalized, .Lfunc_end0-copysignf.internalized
@@ -16,8 +16,8 @@ copysignf.internalized:
 	.type	copysignf,@function
 copysignf:
 	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
-	s_brev_b32 s4, -2
-	v_bfi_b32 v0, s4, v0, v1
+	s_brev_b32 s4, 1
+	v_bfi_b32 v0, s4, v1, v0
 	s_setpc_b64 s[30:31]
 .Lfunc_end1:
 	.size	copysignf, .Lfunc_end1-copysignf
@@ -507,7 +507,7 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z9copysign
 	.p2align	6, 0x0
 	.amdhsa_kernel __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z9copysignfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
 		.amdhsa_group_segment_fixed_size 4
-		.amdhsa_private_segment_fixed_size 16384
+		.amdhsa_private_segment_fixed_size 0
 		.amdhsa_kernarg_size 32
 		.amdhsa_user_sgpr_count 10
 		.amdhsa_user_sgpr_private_segment_buffer 1
@@ -517,7 +517,7 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z9copysign
 		.amdhsa_user_sgpr_dispatch_id 0
 		.amdhsa_user_sgpr_flat_scratch_init 1
 		.amdhsa_user_sgpr_private_segment_size 0
-		.amdhsa_system_sgpr_private_segment_wavefront_offset 1
+		.amdhsa_system_sgpr_private_segment_wavefront_offset 0
 		.amdhsa_system_sgpr_workgroup_id_x 1
 		.amdhsa_system_sgpr_workgroup_id_y 0
 		.amdhsa_system_sgpr_workgroup_id_z 0
@@ -803,11 +803,11 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXadL_Z19__ocml_copysign
 
 	.no_dead_strip	__omp_rtl_device_environment
 	.section	".linker-options",#exclude
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
-	.ident	"AMD clang version 16.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-5.6.0 23243 be997b2f3651a41597d7a41441fff8ade4ac59ac)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 123545e9e59f765afa6ddf3b6f07191509604e94)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 123545e9e59f765afa6ddf3b6f07191509604e94)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 123545e9e59f765afa6ddf3b6f07191509604e94)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 123545e9e59f765afa6ddf3b6f07191509604e94)"
+	.ident	"AMD clang version 16.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-5.5.0 23144 5fe166b8eac068df976282939b880a75a3a63014)"
 	.section	".note.GNU-stack"
 	.amdgpu_metadata
 ---
@@ -903,7 +903,7 @@ amdhsa.kernels:
       - 0
     .max_flat_workgroup_size: 1024
     .name:           __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z9copysignfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
-    .private_segment_fixed_size: 16384
+    .private_segment_fixed_size: 0
     .sgpr_count:     39
     .sgpr_spill_count: 0
     .symbol:         __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIfXcvPFfffEadL_Z9copysignfEEJffEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.kd

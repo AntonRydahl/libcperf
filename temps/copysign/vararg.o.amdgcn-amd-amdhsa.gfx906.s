@@ -4,8 +4,9 @@
 	.type	copysign.internalized,@function
 copysign.internalized:
 	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
-	s_brev_b32 s4, -2
-	v_bfi_b32 v1, s4, v1, v3
+	v_and_b32_e32 v1, 0x7fffffff, v1
+	v_and_b32_e32 v2, 0x80000000, v3
+	v_or_b32_e32 v1, v2, v1
 	s_setpc_b64 s[30:31]
 .Lfunc_end0:
 	.size	copysign.internalized, .Lfunc_end0-copysign.internalized
@@ -16,8 +17,9 @@ copysign.internalized:
 	.type	copysign,@function
 copysign:
 	s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
-	s_brev_b32 s4, -2
-	v_bfi_b32 v1, s4, v1, v3
+	v_and_b32_e32 v1, 0x7fffffff, v1
+	v_and_b32_e32 v2, 0x80000000, v3
+	v_or_b32_e32 v1, v2, v1
 	s_setpc_b64 s[30:31]
 .Lfunc_end1:
 	.size	copysign, .Lfunc_end1-copysign
@@ -379,88 +381,88 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z8copysign
 	s_add_u32 s0, s0, s11
 	v_mov_b32_e32 v4, v0
 	s_addc_u32 s1, s1, 0
-	v_cmp_eq_u32_e64 s[12:13], 0, v4
+	v_cmp_eq_u32_e64 s[8:9], 0, v4
 	s_mov_b32 s32, 0
-	s_and_saveexec_b64 s[8:9], s[12:13]
+	s_and_saveexec_b64 s[12:13], s[8:9]
 	s_cbranch_execz .LBB4_2
 	v_mov_b32_e32 v0, 1
 	v_mov_b32_e32 v1, 0
 	ds_write_b32 v1, v0
 .LBB4_2:
-	s_or_b64 exec, exec, s[8:9]
-	s_load_dwordx8 s[16:23], s[6:7], 0x0
+	s_or_b64 exec, exec, s[12:13]
+	s_load_dwordx8 s[12:19], s[6:7], 0x0
 	s_waitcnt lgkmcnt(0)
-	s_cmp_lt_i32 s16, 1
+	s_cmp_lt_i32 s12, 1
 	s_cbranch_scc1 .LBB4_15
 	s_load_dword s6, s[4:5], 0x4
 	s_waitcnt lgkmcnt(0)
-	s_and_b32 s17, 0xffff, s6
-	v_cvt_f32_u32_e32 v0, s17
-	s_mul_i32 s26, s10, s17
-	s_cmp_ge_i32 s26, s16
+	s_and_b32 s13, 0xffff, s6
+	v_cvt_f32_u32_e32 v0, s13
+	s_mul_i32 s26, s10, s13
+	s_cmp_ge_i32 s26, s12
 	v_rcp_iflag_f32_e32 v0, v0
 	v_mul_f32_e32 v0, 0x4f7ffffe, v0
 	v_cvt_u32_f32_e32 v0, v0
 	v_readfirstlane_b32 s6, v0
 	s_cbranch_scc1 .LBB4_15
 	s_load_dword s4, s[4:5], 0xc
-	s_sub_i32 s5, 0, s17
+	s_sub_i32 s5, 0, s13
 	s_mul_i32 s5, s5, s6
 	s_mul_hi_u32 s5, s6, s5
 	s_add_i32 s6, s6, s5
 	s_waitcnt lgkmcnt(0)
 	s_mul_hi_u32 s5, s4, s6
-	s_mul_i32 s5, s5, s17
+	s_mul_i32 s5, s5, s13
 	s_sub_i32 s5, s4, s5
-	s_sub_i32 s6, s5, s17
-	s_cmp_ge_u32 s5, s17
+	s_sub_i32 s6, s5, s13
+	s_cmp_ge_u32 s5, s13
 	s_cselect_b32 s5, s6, s5
-	s_sub_i32 s6, s5, s17
-	s_cmp_ge_u32 s5, s17
+	s_sub_i32 s6, s5, s13
+	s_cmp_ge_u32 s5, s13
 	s_cselect_b32 s5, s6, s5
 	s_sub_i32 s27, s4, s5
-	s_add_i32 s4, s17, s26
-	s_add_i32 s28, s16, -1
+	s_add_i32 s4, s13, s26
+	s_add_i32 s28, s12, -1
 	s_add_i32 s4, s4, -1
-	s_min_i32 s6, s4, s28
-	s_cmp_gt_i32 s16, 0
+	s_min_i32 s10, s4, s28
+	s_cmp_gt_i32 s12, 0
 	s_cselect_b64 s[4:5], -1, 0
 	v_cndmask_b32_e64 v0, 0, 1, s[4:5]
-	s_mov_b32 s7, 0
+	s_mov_b32 s11, 0
 	v_add_u32_e32 v5, s26, v4
 	v_mov_b32_e32 v15, 0
-	v_cmp_ne_u32_e64 s[8:9], 1, v0
+	v_cmp_ne_u32_e64 s[6:7], 1, v0
 	v_mov_b32_e32 v16, 1
-	s_getpc_b64 s[10:11]
-	s_add_u32 s10, s10, copysign.internalized@rel32@lo+4
-	s_addc_u32 s11, s11, copysign.internalized@rel32@hi+12
+	s_getpc_b64 s[20:21]
+	s_add_u32 s20, s20, copysign.internalized@rel32@lo+4
+	s_addc_u32 s21, s21, copysign.internalized@rel32@hi+12
 	s_branch .LBB4_6
 .LBB4_5:
 	s_or_b64 exec, exec, s[4:5]
-	s_add_i32 s4, s6, s27
+	s_add_i32 s4, s10, s27
 	s_add_i32 s26, s26, s27
-	s_min_i32 s6, s4, s28
-	s_cmp_lt_i32 s26, s16
+	s_min_i32 s10, s4, s28
+	s_cmp_lt_i32 s26, s12
 	v_add_u32_e32 v5, s27, v5
 	s_waitcnt lgkmcnt(0)
 	s_cbranch_scc0 .LBB4_15
 .LBB4_6:
 	s_waitcnt lgkmcnt(0)
 	s_barrier
-	s_and_saveexec_b64 s[4:5], s[12:13]
+	s_and_saveexec_b64 s[4:5], s[8:9]
 	s_cbranch_execz .LBB4_8
-	v_mov_b32_e32 v0, s17
+	v_mov_b32_e32 v0, s13
 	ds_write_b32 v15, v0
 .LBB4_8:
 	s_or_b64 exec, exec, s[4:5]
-	s_and_b64 vcc, exec, s[8:9]
+	s_and_b64 vcc, exec, s[6:7]
 	s_waitcnt lgkmcnt(0)
 	s_barrier
 	s_cbranch_vccnz .LBB4_13
 	v_add_u32_e32 v0, s26, v4
 	v_ashrrev_i32_e32 v1, 31, v0
-	v_cmp_ge_u64_e32 vcc, s[6:7], v[0:1]
-	s_and_saveexec_b64 s[14:15], vcc
+	v_cmp_ge_u64_e32 vcc, s[10:11], v[0:1]
+	s_and_saveexec_b64 s[22:23], vcc
 	s_cbranch_execz .LBB4_12
 	ds_read_b32 v7, v15
 	v_ashrrev_i32_e32 v6, 31, v5
@@ -471,21 +473,21 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z8copysign
 	v_lshlrev_b64 v[11:12], 3, v[7:8]
 	v_add_u32_e32 v13, v7, v5
 .LBB4_11:
-	v_mov_b32_e32 v1, s21
-	v_add_co_u32_e32 v0, vcc, s20, v9
+	v_mov_b32_e32 v1, s17
+	v_add_co_u32_e32 v0, vcc, s16, v9
 	v_addc_co_u32_e32 v1, vcc, v1, v10, vcc
-	v_mov_b32_e32 v3, s23
-	v_add_co_u32_e32 v2, vcc, s22, v9
+	v_mov_b32_e32 v3, s19
+	v_add_co_u32_e32 v2, vcc, s18, v9
 	v_addc_co_u32_e32 v3, vcc, v3, v10, vcc
 	flat_load_dwordx2 v[0:1], v[0:1]
 	s_nop 0
 	flat_load_dwordx2 v[2:3], v[2:3]
-	s_swappc_b64 s[30:31], s[10:11]
-	v_mov_b32_e32 v3, s19
-	v_add_co_u32_e32 v2, vcc, s18, v9
+	s_swappc_b64 s[30:31], s[20:21]
+	v_mov_b32_e32 v3, s15
+	v_add_co_u32_e32 v2, vcc, s14, v9
 	v_ashrrev_i32_e32 v14, 31, v13
 	v_addc_co_u32_e32 v3, vcc, v3, v10, vcc
-	v_cmp_lt_u64_e32 vcc, s[6:7], v[13:14]
+	v_cmp_lt_u64_e32 vcc, s[10:11], v[13:14]
 	v_add_co_u32_e64 v9, s[4:5], v9, v11
 	v_addc_co_u32_e64 v10, s[4:5], v10, v12, s[4:5]
 	v_add_u32_e32 v13, v13, v7
@@ -494,11 +496,11 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z8copysign
 	s_andn2_b64 exec, exec, s[24:25]
 	s_cbranch_execnz .LBB4_11
 .LBB4_12:
-	s_or_b64 exec, exec, s[14:15]
+	s_or_b64 exec, exec, s[22:23]
 .LBB4_13:
 	s_waitcnt vmcnt(0) lgkmcnt(0)
 	s_barrier
-	s_and_saveexec_b64 s[4:5], s[12:13]
+	s_and_saveexec_b64 s[4:5], s[8:9]
 	s_cbranch_execz .LBB4_5
 	ds_write_b32 v15, v16
 	s_branch .LBB4_5
@@ -508,7 +510,7 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z8copysign
 	.p2align	6, 0x0
 	.amdhsa_kernel __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z8copysignEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
 		.amdhsa_group_segment_fixed_size 4
-		.amdhsa_private_segment_fixed_size 16384
+		.amdhsa_private_segment_fixed_size 0
 		.amdhsa_kernarg_size 32
 		.amdhsa_user_sgpr_count 10
 		.amdhsa_user_sgpr_private_segment_buffer 1
@@ -518,7 +520,7 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z8copysign
 		.amdhsa_user_sgpr_dispatch_id 0
 		.amdhsa_user_sgpr_flat_scratch_init 1
 		.amdhsa_user_sgpr_private_segment_size 0
-		.amdhsa_system_sgpr_private_segment_wavefront_offset 1
+		.amdhsa_system_sgpr_private_segment_wavefront_offset 0
 		.amdhsa_system_sgpr_workgroup_id_x 1
 		.amdhsa_system_sgpr_workgroup_id_y 0
 		.amdhsa_system_sgpr_workgroup_id_z 0
@@ -804,11 +806,11 @@ __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXadL_Z19__ocml_copysign
 
 	.no_dead_strip	__omp_rtl_device_environment
 	.section	".linker-options",#exclude
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
-	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 644a4067312448b17ec2109ccfd0dd02a2f789c8)"
-	.ident	"AMD clang version 16.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-5.6.0 23243 be997b2f3651a41597d7a41441fff8ade4ac59ac)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 123545e9e59f765afa6ddf3b6f07191509604e94)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 123545e9e59f765afa6ddf3b6f07191509604e94)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 123545e9e59f765afa6ddf3b6f07191509604e94)"
+	.ident	"clang version 17.0.0 (https://github.com/llvm/llvm-project.git 123545e9e59f765afa6ddf3b6f07191509604e94)"
+	.ident	"AMD clang version 16.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-5.5.0 23144 5fe166b8eac068df976282939b880a75a3a63014)"
 	.section	".note.GNU-stack"
 	.amdgpu_metadata
 ---
@@ -904,7 +906,7 @@ amdhsa.kernels:
       - 0
     .max_flat_workgroup_size: 1024
     .name:           __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z8copysignEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30
-    .private_segment_fixed_size: 16384
+    .private_segment_fixed_size: 0
     .sgpr_count:     39
     .sgpr_spill_count: 0
     .symbol:         __omp_offloading_4f_5896da37__ZN7gpumath13apply_fun_gpuIdXcvPFdddEadL_Z8copysignEEJddEEEdRSt5tupleIJDpNS_5ArrayIT1_EEEERNS4_IT_EE_l30.kd
