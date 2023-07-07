@@ -1,4 +1,4 @@
-APP ?=vararg
+APP ?=vararg_gpu
 
 OPT ?=-O3
 
@@ -11,12 +11,12 @@ target: bin
 
 CFLAGS = $(OPT) -Wall -std=c++2a -Iinclude -nogpuinc
 
-ifdef VENDORFUN
-CFLAGS += -DVENDORFUN=$(VENDORFUN)
+ifdef FUNCTION
+CFLAGS += -DFUNCTION=$(FUNCTION)
 endif
 
-ifdef BUILTINFUN
-CFLAGS += -DBUILTINFUN=$(BUILTINFUN)
+ifdef PREFIX
+CFLAGS += -DPREFIX=$(PREFIX)
 endif
 
 ifdef NARGS

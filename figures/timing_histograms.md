@@ -1,0 +1,27 @@
+# Timings for Host and Device Versions of the Math Library
+| | | |
+|:-----:|:-----:|:-----:|
+![acosf](./results/timings/acosf/acosf.png)|![acoshf](./results/timings/acoshf/acoshf.png)|![asinf](./results/timings/asinf/asinf.png)
+![asinhf](./results/timings/asinhf/asinhf.png)|![atanf](./results/timings/atanf/atanf.png)|![atanhf](./results/timings/atanhf/atanhf.png)
+![ceilf](./results/timings/ceilf/ceilf.png)|![copysignf](./results/timings/copysignf/copysignf.png)|![copysign](./results/timings/copysign/copysign.png)
+![cosf](./results/timings/cosf/cosf.png)|![cos](./results/timings/cos/cos.png)|![coshf](./results/timings/coshf/coshf.png)
+![cosh](./results/timings/cosh/cosh.png)|![erff](./results/timings/erff/erff.png)|![exp10f](./results/timings/exp10f/exp10f.png)
+![exp2f](./results/timings/exp2f/exp2f.png)|![expf](./results/timings/expf/expf.png)|![expm1f](./results/timings/expm1f/expm1f.png)
+![fabsf](./results/timings/fabsf/fabsf.png)|![fabs](./results/timings/fabs/fabs.png)|![fdimf](./results/timings/fdimf/fdimf.png)
+![fdim](./results/timings/fdim/fdim.png)|![floorf](./results/timings/floorf/floorf.png)|![floor](./results/timings/floor/floor.png)
+![fmaf](./results/timings/fmaf/fmaf.png)|![fma](./results/timings/fma/fma.png)|![fmaxf](./results/timings/fmaxf/fmaxf.png)
+![fmax](./results/timings/fmax/fmax.png)|![fminf](./results/timings/fminf/fminf.png)|![fmin](./results/timings/fmin/fmin.png)
+![fmodf](./results/timings/fmodf/fmodf.png)|![fmod](./results/timings/fmod/fmod.png)|![hypotf](./results/timings/hypotf/hypotf.png)
+![nearbyint](./results/timings/nearbyint/nearbyint.png)|![nearbyintf](./results/timings/nearbyintf/nearbyintf.png)|![nextafter](./results/timings/nextafter/nextafter.png)
+![nextafterf](./results/timings/nextafterf/nextafterf.png)|![remainder](./results/timings/remainder/remainder.png)|![remainderf](./results/timings/remainderf/remainderf.png)
+![rint](./results/timings/rint/rint.png)|![rintf](./results/timings/rintf/rintf.png)|![round](./results/timings/round/round.png)
+![roundf](./results/timings/roundf/roundf.png)|![scalbn](./results/timings/scalbn/scalbn.png)|![scalbnf](./results/timings/scalbnf/scalbnf.png)
+![sinh](./results/timings/sinh/sinh.png)|![sinhf](./results/timings/sinhf/sinhf.png)|![sqrt](./results/timings/sqrt/sqrt.png)
+![sqrtf](./results/timings/sqrtf/sqrtf.png)|![tan](./results/timings/tan/tan.png)|![tanf](./results/timings/tanf/tanf.png)
+![tanh](./results/timings/tanh/tanh.png)|![tanhf](./results/timings/tanhf/tanhf.png)|![trunc](./results/timings/trunc/trunc.png)
+![truncf](./results/timings/truncf/truncf.png)|![hypot](./results/timings/hypot/hypot.png)|![ilogbf](./results/timings/ilogbf/ilogbf.png)
+![log10f](./results/timings/log10f/log10f.png)|![log10](./results/timings/log10/log10.png)|![log1pf](./results/timings/log1pf/log1pf.png)
+![log1p](./results/timings/log1p/log1p.png)|![log2f](./results/timings/log2f/log2f.png)|![log2](./results/timings/log2/log2.png)
+![logbf](./results/timings/logbf/logbf.png)|![logb](./results/timings/logb/logb.png)|![logf](./results/timings/logf/logf.png)
+![log](./results/timings/log/log.png)|![powf](./results/timings/powf/powf.png)|![pow](./results/timings/pow/pow.png)
+![sinf](./results/timings/sinf/sinf.png)|![sin](./results/timings/sin/sin.png)|

@@ -1,0 +1,27 @@
+# Error Plots
+| | | |
+|:-----:|:-----:|:-----:|
+![acosf](./results/output/acosf/acosf.png)|![acoshf](./results/output/acoshf/acoshf.png)|![asinf](./results/output/asinf/asinf.png)
+![asinhf](./results/output/asinhf/asinhf.png)|![atanf](./results/output/atanf/atanf.png)|![atanhf](./results/output/atanhf/atanhf.png)
+![ceilf](./results/output/ceilf/ceilf.png)|![copysignf](./results/output/copysignf/copysignf.png)|![copysign](./results/output/copysign/copysign.png)
+![cosf](./results/output/cosf/cosf.png)|![cos](./results/output/cos/cos.png)|![coshf](./results/output/coshf/coshf.png)
+![cosh](./results/output/cosh/cosh.png)|![erff](./results/output/erff/erff.png)|![exp10f](./results/output/exp10f/exp10f.png)
+![exp2f](./results/output/exp2f/exp2f.png)|![expf](./results/output/expf/expf.png)|![expm1f](./results/output/expm1f/expm1f.png)
+![fabsf](./results/output/fabsf/fabsf.png)|![fabs](./results/output/fabs/fabs.png)|![fdimf](./results/output/fdimf/fdimf.png)
+![fdim](./results/output/fdim/fdim.png)|![floorf](./results/output/floorf/floorf.png)|![floor](./results/output/floor/floor.png)
+![fmaf](./results/output/fmaf/fmaf.png)|![fma](./results/output/fma/fma.png)|![fmaxf](./results/output/fmaxf/fmaxf.png)
+![fmax](./results/output/fmax/fmax.png)|![fminf](./results/output/fminf/fminf.png)|![fmin](./results/output/fmin/fmin.png)
+![fmodf](./results/output/fmodf/fmodf.png)|![fmod](./results/output/fmod/fmod.png)|![hypotf](./results/output/hypotf/hypotf.png)
+![nearbyint](./results/output/nearbyint/nearbyint.png)|![nearbyintf](./results/output/nearbyintf/nearbyintf.png)|![nextafter](./results/output/nextafter/nextafter.png)
+![nextafterf](./results/output/nextafterf/nextafterf.png)|![remainder](./results/output/remainder/remainder.png)|![remainderf](./results/output/remainderf/remainderf.png)
+![rint](./results/output/rint/rint.png)|![rintf](./results/output/rintf/rintf.png)|![round](./results/output/round/round.png)
+![roundf](./results/output/roundf/roundf.png)|![scalbn](./results/output/scalbn/scalbn.png)|![scalbnf](./results/output/scalbnf/scalbnf.png)
+![sinh](./results/output/sinh/sinh.png)|![sinhf](./results/output/sinhf/sinhf.png)|![sqrt](./results/output/sqrt/sqrt.png)
+![sqrtf](./results/output/sqrtf/sqrtf.png)|![tan](./results/output/tan/tan.png)|![tanf](./results/output/tanf/tanf.png)
+![tanh](./results/output/tanh/tanh.png)|![tanhf](./results/output/tanhf/tanhf.png)|![trunc](./results/output/trunc/trunc.png)
+![truncf](./results/output/truncf/truncf.png)|![hypot](./results/output/hypot/hypot.png)|![ilogbf](./results/output/ilogbf/ilogbf.png)
+![log10f](./results/output/log10f/log10f.png)|![log10](./results/output/log10/log10.png)|![log1pf](./results/output/log1pf/log1pf.png)
+![log1p](./results/output/log1p/log1p.png)|![log2f](./results/output/log2f/log2f.png)|![log2](./results/output/log2/log2.png)
+![logbf](./results/output/logbf/logbf.png)|![logb](./results/output/logb/logb.png)|![logf](./results/output/logf/logf.png)
+![log](./results/output/log/log.png)|![powf](./results/output/powf/powf.png)|![pow](./results/output/pow/pow.png)
+![sinf](./results/output/sinf/sinf.png)|![sin](./results/output/sin/sin.png)|

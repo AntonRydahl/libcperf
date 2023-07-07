@@ -1,6 +1,8 @@
 #ifndef _GPU_MATH_ARRAY_
 #define _GPU_MATH_ARRAY_
 
+#include <fstream>
+#include <iomanip>
 #include <omp.h>
 
 namespace gpumath {
@@ -31,6 +33,7 @@ namespace gpumath {
             int_t length() const {return _length;};
             void reshape(int_t l);
             T infinity_norm() const;
+            void save(std::string filename);
     };
 
     template <class T>
@@ -108,5 +111,16 @@ namespace gpumath {
 		}
 		return res;
 	}
+
+        template <class T> void Array<T>::save(std::string filename) {
+                if (this->_on_device)
+                        this->to_host();
+                std::ofstream result_file(filename);
+                for (int_t i = 0; i < this->_length; i++) {
+                        result_file << std::fixed << std::setprecision(32)
+                                    << this->_hostptr[i] << std::endl;
+                }
+                result_file.close();
+        }
 }
 #endif
