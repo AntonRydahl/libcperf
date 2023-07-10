@@ -42,6 +42,35 @@ double apply_fun_gpu(std::tuple<Array<args>...> &input, Array<T> &output) {
   return omp_get_wtime() - cmath_time;
 }
 
+template <void (*F)(ARGS), typename... args>
+double apply_fun_gpu(std::tuple<Array<args>...> &input) {
+  const int_t length = std::get<0>(input).length();
+  const int_t device = std::get<0>(input).device();
+  const auto *inptr1 = std::get<0>(input).devptr();
+  double_t cmath_time = omp_get_wtime();
+#if NARGS == 1
+#pragma omp target teams distribute parallel for is_device_ptr(inptr1) \
+    device(device)
+  for (int_t i = 0; i < length; i++)
+    F(inptr1[i]);
+#else
+  const auto *inptr2 = std::get<1>(input).devptr();
+#if NARGS == 2
+#pragma omp target teams distribute parallel for is_device_ptr(                \
+        inptr1, inptr2) device(device)
+  for (int_t i = 0; i < length; i++)
+    F(inptr1[i], inptr2[i]);
+#else
+  const auto *inptr3 = std::get<2>(input).devptr();
+#pragma omp target teams distribute parallel for is_device_ptr(                \
+        inptr1, inptr2, inptr3) device(device)
+  for (int_t i = 0; i < length; i++)
+    F(inptr1[i], inptr2[i], inptr3[i]);
+#endif
+#endif
+  return omp_get_wtime() - cmath_time;
+}
+
 template <class T, T (*F)(ARGS), typename... args>
 double apply_fun_cpu(std::tuple<Array<args>...> &input, Array<T> &output) {
   assert(std::get<0>(input).length() == output.length());
@@ -80,7 +109,11 @@ void gpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
   std::ofstream result_file(filename);
   double_t total_time = 0.0;
   for (int t = 0; t < tests; t++) {
-    const double_t cmath_time = apply_fun_gpu<T, F>(input, output);
+#ifdef VOIDRETTYPE
+    const double_t cmath_time = apply_fun_gpu<F, args...>(input);
+#else
+    const double_t cmath_time = apply_fun_gpu<T, F, args...>(input, output);
+#endif
     result_file << 1000.0 * cmath_time << std::endl;
     total_time += cmath_time;
     std::cout << "\r\tFinished iteration " << t + 1 << " of " << tests;
@@ -132,7 +165,11 @@ void save_range_result_gpu(std::tuple<Array<args>...> &input, Array<T> &output,
 #endif
   if (!output.on_device())
     output.to_device();
+#ifdef VOIDRETTYPE
+  apply_fun_gpu<F, args...>(input);
+#else
   apply_fun_gpu<T, F, args...>(input, output);
+#endif
   output.save(filename);
   std::cout << "Results written to: " << filename << std::endl;
 }

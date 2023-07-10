@@ -1,6 +1,7 @@
 #ifndef _GPU_MATH_ARRAY_
 #define _GPU_MATH_ARRAY_
 
+#include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <omp.h>
@@ -78,7 +79,7 @@ namespace gpumath {
         }
 	}
 
-        template <class T> void Array<T>::reshape(int_t l) {
+    template <class T> void Array<T>::reshape(int_t l) {
         this->_length = l;
         free(this->_hostptr);
         this->_hostptr = (T *)malloc((int)this->_length * sizeof(T));
@@ -93,7 +94,7 @@ namespace gpumath {
             std::cerr << "Error allocating Array on device " << this->_device
                       << std::endl;
         }
-        }
+    }
 
     template<class T>
 	T Array<T>::infinity_norm() const{
@@ -122,5 +123,36 @@ namespace gpumath {
                 }
                 result_file.close();
         }
+
+    template <>
+	Array<void>::Array(int_t l, int_t d, int_t h) : _length{l}, _host{h}, _device{d} {
+        this->_hostptr = NULL;
+		this->_devptr = NULL;
+    }
+
+    template <>
+	Array<void>::~Array(){
+        // Nothing happens since nothing was alocated
+    }
+
+    template <>
+	void Array<void>::to_device() {
+		_on_device = true;
+	}
+
+    template <>
+	void Array<void>::to_host() {
+		_on_device = false;
+	}
+
+    template <> 
+    void Array<void>::reshape(int_t l) {
+        this->_length = l;
+    }
+
+    template <> 
+    void Array<void>::save(std::string filename) {
+
+    }
 }
 #endif
