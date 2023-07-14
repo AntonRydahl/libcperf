@@ -113,16 +113,17 @@ namespace gpumath {
 		return res;
 	}
 
-        template <class T> void Array<T>::save(std::string filename) {
-                if (this->_on_device)
-                        this->to_host();
-                std::ofstream result_file(filename);
-                for (int_t i = 0; i < this->_length; i++) {
-                        result_file << std::fixed << std::setprecision(32)
-                                    << this->_hostptr[i] << std::endl;
-                }
-                result_file.close();
+    template <class T> 
+    void Array<T>::save(std::string filename) {
+        if (this->_on_device)
+            this->to_host();
+        std::ofstream result_file(filename);
+        for (int_t i = 0; i < this->_length; i++) {
+            result_file << std::fixed << std::setprecision(32)
+                << this->_hostptr[i] << std::endl;
         }
+        result_file.close();
+    }
 
     template <>
 	Array<void>::Array(int_t l, int_t d, int_t h) : _length{l}, _host{h}, _device{d} {

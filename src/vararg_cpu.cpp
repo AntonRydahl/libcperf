@@ -23,6 +23,12 @@
 #define xstr(a) strmacro(a)
 #define strmacro(a) #a
 
+#ifndef PTRARGS
+#define PTRARGS ARGS
+#else
+#define REFERENCEARGS 1
+#endif
+
 #include "array.h"
 #include "compare.h"
 #include "range.h"

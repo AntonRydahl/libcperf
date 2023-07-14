@@ -1,11 +1,13 @@
-cd ../LLVM2
 module load ninja
+ROOTDIR=`pwd`
+TARGETDIR=/dev/shm/rydahl1/LLVM
+mkdir -p $TARGETDIR
+cd $TARGETDIR
 rm -rf build
 mkdir build
 rm -rf install
 mkdir install
-ROOTDIR=`pwd`
-INSTALLDIR=$ROOTDIR/install
+INSTALLDIR=$TARGETDIR/install
 cd build
 module load rocm
 
@@ -27,12 +29,11 @@ cmake \
 	-DLIBC_GPU_ARCHITECTURES=gfx906 \
 	-DLIBC_GPU_TEST_ARCHITECTURE=gfx906 \
         -DLIBC_GPU_VENDOR_MATH=ON \
-        -DLIBC_GPU_LIBC_MATH=OFF \
-        ../llvm-project/llvm
+        -DLIBC_GPU_BUILTIN_ONLY=ON \
+        /g/g92/rydahl1/LLVM2/llvm-project/llvm
 
 ninja install -j 63
 
-export PATH=$ROOTDIR/install/bin/:$PATH
-export LD_LIBRARY_PATH=$ROOTDIR/install/lib/:$LD_LIBRARY_PATH
-cd ..
-cd ../mathperf
+export PATH=$TARGETDIR/install/bin/:$PATH
+export LD_LIBRARY_PATH=$TARGETDIR/install/lib/:$LD_LIBRARY_PATH
+cd $ROOTDIR

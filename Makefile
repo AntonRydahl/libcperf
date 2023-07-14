@@ -27,6 +27,10 @@ ifdef ARGS
 CFLAGS += -DARGS=$(ARGS)
 endif
 
+ifdef PTRARGS
+CFLAGS += -DPTRARGS=$(PTRARGS)
+endif
+
 ifdef RETTYPE
 CFLAGS += -DRETTYPE=$(RETTYPE)
 endif

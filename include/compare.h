@@ -11,7 +11,7 @@
 
 namespace gpumath {
 
-template <class T, T (*F)(ARGS), typename... args>
+template <class T, T (*F)(PTRARGS), typename... args>
 double apply_fun_gpu(std::tuple<Array<args>...> &input, Array<T> &output) {
   assert(std::get<0>(input).length() == output.length());
   const int_t length = output.length();
@@ -25,24 +25,32 @@ double apply_fun_gpu(std::tuple<Array<args>...> &input, Array<T> &output) {
   for (int_t i = 0; i < length; i++)
     outptr[i] = F(inptr1[i]);
 #else
-  const auto *inptr2 = std::get<1>(input).devptr();
+  auto *inptr2 = std::get<1>(input).devptr();
 #if NARGS == 2
 #pragma omp target teams distribute parallel for is_device_ptr(                \
         outptr, inptr1, inptr2) device(device)
   for (int_t i = 0; i < length; i++)
-    outptr[i] = F(inptr1[i], inptr2[i]);
+#ifdef REFERENCEARGS
+    outptr[i] = F(inptr1[i], &inptr2[i]);
 #else
-  const auto *inptr3 = std::get<2>(input).devptr();
+    outptr[i] = F(inptr1[i], inptr2[i]);
+#endif
+#else
+  auto *inptr3 = std::get<2>(input).devptr();
 #pragma omp target teams distribute parallel for is_device_ptr(                \
         outptr, inptr1, inptr2, inptr3) device(device)
   for (int_t i = 0; i < length; i++)
+#ifdef REFERENCEARGS
+    outptr[i] = F(inptr1[i], &inptr2[i], &inptr3[i]);
+#else
     outptr[i] = F(inptr1[i], inptr2[i], inptr3[i]);
+#endif
 #endif
 #endif
   return omp_get_wtime() - cmath_time;
 }
 
-template <void (*F)(ARGS), typename... args>
+template <void (*F)(PTRARGS), typename... args>
 double apply_fun_gpu(std::tuple<Array<args>...> &input) {
   const int_t length = std::get<0>(input).length();
   const int_t device = std::get<0>(input).device();
@@ -54,24 +62,32 @@ double apply_fun_gpu(std::tuple<Array<args>...> &input) {
   for (int_t i = 0; i < length; i++)
     F(inptr1[i]);
 #else
-  const auto *inptr2 = std::get<1>(input).devptr();
+  auto *inptr2 = std::get<1>(input).devptr();
 #if NARGS == 2
 #pragma omp target teams distribute parallel for is_device_ptr(                \
         inptr1, inptr2) device(device)
   for (int_t i = 0; i < length; i++)
-    F(inptr1[i], inptr2[i]);
+#ifdef REFERENCEARGS
+    F(inptr1[i], &inptr2[i]);
 #else
-  const auto *inptr3 = std::get<2>(input).devptr();
+    F(inptr1[i], inptr2[i]);
+#endif
+#else
+  auto *inptr3 = std::get<2>(input).devptr();
 #pragma omp target teams distribute parallel for is_device_ptr(                \
         inptr1, inptr2, inptr3) device(device)
   for (int_t i = 0; i < length; i++)
+#ifdef REFERENCEARGS
+    F(inptr1[i], &inptr2[i], &inptr3[i]);
+#else
     F(inptr1[i], inptr2[i], inptr3[i]);
+#endif
 #endif
 #endif
   return omp_get_wtime() - cmath_time;
 }
 
-template <class T, T (*F)(ARGS), typename... args>
+template <class T, T (*F)(PTRARGS), typename... args>
 double apply_fun_cpu(std::tuple<Array<args>...> &input, Array<T> &output) {
   assert(std::get<0>(input).length() == output.length());
   assert(!output.on_device());
@@ -90,19 +106,27 @@ double apply_fun_cpu(std::tuple<Array<args>...> &input, Array<T> &output) {
 #if NARGS == 2
 #pragma omp parallel for
   for (int_t i = 0; i < length; i++)
+#ifdef REFERENCEARGS
+    outptr[i] = F(inptr1[i], &inptr2[i]);
+#else
     outptr[i] = F(inptr1[i], inptr2[i]);
+#endif
 #else
   assert(!std::get<2>(input).on_device());
-  const auto *inptr3 = std::get<2>(input).hostptr();
+  auto *inptr3 = std::get<2>(input).hostptr();
 #pragma omp parallel for
   for (int_t i = 0; i < length; i++)
+#ifdef REFERENCEARGS
+    outptr[i] = F(inptr1[i], &inptr2[i], &inptr3[i]);
+#else
     outptr[i] = F(inptr1[i], inptr2[i], inptr3[i]);
+#endif
 #endif
 #endif
   return omp_get_wtime() - cmath_time;
 }
 
-template <class T, T (*F)(ARGS), typename... args>
+template <class T, T (*F)(PTRARGS), typename... args>
 void gpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
               std::string filename, int_t tests = 500) {
   assert(output.on_device());
@@ -123,7 +147,7 @@ void gpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
   std::cout << "Timings written to: " << filename << std::endl;
 }
 
-template <class T, T (*F)(ARGS), typename... args>
+template <class T, T (*F)(PTRARGS), typename... args>
 void cpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
               std::string filename, int_t tests = 100) {
   assert(!output.on_device());
@@ -150,7 +174,7 @@ void cpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
   std::cout << "Timings written to: " << filename << std::endl;
 }
 
-template <class T, T (*F)(ARGS), typename... args>
+template <class T, T (*F)(PTRARGS), typename... args>
 void save_range_result_gpu(std::tuple<Array<args>...> &input, Array<T> &output,
                            std::string filename) {
   if (!std::get<0>(input).on_device())
@@ -174,7 +198,7 @@ void save_range_result_gpu(std::tuple<Array<args>...> &input, Array<T> &output,
   std::cout << "Results written to: " << filename << std::endl;
 }
 
-template <class T, T (*F)(ARGS), typename... args>
+template <class T, T (*F)(PTRARGS), typename... args>
 void save_range_result_cpu(std::tuple<Array<args>...> &input, Array<T> &output,
                            std::string filename) {
   if (std::get<0>(input).on_device())
