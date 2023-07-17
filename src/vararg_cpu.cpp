@@ -25,8 +25,6 @@
 
 #ifndef PTRARGS
 #define PTRARGS ARGS
-#else
-#define REFERENCEARGS 1
 #endif
 
 #include "array.h"
@@ -34,6 +32,10 @@
 #include "range.h"
 #include <iostream>
 #include <tuple>
+
+// inline double mysin(double x){
+//   return __builtin_sin(x);
+// }
 
 template <typename... args> void timings(std::string hostname) {
   std::tuple<gpumath::Array<args>...> input;

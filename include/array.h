@@ -123,6 +123,7 @@ namespace gpumath {
                 << this->_hostptr[i] << std::endl;
         }
         result_file.close();
+        std::cout << "Results written to " << filename << std::endl;
     }
 
     template <>

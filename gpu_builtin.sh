@@ -2,34 +2,26 @@
 source .bashrc
 module load rocm
 rocm-smi
-ls -a
-for filename in ../LLVM2/llvm-project/libc/src/math/gpu/*.cpp; do
-    tmp=$(basename "$filename" .txt)
-    fun=${tmp%.*}
-    ARGSTR=$(cat ../LLVM2/llvm-project/libc/src/math/${fun}.h | grep "(*)") #| cut -d " " -f1
-    if [ -z "$ARGSTR" ]; then
-        echo "Skipping $fun. Headerfile not found."
+source bashhelpers/get_args.sh
+source bashhelpers/get_rettype.sh
+
+for filename in ../LLVM2/llvm-project/libc/src/math/*.h; do
+    tmp=$(basename "$filename" .h)
+    if [[ "${tmp:0-1}" == "l" ]]  && [[ "$tmp" != *"ceil."* ]]; then
+        echo "Skipping long double function: ${tmp}"
         continue
     fi
-    RETTYPE=$(echo $ARGSTR | cut -d " " -f1)
-
-    args=$(echo $ARGSTR | cut -d "(" -f2)
-    args=$(echo $args | cut -d ")" -f1)
-    ARGS="";
-    NARGS=0
-    for arg in ${args//,/ }; do
-        if [ ${#arg} -gt 2 ]; then
-            if [ -z "$ARGS" ]; then
-                ARGS="$arg"
-            else
-                ARGS="$ARGS,$arg"
-            fi
-            NARGS=$(($NARGS+1))
-        fi
-    done
-    VENDORFUN=$fun
-    mkdir -p figures/results/timings/$fun/device
-    mkdir -p figures/results/output/$fun/device
-    make clean; make APP=vararg_gpu FUNCTION=$VENDORFUN RETTYPE=$RETTYPE ARGS=$ARGS NARGS=$NARGS PREFIX="$fun/device/__builtin_"
-    ./bin/vararg_gpu
+    if [[ "$tmp" == *"utils"* ]] || [[ "$tmp" == *"common"* ]] || [[ "$tmp" == *"explogxf"* ]]; then
+        echo "Skipping utility file."
+        continue
+    fi
+    FUN=${tmp%.*}
+    ARGS=$(get_args $FUN)
+    RETTYPE=$(get_rettype $FUN)
+    make clean;
+    if make APP=vararg_gpu FUNCTION="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/device/__builtin_"; then
+        mkdir -p figures/results/timings/$FUN/device
+        mkdir -p figures/results/output/$FUN/device
+        ./bin/vararg_gpu
+    fi
 done

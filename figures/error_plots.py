@@ -39,12 +39,12 @@ def make_error_plot(funname,dir,readme):
     if not os.path.exists(devdir):
         print(f"No such directory: {devdir}")
         return
-    devicefiles = [f for f in os.listdir(devdir) if os.path.isfile(os.path.join(devdir, f))]
+    devicefiles = [f for f in os.listdir(devdir) if os.path.isfile(os.path.join(devdir, f)) and not("_1" in f) and not("_2" in f)]
     hostdir = os.path.join(dir,"host/")
     if not os.path.exists(hostdir):
         print(f"No such directory: {hostdir}")
         return
-    hostfiles = [f for f in os.listdir(hostdir) if os.path.isfile(os.path.join(hostdir, f))]
+    hostfiles = [f for f in os.listdir(hostdir) if os.path.isfile(os.path.join(hostdir, f)) and not("_1" in f) and not("_2" in f)]
 
     if not hostfiles or not devicefiles:
         print(f"Missing host or device files")
@@ -70,15 +70,18 @@ def make_error_plot(funname,dir,readme):
         data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
         med = np.median(data)
         color='green'
+        marker='o'
         if "ocml" in fun:
             color='orange'
+            marker='x'
         if "builtin" in fun:
             color='cornflowerblue'
+            marker='d'
         data = data - reference
         data = abs(data)
         xtmp = x[finite(tmp)]
         data = data[finite(tmp)]
-        plt.scatter(xtmp,data, color=color, label=f" {fun}")
+        plt.scatter(xtmp,data, color=color, label=f" {fun}", marker=marker)
 
     plt.ylim([0,max(1.05*maxval,1e-100)])
     plt.legend(loc='upper right')

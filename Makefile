@@ -11,6 +11,9 @@ target: bin
 
 CFLAGS = $(OPT) -Wall -std=c++2a -Iinclude -nogpuinc
 
+comma:= ,
+star:= *
+
 ifdef FUNCTION
 CFLAGS += -DFUNCTION=$(FUNCTION)
 endif
@@ -19,27 +22,34 @@ ifdef PREFIX
 CFLAGS += -DPREFIX=$(PREFIX)
 endif
 
-ifdef NARGS
-CFLAGS += -DNARGS=$(NARGS)
-endif
+# Finding the number of arguments as the number of commas plus one. The first comma is to increment by one.
+CFLAGS += -DNARGS=$(shell echo ,$(ARGS) | tr -cd , | wc -c)
 
+# Defining argument types with and without pointers
 ifdef ARGS
-CFLAGS += -DARGS=$(ARGS)
-endif
-
-ifdef PTRARGS
-CFLAGS += -DPTRARGS=$(PTRARGS)
+CFLAGS += -DARGS="$(subst $(star),,$(ARGS))"
+CFLAGS += -DPTRARGS="$(ARGS)"
 endif
 
 ifdef RETTYPE
-CFLAGS += -DRETTYPE=$(RETTYPE)
+CFLAGS += -DRETTYPE="$(RETTYPE)"
 endif
 
-ifdef VOIDRETTYPE
+# If the return type is void, this case must be handled in a special way.
+ifeq ($(RETTYPE),void)
 CFLAGS += -DVOIDRETTYPE
 endif
 
-#CFLAGS += -DARGS=double -DRETTYPE=double -DNARGS=1 -DVENDORFUN=__ocml_sinh_f64 -DBUILTINFUN=sinh
+getarg = $(word $1,$(subst $(comma), ,$(ARGS)))
+ifneq ($(findstring $(star),$(call getarg,1)),)
+CFLAGS += -DARG1POINTER
+endif
+ifneq ($(findstring $(star),$(call getarg,2)),)
+CFLAGS += -DARG2POINTER
+endif
+ifneq ($(findstring $(star),$(call getarg,3)),)
+CFLAGS += -DARG3POINTER
+endif
 
 OMPTARGET=amdgcn-amd-amdhsa
 OFFLOADARCH=gfx906
@@ -48,10 +58,14 @@ CFLAGS += -fopenmp
 CFLAGS += -fopenmp-targets=$(OMPTARGET) --offload-arch=$(OFFLOADARCH)
 CFLAGS += -fopenmp-offload-mandatory #--offload-device-only
 CFLAGS += -foffload-lto
-LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomptarget
 LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomp
+ifdef LINKCPULIBC
+LDFLAGS += -lm
+else
+LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomptarget
 LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomptarget.devicertl
-LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -L/dev/shm/rydahl1/LLVM/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu -lm
+LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib/x86_64-unknown-linux-gnu -lmgpu
+endif
 #LDFLAGS += -Xlinker --verbose
 
 # Compiling source to binary

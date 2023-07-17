@@ -1,13 +1,35 @@
 #ifndef _GPU_MATH_COMPARE_
 #define _GPU_MATH_COMPARE_
 
-#include <omp.h>
-#include <cassert>  
-#include <iostream>
-#include <fstream>
 #include "array.h"
-#include <cmath>
+#include <cassert>
+#include <fstream>
+#include <iostream>
+#include <omp.h>
 #include <tuple>
+
+#ifdef ARG1POINTER
+#define call1(arg) &arg
+#else
+#define call1(arg) arg
+#endif
+
+#ifdef ARG2POINTER
+#define call2(arg) &arg
+#else
+#define call2(arg) arg
+#endif
+
+#ifdef ARG3POINTER
+#define call3(arg) &arg
+#else
+#define call3(arg) arg
+#endif
+
+#define FUNCALL1(fun, arg1) fun(call1(arg1))
+#define FUNCALL2(fun, arg1, arg2) fun(call1(arg1), call2(arg2))
+#define FUNCALL3(fun, arg1, arg2, arg3)                                        \
+  fun(call1(arg1), call2(arg2), call3(arg3))
 
 namespace gpumath {
 
@@ -23,28 +45,20 @@ double apply_fun_gpu(std::tuple<Array<args>...> &input, Array<T> &output) {
 #pragma omp target teams distribute parallel for is_device_ptr(outptr, inptr1) \
     device(device)
   for (int_t i = 0; i < length; i++)
-    outptr[i] = F(inptr1[i]);
+    outptr[i] = FUNCALL1(F, inptr1[i]);
 #else
   auto *inptr2 = std::get<1>(input).devptr();
 #if NARGS == 2
 #pragma omp target teams distribute parallel for is_device_ptr(                \
         outptr, inptr1, inptr2) device(device)
   for (int_t i = 0; i < length; i++)
-#ifdef REFERENCEARGS
-    outptr[i] = F(inptr1[i], &inptr2[i]);
-#else
-    outptr[i] = F(inptr1[i], inptr2[i]);
-#endif
+    outptr[i] = FUNCALL2(F, inptr1[i], inptr2[i]);
 #else
   auto *inptr3 = std::get<2>(input).devptr();
 #pragma omp target teams distribute parallel for is_device_ptr(                \
         outptr, inptr1, inptr2, inptr3) device(device)
   for (int_t i = 0; i < length; i++)
-#ifdef REFERENCEARGS
-    outptr[i] = F(inptr1[i], &inptr2[i], &inptr3[i]);
-#else
-    outptr[i] = F(inptr1[i], inptr2[i], inptr3[i]);
-#endif
+    outptr[i] = FUNCALL3(F, inptr1[i], inptr2[i], inptr3[i]);
 #endif
 #endif
   return omp_get_wtime() - cmath_time;
@@ -60,28 +74,20 @@ double apply_fun_gpu(std::tuple<Array<args>...> &input) {
 #pragma omp target teams distribute parallel for is_device_ptr(inptr1) \
     device(device)
   for (int_t i = 0; i < length; i++)
-    F(inptr1[i]);
+    FUNCALL1(F, inptr1[i]);
 #else
   auto *inptr2 = std::get<1>(input).devptr();
 #if NARGS == 2
 #pragma omp target teams distribute parallel for is_device_ptr(                \
         inptr1, inptr2) device(device)
   for (int_t i = 0; i < length; i++)
-#ifdef REFERENCEARGS
-    F(inptr1[i], &inptr2[i]);
-#else
-    F(inptr1[i], inptr2[i]);
-#endif
+    FUNCALL2(F, inptr1[i], inptr2[i]);
 #else
   auto *inptr3 = std::get<2>(input).devptr();
 #pragma omp target teams distribute parallel for is_device_ptr(                \
         inptr1, inptr2, inptr3) device(device)
   for (int_t i = 0; i < length; i++)
-#ifdef REFERENCEARGS
-    F(inptr1[i], &inptr2[i], &inptr3[i]);
-#else
-    F(inptr1[i], inptr2[i], inptr3[i]);
-#endif
+    FUNCALL3(F, inptr1[i], inptr2[i], inptr3[i]);
 #endif
 #endif
   return omp_get_wtime() - cmath_time;
@@ -99,28 +105,48 @@ double apply_fun_cpu(std::tuple<Array<args>...> &input, Array<T> &output) {
 #if NARGS == 1
 #pragma omp parallel for
   for (int_t i = 0; i < length; i++)
-    outptr[i] = F(inptr1[i]);
+    outptr[i] = FUNCALL1(F, inptr1[i]);
 #else
-  const auto *inptr2 = std::get<1>(input).hostptr();
+  auto *inptr2 = std::get<1>(input).hostptr();
   assert(!std::get<1>(input).on_device());
 #if NARGS == 2
 #pragma omp parallel for
   for (int_t i = 0; i < length; i++)
-#ifdef REFERENCEARGS
-    outptr[i] = F(inptr1[i], &inptr2[i]);
-#else
-    outptr[i] = F(inptr1[i], inptr2[i]);
-#endif
+    outptr[i] = FUNCALL2(F, inptr1[i], inptr2[i]);
 #else
   assert(!std::get<2>(input).on_device());
   auto *inptr3 = std::get<2>(input).hostptr();
 #pragma omp parallel for
   for (int_t i = 0; i < length; i++)
-#ifdef REFERENCEARGS
-    outptr[i] = F(inptr1[i], &inptr2[i], &inptr3[i]);
-#else
-    outptr[i] = F(inptr1[i], inptr2[i], inptr3[i]);
+    outptr[i] = FUNCALL3(F, inptr1[i], inptr2[i], inptr3[i]);
 #endif
+#endif
+  return omp_get_wtime() - cmath_time;
+}
+
+template <void (*F)(PTRARGS), typename... args>
+double apply_fun_cpu(std::tuple<Array<args>...> &input) {
+  assert(!std::get<0>(input).on_device());
+  const int_t length = std::get<0>(input).length();
+  auto *inptr1 = std::get<0>(input).hostptr();
+  double_t cmath_time = omp_get_wtime();
+#if NARGS == 1
+#pragma omp parallel for
+  for (int_t i = 0; i < length; i++)
+    FUNCALL1(F, inptr1[i]);
+#else
+  auto *inptr2 = std::get<1>(input).hostptr();
+  assert(!std::get<1>(input).on_device());
+#if NARGS == 2
+#pragma omp parallel for
+  for (int_t i = 0; i < length; i++)
+    FUNCALL2(F, inptr1[i], inptr2[i]);
+#else
+  assert(!std::get<2>(input).on_device());
+  auto *inptr3 = std::get<2>(input).hostptr();
+#pragma omp parallel for
+  for (int_t i = 0; i < length; i++)
+    FUNCALL3(F, inptr1[i], inptr2[i], inptr3[i]);
 #endif
 #endif
   return omp_get_wtime() - cmath_time;
@@ -142,7 +168,7 @@ void gpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
     total_time += cmath_time;
     std::cout << "\r\tFinished iteration " << t + 1 << " of " << tests;
   }
-  std::cout << "\rGPU function took " << (100.0 * total_time) / ((double)tests)
+  std::cout << "\rGPU function took " << (1000.0 * total_time) / ((double)tests)
             << " ms on average " << std::endl;
   std::cout << "Timings written to: " << filename << std::endl;
 }
@@ -164,12 +190,17 @@ void cpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
   std::ofstream result_file(filename);
   double_t total_time = 0.0;
   for (int t = 0; t < tests; t++) {
+#ifdef VOIDRETTYPE
+    const double_t cmath_time = apply_fun_cpu<F>(input);
+#else
     const double_t cmath_time = apply_fun_cpu<T, F>(input, output);
+#endif
+    // Conversion from seconds to miliseconds
     result_file << 1000.0 * cmath_time << std::endl;
     total_time += cmath_time;
     std::cout << "\r\tFinished iteration " << t + 1 << " of " << tests;
   }
-  std::cout << "\rCPU function took " << (100.0 * total_time) / ((double)tests)
+  std::cout << "\rCPU function took " << (1000.0 * total_time) / ((double)tests)
             << " ms on average " << std::endl;
   std::cout << "Timings written to: " << filename << std::endl;
 }
@@ -195,7 +226,17 @@ void save_range_result_gpu(std::tuple<Array<args>...> &input, Array<T> &output,
   apply_fun_gpu<T, F, args...>(input, output);
 #endif
   output.save(filename);
-  std::cout << "Results written to: " << filename << std::endl;
+  // Some functions write results to input variables, if they are of pointer
+  // type
+#ifdef ARG1POINTER
+  std::get<0>(input).save(filename + "_0");
+#endif
+#ifdef ARG2POINTER
+  std::get<1>(input).save(filename + "_1");
+#endif
+#ifdef ARG3POINTER
+  std::get<2>(input).save(filename + "_2");
+#endif
 }
 
 template <class T, T (*F)(PTRARGS), typename... args>
@@ -213,9 +254,23 @@ void save_range_result_cpu(std::tuple<Array<args>...> &input, Array<T> &output,
 #endif
   if (output.on_device())
     output.to_host();
+#ifdef VOIDRETTYPE
+  apply_fun_cpu<F, args...>(input);
+#else
   apply_fun_cpu<T, F, args...>(input, output);
+#endif
   output.save(filename);
-  std::cout << "Results written to: " << filename << std::endl;
+  // Some functions write results to input variables, if they are of pointer
+  // type
+#ifdef ARG1POINTER
+  std::get<0>(input).save(filename + "_0");
+#endif
+#ifdef ARG2POINTER
+  std::get<1>(input).save(filename + "_1");
+#endif
+#ifdef ARG3POINTER
+  std::get<2>(input).save(filename + "_2");
+#endif
 }
 }
 
