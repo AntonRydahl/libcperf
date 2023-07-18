@@ -4,8 +4,8 @@ rocm-smi
 source bashhelpers/get_args.sh
 source bashhelpers/get_rettype.sh
 export OMP_NUM_THREADS=63
-for filename in ../LLVM2/llvm-project/libc/src/math/generic/*.cpp; do
-    tmp=$(basename "$filename" .cpp)
+for filename in ../LLVM2/llvm-project/libc/src/math/*.h; do
+    tmp=$(basename "$filename" .h)
     if [[ "${tmp:0-1}" == "l" ]]  && [[ "$filename" != *"ceil."* ]]; then
         echo "Skipping long double function: ${tmp}"
         continue

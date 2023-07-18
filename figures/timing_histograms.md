@@ -1,5 +1,5 @@
 # Timings for Host and Device Versions of the Math Library
-| | | |
+| Using LIBC Host Solution for Reference | Using Built-in Host Solution for Reference |
 |:-----:|:-----:|:-----:|
 ![acosf](./results/timings/acosf/acosf_device_only.png)|![acoshf](./results/timings/acoshf/acoshf_device_only.png)|![asinf](./results/timings/asinf/asinf_device_only.png)
 ![asinhf](./results/timings/asinhf/asinhf_device_only.png)|![atanf](./results/timings/atanf/atanf_device_only.png)|![atanhf](./results/timings/atanhf/atanhf_device_only.png)
@@ -28,3 +28,6 @@
 ![sinf](./results/timings/sinf/sinf_device_only.png)|![sinhf](./results/timings/sinhf/sinhf_device_only.png)|![sqrt](./results/timings/sqrt/sqrt_device_only.png)
 ![sqrtf](./results/timings/sqrtf/sqrtf_device_only.png)|![tanf](./results/timings/tanf/tanf_device_only.png)|![tanhf](./results/timings/tanhf/tanhf_device_only.png)
 ![trunc](./results/timings/trunc/trunc_device_only.png)|![truncf](./results/timings/truncf/truncf_device_only.png)|![ceil](./results/timings/ceil/ceil_device_only.png)
+![cosh](./results/timings/cosh/cosh_device_only.png)|![sinh](./results/timings/sinh/sinh_device_only.png)|![tan](./results/timings/tan/tan_device_only.png)
+![tanh](./results/timings/tanh/tanh_device_only.png)|![cos](./results/timings/cos/cos_device_only.png)|![powf](./results/timings/powf/powf_device_only.png)
+![pow](./results/timings/pow/pow_device_only.png)|![sin](./results/timings/sin/sin_device_only.png)|

@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 import sys, getopt
 import os
 
-plots_per_line = 3
-plot_counter = 1
+plots_per_line = 2
 
 def main():
     prevfun = ""
@@ -31,8 +30,6 @@ def main():
     readme.close()
 
 def make_error_plot(funname,dir,readme):
-    global plot_counter
-    global plots_per_line
     print(f"Making error plots for {funname}")
     print(os.path.join(dir,"device"))
     devdir = os.path.join(dir,"device/")
@@ -50,52 +47,62 @@ def make_error_plot(funname,dir,readme):
         print(f"Missing host or device files")
         return
 
-    maxval = 1e-100
-    reference = 0
-    for fun in hostfiles:
-        data = np.loadtxt(os.path.join(hostdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+    libcfound = False
+    builtinfound = False
+
+    for hostfun in hostfiles:
+        data = np.loadtxt(os.path.join(hostdir,hostfun), comments="#", delimiter="\n", unpack=False,dtype='double')
         reference = data
-        break
-    
-    for fun in devicefiles:
-        data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
-        tmp = data-reference
-        maxval = max(maxval,max(abs(tmp[finite(tmp)])))
+        maxval = 1e-100    
+        for fun in devicefiles:
+            data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+            tmp = data-reference
+            maxval = max(maxval,max(abs(tmp[finite(tmp)])))
+            
+        x = np.linspace(-np.pi,np.pi,len(reference))
         
-    x = np.linspace(-np.pi,np.pi,len(reference))
-    
-    plt.figure()
+        plt.figure()
 
-    for fun in devicefiles:
-        data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
-        med = np.median(data)
-        color='green'
-        marker='o'
-        if "ocml" in fun:
-            color='orange'
-            marker='x'
-        if "builtin" in fun:
-            color='cornflowerblue'
-            marker='d'
-        data = data - reference
-        data = abs(data)
-        xtmp = x[finite(tmp)]
-        data = data[finite(tmp)]
-        plt.scatter(xtmp,data, color=color, label=f" {fun}", marker=marker)
+        for fun in devicefiles:
+            data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+            med = np.median(data)
+            color='green'
+            marker='o'
+            if "ocml" in fun:
+                color='orange'
+                marker='x'
+            if "builtin" in fun:
+                color='cornflowerblue'
+                marker='d'
+            data = data - reference
+            data = abs(data)
+            xtmp = x[finite(tmp)]
+            data = data[finite(tmp)]
+            plt.scatter(xtmp,data, color=color, label=f" {fun}", marker=marker)
 
-    plt.ylim([0,max(1.05*maxval,1e-100)])
-    plt.legend(loc='upper right')
-    plt.xlabel('$x$',fontsize=15)
-    plt.ylabel('$|\hat{f}(x)-f(x)|$',fontsize=15)
-    plt.title(funname)
-    plt.savefig(f"{dir}/{funname}.png")
-    plt.close()
+        plt.ylim([0,max(1.05*maxval,1e-100)])
+        plt.legend(loc='upper right')
+        plt.xlabel('$x$',fontsize=15)
+        plt.ylabel('$|\hat{f}(x)-f(x)|$',fontsize=15)
+        if "builtin" in hostfun:
+            builtinfound = True
+            plt.title(f"{funname} - LIBC Reference")
+            plt.savefig(f"{dir}/{funname}_libc.png")
+        else:
+            libcfound = True
+            plt.title(f"{funname} - Built-in Reference")
+            plt.savefig(f"{dir}/{funname}_builtin.png")
+        plt.close()
 
-    if (plot_counter % plots_per_line) == 0:
-        readme.write(f"![{funname}]({dir}/{funname}.png)\n")
+    if (libcfound):
+        readme.write(f"![{funname}]({dir}/{funname}_libc.png)")
     else:
-        readme.write(f"![{funname}]({dir}/{funname}.png)|")
-    plot_counter = plot_counter + 1
+        readme.write(f"No LIBC reference")
+    
+    if (builtinfound):
+        readme.write(f" | ![{funname}]({dir}/{funname}_builtin.png)\n")
+    else:
+        readme.write(f" | No builin-in reference\n")
 
 def finite(tmp):
     return np.logical_and(~np.isnan(tmp),np.isfinite(tmp))

@@ -12,9 +12,7 @@ def main():
     prevfun = ""
     readme = open("timing_histograms.md","w")
     readme.write("# Timings for Host and Device Versions of the Math Library\n")
-    for i in range(plots_per_line):
-        readme.write("| ")
-    readme.write("|\n")
+    readme.write("| Using LIBC Host Solution for Reference | Using Built-in Host Solution for Reference |\n")
     for i in range(plots_per_line):
         readme.write("|:-----:")
     readme.write("|\n")

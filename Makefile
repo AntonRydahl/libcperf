@@ -51,6 +51,24 @@ ifneq ($(findstring $(star),$(call getarg,3)),)
 CFLAGS += -DARG3POINTER
 endif
 
+WRAPPERARGS=
+WRAPPERNAMES=
+getarg = $(word $1,$(subst $(comma), ,$(ARGS)))
+ifneq ($(call getarg,1),)
+WRAPPERARGS += $(call getarg,1) x
+WRAPPERNAMES += x
+endif
+ifneq ($(call getarg,2),)
+WRAPPERARGS += ,$(call getarg,2) y
+WRAPPERNAMES += ,y
+endif
+ifneq ($(call getarg,3),)
+WRAPPERARGS += ,$(call getarg,3) z
+WRAPPERNAMES += ,z
+endif
+
+CFLAGS += -DWRAPPERARGS="$(WRAPPERARGS)" -DWRAPPERNAMES="$(WRAPPERNAMES)"
+
 OMPTARGET=amdgcn-amd-amdhsa
 OFFLOADARCH=gfx906
 

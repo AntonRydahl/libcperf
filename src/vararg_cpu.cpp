@@ -33,9 +33,9 @@
 #include <iostream>
 #include <tuple>
 
-// inline double mysin(double x){
-//   return __builtin_sin(x);
-// }
+inline RETTYPE wrapperfun(WRAPPERARGS){
+  return FUNCTION(WRAPPERNAMES);
+}
 
 template <typename... args> void timings(std::string hostname) {
   std::tuple<gpumath::Array<args>...> input;
@@ -48,7 +48,7 @@ template <typename... args> void timings(std::string hostname) {
 #endif
   gpumath::Array<RETTYPE> hostarray;
   hostarray.to_host();
-  gpumath::cpu_time<RETTYPE, FUNCTION, args...>(input, hostarray, hostname);
+  gpumath::cpu_time<RETTYPE, wrapperfun, args...>(input, hostarray, hostname);
 }
 
 template <typename... args> void correctness(std::string hostname) {
@@ -65,7 +65,7 @@ template <typename... args> void correctness(std::string hostname) {
 #endif
   gpumath::Array<RETTYPE> hostarray(2048);
   hostarray.to_host();
-  gpumath::save_range_result_cpu<RETTYPE, FUNCTION, args...>(input, hostarray,
+  gpumath::save_range_result_cpu<RETTYPE, wrapperfun, args...>(input, hostarray,
                                                              hostname);
 }
 
