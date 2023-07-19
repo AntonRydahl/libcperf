@@ -35,6 +35,10 @@ ifdef RETTYPE
 CFLAGS += -DRETTYPE="$(RETTYPE)"
 endif
 
+ifdef CPUFUN
+CFLAGS += -DCPUFUN="$(CPUFUN)"
+endif
+
 # If the return type is void, this case must be handled in a special way.
 ifeq ($(RETTYPE),void)
 CFLAGS += -DVOIDRETTYPE
@@ -82,7 +86,7 @@ LDFLAGS += -lm
 else
 LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomptarget
 LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomptarget.devicertl
-LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib/x86_64-unknown-linux-gnu -lmgpu
+LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu
 endif
 #LDFLAGS += -Xlinker --verbose
 

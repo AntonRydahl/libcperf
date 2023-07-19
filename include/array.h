@@ -9,6 +9,7 @@
 namespace gpumath {
 
     using int_t = int32_t;
+    using uint_t = uint32_t;
     using float_t = float;
     using double_t = double;
 
@@ -17,12 +18,12 @@ namespace gpumath {
         private:
             T * _hostptr;
             T * _devptr;
-            int_t _length;
+            uint_t _length;
             int_t _host;
             int_t _device;
             bool _on_device = true;
         public:
-            Array(int_t l = 0x1FFFFFFF, int_t d = omp_get_default_device(), int_t h = omp_get_initial_device());
+            Array(uint_t l = 0x1FFFFFFF, int_t d = omp_get_default_device(), int_t h = omp_get_initial_device());
             ~Array();
             void to_device();
             void to_host();
@@ -31,19 +32,19 @@ namespace gpumath {
             T * hostptr() const {return _hostptr;};
             int_t host() const {return _host;};
             int_t device() const {return _device;};
-            int_t length() const {return _length;};
-            void reshape(int_t l);
+            uint_t length() const {return _length;};
+            void reshape(uint_t l);
             T infinity_norm() const;
             void save(std::string filename);
     };
 
     template <class T>
-	Array<T>::Array(int_t l, int_t d, int_t h) : _length{l}, _host{h}, _device{d} {
-        this->_hostptr = (T*) malloc((int)this->_length*sizeof(T));
+	Array<T>::Array(uint_t l, int_t d, int_t h) : _length{l}, _host{h}, _device{d} {
+        this->_hostptr = (T*) malloc((size_t)this->_length*((size_t) sizeof(T)));
 		if (this->_hostptr == NULL){
 			std::cerr << "Error allocating Array on host " << this->_host << std::endl;
 		}
-		this->_devptr = (T*) omp_target_alloc((int)this->_length*sizeof(T),(int)this->_device);
+		this->_devptr = (T*) omp_target_alloc((size_t)this->_length*((size_t)sizeof(T)),(int)this->_device);
 		if (this->_devptr == NULL){
 			std::cerr << "Error allocating Array on device " << this->_device << std::endl;
 		}
@@ -79,16 +80,16 @@ namespace gpumath {
         }
 	}
 
-    template <class T> void Array<T>::reshape(int_t l) {
+    template <class T> void Array<T>::reshape(uint_t l) {
         this->_length = l;
         free(this->_hostptr);
-        this->_hostptr = (T *)malloc((int)this->_length * sizeof(T));
+        this->_hostptr = (T *)malloc((size_t)this->_length * ((size_t)sizeof(T)));
         if (this->_hostptr == NULL) {
             std::cerr << "Error allocating Array on host " << this->_host
                       << std::endl;
         }
         omp_target_free(this->_devptr, (int)this->_device);
-        this->_devptr = (T *)omp_target_alloc((int)this->_length * sizeof(T),
+        this->_devptr = (T *)omp_target_alloc((size_t)this->_length * ((size_t) sizeof(T)),
                                               (int)this->_device);
         if (this->_devptr == NULL) {
             std::cerr << "Error allocating Array on device " << this->_device
@@ -118,7 +119,7 @@ namespace gpumath {
         if (this->_on_device)
             this->to_host();
         std::ofstream result_file(filename);
-        for (int_t i = 0; i < this->_length; i++) {
+        for (uint_t i = 0; i < this->_length; i++) {
             result_file << std::fixed << std::setprecision(32)
                 << this->_hostptr[i] << std::endl;
         }
@@ -127,7 +128,7 @@ namespace gpumath {
     }
 
     template <>
-	Array<void>::Array(int_t l, int_t d, int_t h) : _length{l}, _host{h}, _device{d} {
+	Array<void>::Array(uint_t l, int_t d, int_t h) : _length{l}, _host{h}, _device{d} {
         this->_hostptr = NULL;
 		this->_devptr = NULL;
     }
@@ -148,7 +149,7 @@ namespace gpumath {
 	}
 
     template <> 
-    void Array<void>::reshape(int_t l) {
+    void Array<void>::reshape(uint_t l) {
         this->_length = l;
     }
 

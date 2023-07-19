@@ -2,7 +2,10 @@
 #define _GPU_MATH_RANGE_
 
 #include <cmath>
+#include <limits.h>
 #include "array.h"
+#include <cstring>
+#include <bitset>
 
 namespace gpumath {
 
@@ -18,7 +21,6 @@ namespace gpumath {
             devptr[i] = xmin + i * step;
         }
         std::cout << "Initialized float-" << sizeof(T)*8 << " array " << std::endl;
-        if (!arr.on_device()) arr.to_host();
     }
 
     template<>
@@ -32,7 +34,20 @@ namespace gpumath {
             devptr[i] = xmin + i * step;
         }
         std::cout << "Initialized integer array " << std::endl;
-        if (!arr.on_device()) arr.to_host();
+    }
+
+    template<class T>
+    void bit_range_32(Array<T> & arr,uint_t offset=0x0){
+        uint_t length = arr.length();
+        T * devptr = arr.devptr();
+        #pragma omp target teams distribute parallel for is_device_ptr(devptr)
+        for (uint_t i = 0; i < length; i++){
+            uint_t tmp = (offset+i);
+            std::memcpy(&devptr[i],&tmp,sizeof(uint_t));
+        }
+        std::bitset<8*sizeof(uint_t)> from(offset);
+        std::bitset<8*sizeof(uint_t)> to(offset+(length-1));
+        std::cout << "Initialized float array from " << from << " to " << to << std::endl;
     }
 
     template<>

@@ -24,4 +24,10 @@ for filename in ../LLVM2/llvm-project/libc/src/math/*.h; do
         mkdir -p figures/results/output/$FUN/device
         ./bin/vararg_gpu
     fi
+    if [[ "$ARGS" == "float" ]]; then 
+        if make APP=vararg_histogram FUNCTION="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/__builtin_"; then
+            mkdir -p figures/results/histograms/$FUN/
+            ./bin/vararg_histogram
+        fi
+    fi
 done

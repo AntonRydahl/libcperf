@@ -20,4 +20,5 @@ source install_builtin_math.sh
 cd figures
 python3 error_plots.py
 python3 timing_histograms.py
+python3 error_histograms.py
 cd ..
