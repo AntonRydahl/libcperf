@@ -18,13 +18,13 @@ for filename in ../LLVM2/llvm-project/libc/src/math/generic/*.cpp; do
     ARGS=$(get_args $FUN)
     RETTYPE=$(get_rettype $FUN)
     make clean;
-    if make APP=vararg_gpu FUNCTION="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/device/"; then
+    if make APP=vararg_gpu GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/device/"; then
         mkdir -p figures/results/timings/$FUN/device
         mkdir -p figures/results/output/$FUN/device
         ./bin/vararg_gpu
     fi
     if [[ "$ARGS" == "float" ]]; then 
-        if make APP=vararg_histogram FUNCTION="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/"; then
+        if make APP=vararg_histogram GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/"; then
             mkdir -p figures/results/histograms/$FUN/
             ./bin/vararg_histogram
         fi

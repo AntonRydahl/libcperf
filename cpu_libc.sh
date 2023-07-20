@@ -18,7 +18,7 @@ for filename in ../LLVM2/llvm-project/libc/src/math/generic/*.cpp; do
     ARGS=$(get_args $FUN)
     RETTYPE=$(get_rettype $FUN)
     make clean;
-    if make APP=vararg_cpu FUNCTION="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/host/" LINKCPULIBC=1; then
+    if make APP=vararg_cpu GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/host/" LINKCPULIBC=1; then
         mkdir -p figures/results/timings/$FUN/host
         mkdir -p figures/results/output/$FUN/host
         ./bin/vararg_cpu

@@ -8,6 +8,12 @@
 #include <omp.h>
 #include <tuple>
 
+/**
+ * The combination of the following macros are an unelegant solution to handle
+ * that the arguments of some of the C standard library math functions are
+ * inputs while some are outputs (the ones which are pointers).
+ */
+
 #ifdef ARG1POINTER
 #define call1(arg) &arg
 #else
@@ -32,6 +38,13 @@
   fun(call1(arg1), call2(arg2), call3(arg3))
 
 namespace gpumath {
+
+/**
+ * The following function template applies a function to the tuple of input
+ * arrays of various types on the device. The solution is not elegant, but I
+ * faced issues with making lambda functions for the variadic function template
+ * arguments.
+ */
 
 template <class T, T (*F)(PTRARGS), typename... args>
 double apply_fun_gpu(std::tuple<Array<args>...> &input, Array<T> &output) {
@@ -64,6 +77,11 @@ double apply_fun_gpu(std::tuple<Array<args>...> &input, Array<T> &output) {
   return omp_get_wtime() - cmath_time;
 }
 
+/**
+ * The following function is an equivalent of the above for the case where the
+ * return type of the math function is void.
+ */
+
 template <void (*F)(PTRARGS), typename... args>
 double apply_fun_gpu(std::tuple<Array<args>...> &input) {
   const int_t length = std::get<0>(input).length();
@@ -71,15 +89,15 @@ double apply_fun_gpu(std::tuple<Array<args>...> &input) {
   const auto *inptr1 = std::get<0>(input).devptr();
   double_t cmath_time = omp_get_wtime();
 #if NARGS == 1
-#pragma omp target teams distribute parallel for is_device_ptr(inptr1) \
+#pragma omp target teams distribute parallel for is_device_ptr(inptr1)         \
     device(device)
   for (int_t i = 0; i < length; i++)
     FUNCALL1(F, inptr1[i]);
 #else
   auto *inptr2 = std::get<1>(input).devptr();
 #if NARGS == 2
-#pragma omp target teams distribute parallel for is_device_ptr(                \
-        inptr1, inptr2) device(device)
+#pragma omp target teams distribute parallel for is_device_ptr(inptr1, inptr2) \
+    device(device)
   for (int_t i = 0; i < length; i++)
     FUNCALL2(F, inptr1[i], inptr2[i]);
 #else
@@ -92,6 +110,12 @@ double apply_fun_gpu(std::tuple<Array<args>...> &input) {
 #endif
   return omp_get_wtime() - cmath_time;
 }
+
+/**
+ * The two following function templates are eqivalents of the two above
+ * functions. Thay apply a function to an input range on the host. The first is
+ * for non-void return types and the latter is for void return types.
+ */
 
 template <class T, T (*F)(PTRARGS), typename... args>
 double apply_fun_cpu(std::tuple<Array<args>...> &input, Array<T> &output) {
@@ -152,6 +176,11 @@ double apply_fun_cpu(std::tuple<Array<args>...> &input) {
   return omp_get_wtime() - cmath_time;
 }
 
+/**
+ * The following function applies a function to an input range on the GPU, times
+ * the function, and writes the timings to a file.
+ */
+
 template <class T, T (*F)(PTRARGS), typename... args>
 void gpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
               std::string filename, int_t tests = 500) {
@@ -172,6 +201,11 @@ void gpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
             << " ms on average " << std::endl;
   std::cout << "Timings written to: " << filename << std::endl;
 }
+
+/**
+ * The following function applies a function to an input range on the host,
+ * times the function, and writes the timings to a file.
+ */
 
 template <class T, T (*F)(PTRARGS), typename... args>
 void cpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
@@ -272,6 +306,6 @@ void save_range_result_cpu(std::tuple<Array<args>...> &input, Array<T> &output,
   std::get<2>(input).save(filename + "_2");
 #endif
 }
-}
+} // namespace gpumath
 
 #endif

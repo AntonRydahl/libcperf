@@ -5,14 +5,16 @@ import matplotlib.pyplot as plt
 import sys, getopt
 import os
 
-plots_per_line = 3
+plots_per_line = 2
 plot_counter = 1
 
 def main():
     prevfun = ""
     readme = open("timing_histograms.md","w")
-    readme.write("# Timings for Host and Device Versions of the Math Library\n")
-    readme.write("| Using LIBC Host Solution for Reference | Using Built-in Host Solution for Reference |\n")
+    readme.write("# Timings for Generic LLVM LIBC, LLVM Built-in, and HIP Versions of the Math Functions from the C Standard Library\n")
+    for i in range(plots_per_line):
+        readme.write("| ")
+    readme.write("|\n")
     for i in range(plots_per_line):
         readme.write("|:-----:")
     readme.write("|\n")
@@ -116,7 +118,7 @@ def make_hist(funname,dir,readme):
     plt.legend(loc='upper right')
     plt.xlabel('Wall Time in MS',fontsize=15)
     plt.ylabel('Observations',fontsize=15)
-    plt.title(funname)
+    plt.title(funname,fontsize=20)
     plt.savefig(f"{dir}/{funname}_device_only.png")
     plt.close()
 

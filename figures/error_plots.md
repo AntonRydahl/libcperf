@@ -1,5 +1,5 @@
 # Error Plots
-| | |
+| Using LIBC Host Solution for Reference | Using Built-in Host Solution for Reference |
 |:-----:|:-----:|
 ![acosf](./results/output/acosf/acosf_libc.png) | ![acosf](./results/output/acosf/acosf_builtin.png)
 ![acoshf](./results/output/acoshf/acoshf_libc.png) | ![acoshf](./results/output/acoshf/acoshf_builtin.png)
@@ -81,7 +81,6 @@
 ![tanhf](./results/output/tanhf/tanhf_libc.png) | ![tanhf](./results/output/tanhf/tanhf_builtin.png)
 ![trunc](./results/output/trunc/trunc_libc.png) | ![trunc](./results/output/trunc/trunc_builtin.png)
 ![truncf](./results/output/truncf/truncf_libc.png) | ![truncf](./results/output/truncf/truncf_builtin.png)
-![ceil](./results/output/ceil/ceil_libc.png) | ![ceil](./results/output/ceil/ceil_builtin.png)
 No LIBC reference | ![cosh](./results/output/cosh/cosh_builtin.png)
 No LIBC reference | ![sinh](./results/output/sinh/sinh_builtin.png)
 No LIBC reference | ![tan](./results/output/tan/tan_builtin.png)

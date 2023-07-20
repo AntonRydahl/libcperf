@@ -14,16 +14,28 @@ CFLAGS = $(OPT) -Wall -std=c++2a -Iinclude -nogpuinc
 comma:= ,
 star:= *
 
-ifdef FUNCTION
-CFLAGS += -DFUNCTION=$(FUNCTION)
+ifdef GPUFUN
+CFLAGS += -DGPUFUN=$(GPUFUN)
+endif
+
+ifdef CPUFUN
+CFLAGS += -DCPUFUN="$(CPUFUN)"
 endif
 
 ifdef PREFIX
 CFLAGS += -DPREFIX=$(PREFIX)
 endif
 
+ifndef ARGS
+ARGS=float,float
+endif
+
 # Finding the number of arguments as the number of commas plus one. The first comma is to increment by one.
+ifdef NARGS
+CFLAGS += -DNARGS=$(NARGS)
+else
 CFLAGS += -DNARGS=$(shell echo ,$(ARGS) | tr -cd , | wc -c)
+endif
 
 # Defining argument types with and without pointers
 ifdef ARGS
@@ -33,10 +45,6 @@ endif
 
 ifdef RETTYPE
 CFLAGS += -DRETTYPE="$(RETTYPE)"
-endif
-
-ifdef CPUFUN
-CFLAGS += -DCPUFUN="$(CPUFUN)"
 endif
 
 # If the return type is void, this case must be handled in a special way.

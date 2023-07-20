@@ -25,13 +25,13 @@ for filename in ../LLVM2/llvm-project/libc/src/math/*.h; do
         VENDORFUN=__ocml_$FUN\_f64
     fi
     make clean;
-    if make APP=vararg_gpu FUNCTION="$VENDORFUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/device/"; then
+    if make APP=vararg_gpu GPUFUN="$VENDORFUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/device/"; then
         mkdir -p figures/results/timings/$FUN/device
         mkdir -p figures/results/output/$FUN/device
         ./bin/vararg_gpu
     fi
     if [[ "$ARGS" == "float" ]]; then 
-        if make APP=vararg_histogram FUNCTION="$VENDORFUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/"; then
+        if make APP=vararg_histogram GPUFUN="$VENDORFUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/"; then
             mkdir -p figures/results/histograms/$FUN/
             ./bin/vararg_histogram
         fi

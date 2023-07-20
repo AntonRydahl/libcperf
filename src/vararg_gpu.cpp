@@ -1,41 +1,10 @@
-#ifndef FUNCTION
-#define FUNCTION __ocml_copysign_f64
-#endif
-
-#ifndef PREFIX
-#define PREFIXSTR ""
-#else
-#define PREFIXSTR xstr(PREFIX)
-#endif
-
-#ifndef NARGS
-#define NARGS 2
-#endif
-
-#ifndef ARGS
-#define ARGS double, double
-#endif
-
-#ifndef RETTYPE
-#define RETTYPE double
-#endif
-
-#define xstr(a) strmacro(a)
-#define strmacro(a) #a
-
-#ifndef PTRARGS
-#define PTRARGS ARGS
-#endif
-
-#include "array.h"
-#include "compare.h"
-#include "range.h"
 #include <iostream>
 #include <tuple>
 
-extern "C" {
-RETTYPE FUNCTION(PTRARGS);
-}
+#include "array.h"
+#include "compare.h"
+#include "definitions.h"
+#include "range.h"
 
 template <typename... args> void timings(std::string devicename) {
   std::tuple<gpumath::Array<args>...> input;
@@ -47,7 +16,7 @@ template <typename... args> void timings(std::string devicename) {
   gpumath::uniform_range(std::get<2>(input));
 #endif
   gpumath::Array<RETTYPE> devicearray;
-  gpumath::gpu_time<RETTYPE, FUNCTION, args...>(input, devicearray, devicename);
+  gpumath::gpu_time<RETTYPE, GPUFUN, args...>(input, devicearray, devicename);
 }
 
 template <typename... args> void correctness(std::string devicename) {
@@ -63,12 +32,12 @@ template <typename... args> void correctness(std::string devicename) {
   gpumath::uniform_range(std::get<2>(input));
 #endif
   gpumath::Array<RETTYPE> devicearray(2048);
-  gpumath::save_range_result_gpu<RETTYPE, FUNCTION, args...>(input, devicearray,
-                                                             devicename);
+  gpumath::save_range_result_gpu<RETTYPE, GPUFUN, args...>(input, devicearray,
+                                                           devicename);
 }
 
 int main(void) {
-  std::string devicename = xstr(FUNCTION);
+  std::string devicename = xstr(GPUFUN);
   timings<ARGS>("figures/results/timings/" + std::string(PREFIXSTR) +
                 devicename);
   correctness<ARGS>("figures/results/output/" + std::string(PREFIXSTR) +

@@ -1,41 +1,14 @@
-#ifndef FUNCTION
-#define FUNCTION copysign
-#endif
+#include <tuple>
 
-#ifndef PREFIX
-#define PREFIXSTR ""
-#else
-#define PREFIXSTR xstr(PREFIX)
-#endif
-
-#ifndef NARGS
-#define NARGS 2
-#endif
-
-#ifndef ARGS
-#define ARGS double, double
-#endif
-
-#ifndef RETTYPE
-#define RETTYPE double
-#endif
-
-#define xstr(a) strmacro(a)
-#define strmacro(a) #a
-
-#ifndef PTRARGS
-#define PTRARGS ARGS
-#endif
+/**
+ * The definitions header must be included before the remaining non-standard
+ * headers
+ */
 
 #include "array.h"
 #include "compare.h"
+#include "definitions.h"
 #include "range.h"
-#include <iostream>
-#include <tuple>
-
-inline RETTYPE wrapperfun(WRAPPERARGS){
-  return FUNCTION(WRAPPERNAMES);
-}
 
 template <typename... args> void timings(std::string hostname) {
   std::tuple<gpumath::Array<args>...> input;
@@ -66,11 +39,11 @@ template <typename... args> void correctness(std::string hostname) {
   gpumath::Array<RETTYPE> hostarray(2048);
   hostarray.to_host();
   gpumath::save_range_result_cpu<RETTYPE, wrapperfun, args...>(input, hostarray,
-                                                             hostname);
+                                                               hostname);
 }
 
 int main(void) {
-  std::string hostname = xstr(FUNCTION);
+  std::string hostname = xstr(CPUFUN);
   timings<ARGS>("figures/results/timings/" + std::string(PREFIXSTR) + hostname);
   correctness<ARGS>("figures/results/output/" + std::string(PREFIXSTR) +
                     hostname);

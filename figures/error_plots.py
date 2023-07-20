@@ -11,9 +11,10 @@ def main():
     prevfun = ""
     readme = open("error_plots.md","w")
     readme.write("# Error Plots\n")
-    for i in range(plots_per_line):
-        readme.write("| ")
-    readme.write("|\n")
+    #for i in range(plots_per_line):
+    #    readme.write("| ")
+    #readme.write("|\n")
+    readme.write("| Using LIBC Host Solution for Reference | Using Built-in Host Solution for Reference |\n")
     for i in range(plots_per_line):
         readme.write("|:-----:")
     readme.write("|\n")
@@ -86,12 +87,12 @@ def make_error_plot(funname,dir,readme):
         plt.ylabel('$|\hat{f}(x)-f(x)|$',fontsize=15)
         if "builtin" in hostfun:
             builtinfound = True
-            plt.title(f"{funname} - LIBC Reference")
-            plt.savefig(f"{dir}/{funname}_libc.png")
+            plt.title(f"{funname} - Built-in Reference",fontsize=20)
+            plt.savefig(f"{dir}/{funname}_builtin.png")
         else:
             libcfound = True
-            plt.title(f"{funname} - Built-in Reference")
-            plt.savefig(f"{dir}/{funname}_builtin.png")
+            plt.title(f"{funname} - LIBC Reference",fontsize=20)
+            plt.savefig(f"{dir}/{funname}_libc.png")
         plt.close()
 
     if (libcfound):
