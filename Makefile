@@ -8,8 +8,8 @@ CXX = clang++
 bin: bin/$(APP)
 
 target: bin
-
-CFLAGS = $(OPT) -Wall -std=c++2a -Iinclude -nogpuinc
+STD = -std=c++2a
+CFLAGS = -Wall -Iinclude -nogpuinc #-std=c++2a
 
 comma:= ,
 star:= *
@@ -81,41 +81,41 @@ endif
 
 CFLAGS += -DWRAPPERARGS="$(WRAPPERARGS)" -DWRAPPERNAMES="$(WRAPPERNAMES)"
 
-OMPTARGET=amdgcn-amd-amdhsa
-OFFLOADARCH=gfx906
+OMPTARGET?=amdgcn-amd-amdhsa
+OFFLOADARCH?=gfx906
 
 CFLAGS += -fopenmp
 CFLAGS += -fopenmp-targets=$(OMPTARGET) --offload-arch=$(OFFLOADARCH)
 CFLAGS += -fopenmp-offload-mandatory #--offload-device-only
-CFLAGS += -foffload-lto
-LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomp
-ifdef LINKCPULIBC
-LDFLAGS += -lm
-else
+LDFLAGS += -foffload-lto -L/dev/shm/rydahl1/LLVM/install/lib -lomp
 LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomptarget
 LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomptarget.devicertl
 LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu
-endif
+LDFLAGS += -lm
 #LDFLAGS += -Xlinker --verbose
 
 # Compiling source to binary
 bin/$(APP): src/$(APP).cpp
-	$(CXX) $(CFLAGS) src/$(APP).cpp -o bin/$(APP) $(LDFLAGS)
+	$(CXX) $(STD) $(OPT) $(CFLAGS) src/$(APP).cpp -o bin/$(APP) $(LDFLAGS)
 
 .PHONY: clean ir temps
 clean:
 	rm -rf bin/* ir/* *.core ast/* *.bc *.o *.s *.ii *.out *.ll
 
 ir:
-	$(CXX) $(CFLAGS) -emit-llvm -S src/$(APP).cpp -o ir/$(APP).ll
+	$(CXX) $(STD) $(OPT) $(CFLAGS) -emit-llvm -S src/$(APP).cpp -o ir/$(APP).ll
 
 temps: clean
 	rm -rf $(TMPOUT)
 	mkdir -p $(TMPOUT)
-	$(CXX) $(CFLAGS) -save-temps src/$(APP).cpp -o $(APP).o $(LDFLAGS)
+	$(CC) $(OPT) $(CFLAGS) -save-temps src/$(APP).c -o $(APP).o $(LDFLAGS)
 	mv $(APP)*.o $(TMPOUT)
 	mv $(APP)*.bc $(TMPOUT)
-	mv $(APP)*.ii $(TMPOUT)
+	#mv $(APP)*.ii $(TMPOUT)
+	mv $(APP)*.i $(TMPOUT)
 	mv $(APP)*.s $(TMPOUT)
 	mv $(APP)*.out $(TMPOUT)
+	mv $(APP)*.img $(TMPOUT)
+	llvm-dis $(TMPOUT)/*.bc
+	llvm-objdump -d $(TMPOUT)/$(APP).o.amdgcn-amd-amdhsa.$(OFFLOADARCH).o > $(TMPOUT)/$(APP).o.amdgcn-amd-amdhsa.$(OFFLOADARCH).o.objdump
 

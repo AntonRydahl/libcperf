@@ -28,12 +28,14 @@ cmake \
 	-DLIBOMPTARGET_ENABLE_DEBUG=ON  \
 	-DLIBC_GPU_ARCHITECTURES=gfx906 \
 	-DLIBC_GPU_TEST_ARCHITECTURE=gfx906 \
-        -DLIBC_GPU_VENDOR_MATH=ON \
-        -DLIBC_GPU_BUILTIN_ONLY=ON \
+        -DLIBC_GPU_VENDOR_MATH=OFF \
+        -DLIBC_GPU_BUILTIN_MATH=ON \
         /g/g92/rydahl1/LLVM2/llvm-project/llvm
 
 ninja install -j 63
 
 export PATH=$TARGETDIR/install/bin/:$PATH
 export LD_LIBRARY_PATH=$TARGETDIR/install/lib/:$LD_LIBRARY_PATH
-cd $ROOTDIR
+#cd $ROOTDIR
+
+ninja check-libc -C runtimes/runtimes-bins -k 1000

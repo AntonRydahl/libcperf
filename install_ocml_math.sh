@@ -22,13 +22,13 @@ cmake \
         -DLLVM_BUILD_EXAMPLES=ON \
         -DLLVM_LIT_ARGS=-v \
         -DLLVM_LIBC_FULL_BUILD=1 \
-        -DLLVM_TARGETS_TO_BUILD="host;X86;AMDGPU" \
+        -DLLVM_TARGETS_TO_BUILD="host;AMDGPU" \
         -DLLVM_ENABLE_PROJECTS="clang;lld;openmp" \
         -DLLVM_ENABLE_RUNTIMES="libc;compiler-rt" \
 	-DLIBOMPTARGET_ENABLE_DEBUG=ON  \
-	-DLIBC_GPU_ARCHITECTURES=gfx906 \
+        -DLIBC_GPU_ARCHITECTURES=gfx906 \
 	-DLIBC_GPU_TEST_ARCHITECTURE=gfx906 \
-        -DLIBC_GPU_VENDOR_MATH=OFF \
+        -DLIBC_GPU_VENDOR_MATH=ON \
         -DLIBC_GPU_BUILTIN_MATH=OFF \
         /g/g92/rydahl1/LLVM2/llvm-project/llvm
 
@@ -37,5 +37,5 @@ ninja install -j 63
 export PATH=$TARGETDIR/install/bin/:$PATH
 export LD_LIBRARY_PATH=$TARGETDIR/install/lib/:$LD_LIBRARY_PATH
 #cd $ROOTDIR
-
-ninja check-libc -C runtimes/runtimes-bins -k 1000
+module load rocm
+ninja check-libc -C runtimes/runtimes-bins -k 1000 #check-clang check-flang 

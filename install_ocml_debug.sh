@@ -1,6 +1,6 @@
 module load ninja
 ROOTDIR=`pwd`
-TARGETDIR=/dev/shm/rydahl1/LLVM
+TARGETDIR=/l/ssd/rydahl1/LLVM
 mkdir -p $TARGETDIR
 cd $TARGETDIR
 rm -rf build
@@ -13,7 +13,7 @@ module load rocm
 
 cmake \
         -G Ninja \
-        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DCMAKE_INSTALL_PREFIX=$INSTALLDIR \
         -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
         -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
@@ -22,20 +22,25 @@ cmake \
         -DLLVM_BUILD_EXAMPLES=ON \
         -DLLVM_LIT_ARGS=-v \
         -DLLVM_LIBC_FULL_BUILD=1 \
-        -DLLVM_TARGETS_TO_BUILD="host;X86;AMDGPU" \
+        -DLLVM_TARGETS_TO_BUILD="host;AMDGPU" \
         -DLLVM_ENABLE_PROJECTS="clang;lld;openmp" \
         -DLLVM_ENABLE_RUNTIMES="libc;compiler-rt" \
 	-DLIBOMPTARGET_ENABLE_DEBUG=ON  \
-	-DLIBC_GPU_ARCHITECTURES=gfx906 \
+        -DLIBC_GPU_ARCHITECTURES=gfx906 \
 	-DLIBC_GPU_TEST_ARCHITECTURE=gfx906 \
-        -DLIBC_GPU_VENDOR_MATH=OFF \
+        -DLIBC_GPU_VENDOR_MATH=ON \
         -DLIBC_GPU_BUILTIN_MATH=OFF \
+	-DLIBC_GPU_TEST_JOBS=1 \
+	-DLLVM_PARALLEL_LINK_JOBS=4 \
+	-DLLVM_USE_LINKER=lld \
+	-DCLANG_DEFAULT_LINKER=lld \
         /g/g92/rydahl1/LLVM2/llvm-project/llvm
 
 ninja install -j 63
 
 export PATH=$TARGETDIR/install/bin/:$PATH
 export LD_LIBRARY_PATH=$TARGETDIR/install/lib/:$LD_LIBRARY_PATH
-#cd $ROOTDIR
 
-ninja check-libc -C runtimes/runtimes-bins -k 1000
+ninja -C runtimes/runtimes-bins check-libc -j1
+
+cd $ROOTDIR
