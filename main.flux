@@ -2,13 +2,17 @@
 set -o nounset
 
 # Job settings
-#SBATCH -J gfx906
+#flux: --job-name=gfx906
 # Request one node
-#SBATCH -N 1
-# Request 63 cores per node
-#SBATCH -n 63
+#flux: --nodes=1
+# Run one process per node
+#flux: -n 1
+# Request 32 cores per node
+#flux: -c 32
+# Request one GPU
+#flux: -g 1
 # Time
-#SBATCH -t 8:00:00
+#flux: --time=8h
 
 # Program settings
 # Where to install LLVM
