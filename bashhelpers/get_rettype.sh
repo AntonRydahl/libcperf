@@ -1,6 +1,9 @@
+#!/bin/bash
+set -o nounset
+
 function get_rettype() {
     local fun=$1
-    local ARGSTR=$(cat ../LLVM2/llvm-project/libc/src/math/${fun}.h | grep "(*)") #| cut -d " " -f1
+    local ARGSTR=$(cat $LLVMDIR/llvm-project/libc/src/math/${fun}.h | grep "(*)") #| cut -d " " -f1
     ARGSTR=${ARGSTR//long long/longlong}
     ARGSTR=${ARGSTR//long int/longint}
     ARGSTR=${ARGSTR//long double/longdouble}

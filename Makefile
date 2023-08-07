@@ -82,15 +82,15 @@ endif
 CFLAGS += -DWRAPPERARGS="$(WRAPPERARGS)" -DWRAPPERNAMES="$(WRAPPERNAMES)"
 
 OMPTARGET?=amdgcn-amd-amdhsa
-OFFLOADARCH?=gfx906
+GPUARCH?=gfx906
 
 CFLAGS += -fopenmp
-CFLAGS += -fopenmp-targets=$(OMPTARGET) --offload-arch=$(OFFLOADARCH)
+CFLAGS += -fopenmp-targets=$(OMPTARGET) --offload-arch=$(GPUARCH)
 CFLAGS += -fopenmp-offload-mandatory #--offload-device-only
-LDFLAGS += -foffload-lto -L/dev/shm/rydahl1/LLVM/install/lib -lomp
-LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomptarget
-LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib -lomptarget.devicertl
-LDFLAGS += -L/dev/shm/rydahl1/LLVM/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu
+LDFLAGS += -foffload-lto -L$(LLVMDIR)/install/lib -lomp
+LDFLAGS += -L$(LLVMDIR)/install/lib -lomptarget
+LDFLAGS += -L$(LLVMDIR)/install/lib -lomptarget.devicertl
+LDFLAGS += -L$(LLVMDIR)/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu
 LDFLAGS += -lm
 #LDFLAGS += -Xlinker --verbose
 
@@ -117,5 +117,5 @@ temps: clean
 	mv $(APP)*.out $(TMPOUT)
 	mv $(APP)*.img $(TMPOUT)
 	llvm-dis $(TMPOUT)/*.bc
-	llvm-objdump -d $(TMPOUT)/$(APP).o.amdgcn-amd-amdhsa.$(OFFLOADARCH).o > $(TMPOUT)/$(APP).o.amdgcn-amd-amdhsa.$(OFFLOADARCH).o.objdump
+	llvm-objdump -d $(TMPOUT)/$(APP).o.amdgcn-amd-amdhsa.$(GPUARCH).o > $(TMPOUT)/$(APP).o.amdgcn-amd-amdhsa.$(GPUARCH).o.objdump
 

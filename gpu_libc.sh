@@ -1,10 +1,9 @@
 #!/bin/bash
-source .bashrc
-module load rocm
-rocm-smi
+set -o nounset
+
 source bashhelpers/get_args.sh
 source bashhelpers/get_rettype.sh
-for filename in ../LLVM2/llvm-project/libc/src/math/generic/*.cpp; do
+for filename in $LLVMDIR/llvm-project/libc/src/math/generic/*.cpp; do
     tmp=$(basename "$filename" .cpp)
     if [[ "${tmp:0-1}" == "l" ]]  && [[ "$tmp" != *"ceil."* ]]; then
         echo "Skipping long double function: ${tmp}"
@@ -18,14 +17,14 @@ for filename in ../LLVM2/llvm-project/libc/src/math/generic/*.cpp; do
     ARGS=$(get_args $FUN)
     RETTYPE=$(get_rettype $FUN)
     make clean;
-    if make APP=vararg_gpu GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/device/"; then
-        mkdir -p figures/results/timings/$FUN/device
-        mkdir -p figures/results/output/$FUN/device
+    if make APP=vararg_gpu GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$GPUARCH/$FUN/device/"; then
+        mkdir -p figures/results/timings/$GPUARCH/$FUN/device
+        mkdir -p figures/results/output/$GPUARCH/$FUN/device
         ./bin/vararg_gpu
     fi
     if [[ "$ARGS" == "float" ]]; then 
-        if make APP=vararg_histogram GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/"; then
-            mkdir -p figures/results/histograms/$FUN/
+        if make APP=vararg_histogram GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$GPUARCH/$FUN/"; then
+            mkdir -p figures/results/histograms/$GPUARCH/$FUN/
             ./bin/vararg_histogram
         fi
     fi

@@ -1,9 +1,9 @@
+#!/bin/bash
+set -o nounset
+
 function get_args() {
     local fun=$1
-    local ARGSTR=$(cat ../LLVM2/llvm-project/libc/src/math/${fun}.h | grep "(*)") #| cut -d " " -f1
-    local RETTYPE=$(echo ${ARGSTR//long long/longlong} | cut -d " " -f1)
-    local RETTYPE=${RETTYPE//longlong/long long}
-
+    local ARGSTR=$(cat $LLVMDIR/llvm-project/libc/src/math/${fun}.h | grep "(*)") #| cut -d " " -f1
     local args=$(echo $ARGSTR | cut -d "(" -f2)
     args=$(echo $args | cut -d ")" -f1)
     # replace all long longs with longlong

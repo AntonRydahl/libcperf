@@ -1,15 +1,11 @@
 #!/bin/bash
-source .bashrc
-module load rocm
-rocm-smi
+set -o nounset
+
 source bashhelpers/get_args.sh
 source bashhelpers/get_rettype.sh
 
-OMPTARGET=nvptx
-OFFLOADARCH=sm_70
-
-for filename in ../LLVM2/llvm-project/libc/src/math/*.h; do
-    tmp=$(basename "$filename" .h)
+for filename in $LLVMDIR/llvm-project/libc/src/math/gpu/vendor/*.cpp; do
+    tmp=$(basename "$filename" .cpp)
     if [[ "${tmp:0-1}" == "l" ]]  && [[ "$tmp" != *"ceil."* ]]; then
         echo "Skipping long double function: ${tmp}"
         continue
@@ -23,19 +19,19 @@ for filename in ../LLVM2/llvm-project/libc/src/math/*.h; do
     RETTYPE=$(get_rettype $FUN)
     VENDORFUN=''
     if [[ "${tmp:0-1}" == "f" ]] && [[ "$FUN" != "erf" ]] && [[ "$FUN" != "modf" ]]; then
-        VENDORFUN=__ocml_${FUN::-1}\_f32
+        VENDORFUN=__nv_${FUN::-1}\_f32
     else
-        VENDORFUN=__ocml_$FUN\_f64
+        VENDORFUN=__nv_$FUN\_f64
     fi
     make clean;
-    if make APP=vararg_gpu GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/device/__nv_" OMPTARGET=$OMPTARGET OFFLOADARCH=$OFFLOADARCH; then
-        mkdir -p figures/results/timings/$FUN/device
-        mkdir -p figures/results/output/$FUN/device
+    if make APP=vararg_gpu GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$GPUARCH/$FUN/device/__nv_"; then
+        mkdir -p figures/results/timings/$GPUARCH/$FUN/device
+        mkdir -p figures/results/output/$GPUARCH/$FUN/device
         ./bin/vararg_gpu
     fi
     if [[ "$ARGS" == "float" ]]; then 
-        if make APP=vararg_histogram GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$FUN/__nv_"  OMPTARGET=$OMPTARGET OFFLOADARCH=$OFFLOADARCH; then
-            mkdir -p figures/results/histograms/$FUN/
+        if make APP=vararg_histogram GPUFUN="$FUN" CPUFUN="$FUN" RETTYPE="$RETTYPE" ARGS="$ARGS" PREFIX="$GPUARCH/$FUN/__nv_"; then
+            mkdir -p figures/results/histograms/$GPUARCH/$FUN/
             ./bin/vararg_histogram
         fi
     fi
