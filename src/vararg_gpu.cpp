@@ -21,17 +21,17 @@ template <typename... args> void timings(std::string devicename) {
 
 template <typename... args> void correctness(std::string devicename) {
   std::tuple<gpumath::Array<args>...> input;
-  std::get<0>(input).reshape(2048);
+  std::get<0>(input).reshape(10000);
   gpumath::uniform_range(std::get<0>(input));
 #if NARGS > 1
-  std::get<1>(input).reshape(2048);
+  std::get<1>(input).reshape(10000);
   gpumath::uniform_range(std::get<1>(input));
 #endif
 #if NARGS > 2
-  std::get<2>(input).reshape(2048);
+  std::get<2>(input).reshape(10000);
   gpumath::uniform_range(std::get<2>(input));
 #endif
-  gpumath::Array<RETTYPE> devicearray(2048);
+  gpumath::Array<RETTYPE> devicearray(10000);
   gpumath::save_range_result_gpu<RETTYPE, GPUFUN, args...>(input, devicearray,
                                                            devicename);
 }

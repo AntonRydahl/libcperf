@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import numpy as np
 import numpy.random as random
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import sys, getopt
 import os
@@ -8,27 +10,28 @@ import os
 plots_per_line = 2
 
 def main():
-    prevfun = ""
-    readme = open("error_plots.md","w")
-    readme.write("# Error Plots\n")
-    #for i in range(plots_per_line):
-    #    readme.write("| ")
-    #readme.write("|\n")
-    readme.write("| Using LIBC Host Solution for Reference | Using Built-in Host Solution for Reference |\n")
-    for i in range(plots_per_line):
-        readme.write("|:-----:")
-    readme.write("|\n")
-    for subdir, dirs, files in os.walk('./results/output/'):
-        funname = subdir.split('/')[3]
-        if (not funname):
-            continue
-        if prevfun == funname:
-            continue
-        prevfun = funname
-        make_error_plot(funname,subdir,readme)
-        #for file in files:
-        #    print(os.path.join(subdir, file))
-    readme.close()
+    for arch in ["gfx90a","gfx906"]:
+        prevfun = ""
+        readme = open(f"error_plots_{arch}.md","w")
+        readme.write(f"# Error Plots for {arch}\n")
+        #for i in range(plots_per_line):
+        #    readme.write("| ")
+        #readme.write("|\n")
+        readme.write("| Using LIBC Host Solution for Reference | Using Built-in Host Solution for Reference |\n")
+        for i in range(plots_per_line):
+            readme.write("|:-----:")
+        readme.write("|\n")
+        for subdir, dirs, files in os.walk(f'./results/output/{arch}/'):
+            funname = subdir.split('/')[4]
+            if (not funname):
+                continue
+            if prevfun == funname:
+                continue
+            prevfun = funname
+            make_error_plot(funname,subdir,readme)
+            #for file in files:
+            #    print(os.path.join(subdir, file))
+        readme.close()
 
 def make_error_plot(funname,dir,readme):
     print(f"Making error plots for {funname}")
@@ -52,11 +55,11 @@ def make_error_plot(funname,dir,readme):
     builtinfound = False
 
     for hostfun in hostfiles:
-        data = np.loadtxt(os.path.join(hostdir,hostfun), comments="#", delimiter="\n", unpack=False,dtype='double')
+        data = np.loadtxt(os.path.join(hostdir,hostfun), comments="#", unpack=False,dtype='double')
         reference = data
         maxval = 1e-100    
         for fun in devicefiles:
-            data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+            data = np.loadtxt(os.path.join(devdir,fun), comments="#", unpack=False,dtype='double')
             tmp = data-reference
             maxval = max(maxval,max(abs(tmp[finite(tmp)])))
             
@@ -65,7 +68,7 @@ def make_error_plot(funname,dir,readme):
         plt.figure()
 
         for fun in devicefiles:
-            data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+            data = np.loadtxt(os.path.join(devdir,fun), comments="#", unpack=False,dtype='double')
             med = np.median(data)
             color='green'
             marker='o'

@@ -58,9 +58,9 @@ source install_libc.sh
 
 # Running CPU tests
 cd $PROJECTDIR 
-#./cpu_builtin.sh
+./cpu_builtin.sh
 cd $PROJECTDIR
-#./cpu_libc.sh
+./cpu_libc.sh
 
 # Running GPU tests
 cd $PROJECTDIR

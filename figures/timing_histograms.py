@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import numpy as np
 import numpy.random as random
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import sys, getopt
 import os
@@ -9,24 +11,29 @@ plots_per_line = 2
 plot_counter = 1
 
 def main():
-    prevfun = ""
-    readme = open("timing_histograms.md","w")
-    readme.write("# Timings for Generic LLVM LIBC, LLVM Built-in, and HIP Versions of the Math Functions from the C Standard Library\n")
-    for i in range(plots_per_line):
-        readme.write("| ")
-    readme.write("|\n")
-    for i in range(plots_per_line):
-        readme.write("|:-----:")
-    readme.write("|\n")
-    for subdir, dirs, files in os.walk('./results/timings/'):
-        funname = subdir.split('/')[3]
-        if (not funname):
-            continue
-        if prevfun == funname:
-            continue
-        prevfun = funname
-        make_hist(funname,subdir,readme)
-    readme.close()
+    global plot_counter
+    for arch in ["gfx90a","gfx906"]:
+        plot_counter=1
+        prevfun = ""
+        readme = open(f"timing_histograms_{arch}.md","w")
+        readme.write("# Timings for Generic LLVM LIBC, LLVM Built-in, and HIP Versions of the Math Functions from the C Standard Library\n")
+        for i in range(plots_per_line):
+            readme.write("| ")
+        readme.write("|\n")
+        for i in range(plots_per_line):
+            readme.write("|:-----:")
+        readme.write("|\n")
+        funnames = []
+        for subdir, dirs, files in sorted(os.walk(f'./results/timings/{arch}/')):
+            funname = subdir.split('/')[4]
+            if (not funname):
+                continue
+            if prevfun == funname:
+                continue
+            prevfun = funname
+            funnames.append(funname)
+            make_hist(funname,subdir,readme)
+        readme.close()
 
 def make_hist(funname,dir,readme):
     global plot_counter
@@ -39,20 +46,21 @@ def make_hist(funname,dir,readme):
         return
     devicefiles = [f for f in os.listdir(devdir) if os.path.isfile(os.path.join(devdir, f))]
     hostdir = os.path.join(dir,"host/")
+    hostfiles = []
     if not os.path.exists(hostdir):
         print(f"No such directory: {hostdir}")
-        return
-    hostfiles = [f for f in os.listdir(hostdir) if os.path.isfile(os.path.join(hostdir, f))]
+    else: 
+        hostfiles = [f for f in os.listdir(hostdir) if os.path.isfile(os.path.join(hostdir, f))]
 
-    if not hostfiles or not devicefiles:
-        print(f"Missing host or device files")
+    if not devicefiles:
+        print(f"Missing device files")
         return
 
     minval = 1000000
     maxval = -minval
     for fun in devicefiles:
         try:
-            data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+            data = np.loadtxt(os.path.join(devdir,fun), comments="#", unpack=False,dtype='double')
             minval = min(minval,min(data))
             maxval = max(maxval,max(data))
         except:
@@ -60,7 +68,7 @@ def make_hist(funname,dir,readme):
     gpumin = minval
     gpumax = maxval
     for fun in hostfiles:
-        data = np.loadtxt(os.path.join(hostdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+        data = np.loadtxt(os.path.join(hostdir,fun), comments="#", unpack=False,dtype='double')
         minval = min(minval,min(data))
         maxval = max(maxval,max(data))
     
@@ -71,7 +79,7 @@ def make_hist(funname,dir,readme):
 
     for fun in devicefiles:
         try:
-            data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+            data = np.loadtxt(os.path.join(devdir,fun), comments="#", unpack=False,dtype='double')
             med = np.median(data)
             color='green'
             if "ocml" in fun:
@@ -83,7 +91,7 @@ def make_hist(funname,dir,readme):
         except:
             print(f"Error when reading file {os.path.join(devdir,fun)}")
     for fun in hostfiles:
-        data = np.loadtxt(os.path.join(hostdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+        data = np.loadtxt(os.path.join(hostdir,fun), comments="#", unpack=False,dtype='double')
         med = np.median(data)
         color='purple'
         if "builtin" in fun:
@@ -103,7 +111,7 @@ def make_hist(funname,dir,readme):
     ## Only GPU timings
     for fun in devicefiles:
         try:
-            data = np.loadtxt(os.path.join(devdir,fun), comments="#", delimiter="\n", unpack=False,dtype='double')
+            data = np.loadtxt(os.path.join(devdir,fun), comments="#", unpack=False,dtype='double')
             med = np.median(data)
             color='green'
             if "ocml" in fun:

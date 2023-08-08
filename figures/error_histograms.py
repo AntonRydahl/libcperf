@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import numpy as np
 import numpy.random as random
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import sys, getopt
 import os
@@ -9,30 +11,34 @@ plots_per_line = 3
 plot_counter = 1
 
 def main():
-    prevfun = ""
-    readme = open("error_histograms.md","w")
-    readme.write("# Error Histograms\n")
-    readme.write("The following plots were obtained by running the different GPU implementations on all 2 to the 32 possible 32-bit floating point values. As it would take an infeasible amount of storage to plot the differences as function of the real axis, histograms displaying the distributions of the absolute errors have been made instead.\n<br>\n")
-    for i in range(plots_per_line):
-        readme.write("| ")
-    readme.write("|\n")
-    for i in range(plots_per_line):
-        readme.write("|:-----:")
-    readme.write("|\n")
-    for subdir, dirs, files in os.walk('./results/histograms/'):
-        funname = subdir.split('/')[3]
-        if (not funname):
-            continue
-        if prevfun == funname:
-            continue
-        prevfun = funname
-        #try:
-        make_error_plot(funname,subdir,readme)
-        #for file in files:
-        #    print(os.path.join(subdir, file))
-        #except:
-        #    print(f"Error plotting {funname}")
-    readme.close()
+    global plot_counter
+    for arch in ["gfx90a","gfx906"]:
+        plot_counter=1
+        print(f"arch is {arch}")
+        prevfun = ""
+        readme = open(f"error_histograms_{arch}.md","w")
+        readme.write(f"# Error Histograms for {arch}\n")
+        readme.write("The following plots were obtained by running the different GPU implementations on all 2 to the 32 possible 32-bit floating point values. As it would take an infeasible amount of storage to plot the differences as function of the real axis, histograms displaying the distributions of the absolute errors have been made instead.\n<br>\n")
+        for i in range(plots_per_line):
+            readme.write("| ")
+        readme.write("|\n")
+        for i in range(plots_per_line):
+            readme.write("|:-----:")
+        readme.write("|\n")
+        for subdir, dirs, files in os.walk(f'./results/histograms/{arch}/'):
+            funname = subdir.split('/')[4]
+            if (not funname):
+                continue
+            if prevfun == funname:
+                continue
+            prevfun = funname
+            #try:
+            make_error_plot(funname,subdir,readme)
+            #for file in files:
+            #    print(os.path.join(subdir, file))
+            #except:
+            #    print(f"Error plotting {funname}")
+        readme.close()
 
 def make_error_plot(funname,dir,readme):
     global plot_counter
@@ -50,17 +56,17 @@ def make_error_plot(funname,dir,readme):
     maxbinwidth = 0.0
     for filename in files:
         print(filename)
-        bins = np.loadtxt(os.path.join(dir,f"{filename}_bins"), comments="#", delimiter="\n", unpack=False,dtype='double')
+        bins = np.loadtxt(os.path.join(dir,f"{filename}_bins"), comments="#", unpack=False,dtype='double')
         maxbinwidth = max(maxbinwidth,bins[1]-bins[0])
 
     plt.figure()
     for filename in files:
         print(filename)
-        bins = np.loadtxt(os.path.join(dir,f"{filename}_bins"), comments="#", delimiter="\n", unpack=False,dtype='double')
-        counts = np.loadtxt(os.path.join(dir,f"{filename}_counts"), comments="#", delimiter="\n", unpack=False,dtype='double')
+        bins = np.loadtxt(os.path.join(dir,f"{filename}_bins"), comments="#", unpack=False,dtype='double')
+        counts = np.loadtxt(os.path.join(dir,f"{filename}_counts"), comments="#", unpack=False,dtype='double')
         bins,counts = recount(bins,counts,maxbinwidth)
-        nans = np.loadtxt(os.path.join(dir,f"{filename}_nans"), comments="#", delimiter="\n", unpack=False,dtype='double')
-        infs = np.loadtxt(os.path.join(dir,f"{filename}_infs"), comments="#", delimiter="\n", unpack=False,dtype='double')
+        nans = np.loadtxt(os.path.join(dir,f"{filename}_nans"), comments="#", unpack=False,dtype='double')
+        infs = np.loadtxt(os.path.join(dir,f"{filename}_infs"), comments="#", unpack=False,dtype='double')
         label = f" {filename}"
         if nans > 0:
             label = label + f" ({np.uint32(nans)} NaNs)"

@@ -41,7 +41,7 @@ public:
    * is not specified.
    */
 
-  Array(uint_t l = 0x1FFFFFFF, int_t d = omp_get_default_device(),
+  Array(uint_t l = 0x17FFFFFF, int_t d = omp_get_default_device(),
         int_t h = omp_get_initial_device());
   ~Array();
   void to_device();

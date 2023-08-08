@@ -183,7 +183,7 @@ double apply_fun_cpu(std::tuple<Array<args>...> &input) {
 
 template <class T, T (*F)(PTRARGS), typename... args>
 void gpu_time(std::tuple<Array<args>...> &input, Array<T> &output,
-              std::string filename, int_t tests = 500) {
+              std::string filename, int_t tests = 1000) {
   assert(output.on_device());
   std::ofstream result_file(filename);
   double_t total_time = 0.0;

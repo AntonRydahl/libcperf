@@ -10,10 +10,15 @@
 namespace gpumath {
 
 template <class T> void uniform_range(Array<T> &arr) {
-  T xmin = -M_PI;
-  T xmax = M_PI;
+  T xmin = std::numeric_limits<T>::min();
+  T xmax = std::numeric_limits<T>::max();
   int_t length = arr.length();
   T step = (xmax - xmin) / (((T)arr.length()) - 1.0);
+  T min_step = std::nextafter(std::numeric_limits<T>::min(),
+    std::numeric_limits<T>::min()+1.0)-std::numeric_limits<T>::min();
+  if (step < min_step){
+    step = min_step;
+  }
   T *devptr = arr.devptr();
 #pragma omp target teams distribute parallel for is_device_ptr(devptr)         \
     map(always, to : xmin, step, length)
