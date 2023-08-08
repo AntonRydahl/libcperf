@@ -7,7 +7,7 @@ module load ninja
 cd $LLVMDIR
 rm -rf $LLVMDIR/build; mkdir $LLVMDIR/build
 rm -rf $LLVMDIR/install; mkdir $LLVMDIR/install
-cd $LLVMDIR
+cd $LLVMDIR/build
 
 cmake \
         -G Ninja \
@@ -28,7 +28,7 @@ cmake \
 	-DLIBC_GPU_TEST_ARCHITECTURE=$GPUARCH \
         -DLIBC_GPU_VENDOR_MATH=$LIBC_GPU_VENDOR_MATH \
         -DLIBC_GPU_BUILTIN_MATH=$LIBC_GPU_BUILTIN_MATH \
-        /g/g92/rydahl1/LLVM2/llvm-project/llvm
+        ../llvm-project/llvm
 
 ninja install -j 63
 

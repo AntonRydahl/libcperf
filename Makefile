@@ -100,7 +100,7 @@ bin/$(APP): src/$(APP).cpp
 
 .PHONY: clean ir temps
 clean:
-	rm -rf bin/* ir/* *.core ast/* *.bc *.o *.s *.ii *.ll $(APP)*.out $(APP)*.img $(APP)*.i $(APP)*.s
+	rm -rf bin/* ir/* *.core ast/* *.bc *.o *.s *.ii *.ll $(APP)*.out $(APP)*.img $(APP)*.i $(APP)*.s *.i *.img
 
 ir:
 	$(CXX) $(STD) $(OPT) $(CFLAGS) -emit-llvm -S src/$(APP).cpp -o ir/$(APP).ll
