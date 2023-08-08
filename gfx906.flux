@@ -13,6 +13,7 @@ set -o nounset
 #flux: -g 1
 # Time
 #flux: --time=8h
+#flux: --exclusive
 
 # Program settings
 # Where to install LLVM
