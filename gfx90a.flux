@@ -28,7 +28,7 @@ export GPUARCH=gfx90a
 module load rocm
 export PATH=/p/lustre1/rydahl1/LLVM/install/bin:$PATH
 export PATH=/p/lustre1/rydahl1/LLVM/install/lib:$PATH
-export PATH=/usr/tce/packages/ninja/ninja-1.11.1/bin:$PATH
+export PATH=/p/lustre1/rydahl1/ninja/build-cmake:$PATH
 export CC=/p/lustre1/rydahl1/LLVM/install/bin/clang
 export CXX=/p/lustre1/rydahl1/LLVM/install/bin/clang++
 
