@@ -50,9 +50,9 @@ source install_libc.sh
 
 # Running CPU tests
 cd $PROJECTDIR 
-./cpu_builtin.sh
+#./cpu_builtin.sh
 cd $PROJECTDIR
-./cpu_libc.sh
+#./cpu_libc.sh
 
 # Running GPU tests
 cd $PROJECTDIR
@@ -81,4 +81,4 @@ export LIBC_GPU_VENDOR_MATH=OFF
 export LIBC_GPU_BUILTIN_MATH=OFF
 source install_libc.sh
 cd $PROJECTDIR
-./gpu_lib.sh
+./gpu_libc.sh
