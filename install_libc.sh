@@ -1,9 +1,6 @@
 #!/bin/bash
 set -o nounset
 
-module load rocm
-module load ninja
-
 cd $LLVMDIR
 rm -rf $LLVMDIR/build; mkdir $LLVMDIR/build
 rm -rf $LLVMDIR/install; mkdir $LLVMDIR/install
@@ -13,7 +10,6 @@ cmake \
         -G Ninja \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=$LLVMDIR/install \
-        -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
         -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
         -DCMAKE_CXX_LINK_FLAGS="-Wl,-rpath,$LD_LIBRARY_PATH" \
         -DLLVM_ENABLE_ASSERTIONS=ON \
@@ -23,6 +19,7 @@ cmake \
         -DLLVM_TARGETS_TO_BUILD="host;$VENDOR" \
         -DLLVM_ENABLE_PROJECTS="clang;lld;openmp" \
         -DLLVM_ENABLE_RUNTIMES="libc;compiler-rt" \
+        -DGCC_INSTALL_PREFIX=/appl/gcc/11.3.0-binutils-2.38/ \
 	-DLIBOMPTARGET_ENABLE_DEBUG=ON  \
         -DLIBC_GPU_ARCHITECTURES=$GPUARCH \
 	-DLIBC_GPU_TEST_ARCHITECTURE=$GPUARCH \
@@ -30,7 +27,7 @@ cmake \
         -DLIBC_GPU_BUILTIN_MATH=$LIBC_GPU_BUILTIN_MATH \
         ../llvm-project/llvm
 
-ninja install -j 63
+ninja install -j 19
 
 export PATH=$LLVMDIR/install/bin/:$PATH
 export LD_LIBRARY_PATH=$LLVMDIR/install/lib/:$LD_LIBRARY_PATH
