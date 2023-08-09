@@ -28,6 +28,14 @@ export PATH=/work3/s174515/ninja:$PATH
 export CC=`which gcc`
 export CXX=`which g++`
 
+if [[ "$VENDOR" == "AMDGPU" ]]; then
+    export OMPTARGET=amdgcn-amd-amdhsa
+fi
+
+if [[ "$VENDOR" == "NVPTX" ]]; then
+    export OMPTARGET=nvptx64
+fi
+
 # Making bin
 mkdir -p $PROJECTDIR/bin
 
@@ -61,13 +69,11 @@ cd $PROJECTDIR
 # Running GPU tests
 cd $PROJECTDIR
 if [[ "$VENDOR" == "AMDGPU" ]]; then
-    export OMPTARGET=amdgcn-amd-amdhsa
     ./gpu_ocml.sh
 fi
 
 cd $PROJECTDIR
 if [[ "$VENDOR" == "NVPTX" ]]; then
-    export OMPTARGET=nvptx   
     ./gpu_nv.sh
 fi
 
