@@ -25,6 +25,7 @@ export VENDOR=AMDGPU # or NVPTX
 # What subarchitecture to use
 export GPUARCH=gfx90a
 
+export LD_LIBRARY_PATH=""
 module load rocm
 export PATH=/p/lustre1/rydahl1/LLVM/install/bin:$PATH
 export PATH=/p/lustre1/rydahl1/LLVM/install/lib:$PATH
