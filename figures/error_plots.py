@@ -10,7 +10,7 @@ import os
 plots_per_line = 2
 
 def main():
-    for arch in ["gfx90a","gfx906"]:
+    for arch in ["gfx90a","gfx906","sm_70","sm_80"]:
         prevfun = ""
         readme = open(f"error_plots_{arch}.md","w")
         readme.write(f"# Error Plots for {arch}\n")
@@ -21,7 +21,7 @@ def main():
         for i in range(plots_per_line):
             readme.write("|:-----:")
         readme.write("|\n")
-        for subdir, dirs, files in os.walk(f'./results/output/{arch}/'):
+        for subdir, dirs, files in sorted(os.walk(f'./results/output/{arch}/')):
             funname = subdir.split('/')[4]
             if (not funname):
                 continue
@@ -61,7 +61,12 @@ def make_error_plot(funname,dir,readme):
         for fun in devicefiles:
             data = np.loadtxt(os.path.join(devdir,fun), comments="#", unpack=False,dtype='double')
             tmp = data-reference
-            maxval = max(maxval,max(abs(tmp[finite(tmp)])))
+            tmpfinite = abs(tmp[finite(tmp)])
+            if len(tmpfinite) < 1:
+                print(f"None of the absolute errors from {os.path.join(devdir,fun)} are finite")
+                return 
+
+            maxval = max(maxval,max(tmpfinite))
             
         x = np.linspace(-np.pi,np.pi,len(reference))
         
@@ -83,8 +88,17 @@ def make_error_plot(funname,dir,readme):
             xtmp = x[finite(tmp)]
             data = data[finite(tmp)]
             plt.scatter(xtmp,data, color=color, label=f" {fun}", marker=marker)
-
-        plt.ylim([0,max(1.05*maxval,1e-100)])
+        if np.isnan(maxval):
+            print(f"Error: Maximal error for {funname} is NaN")
+            return
+        if np.isinf(maxval):
+            print(f"Error: Maximal error for {funname} is inf")
+            return
+        try:
+            plt.ylim([0,max(1.05*maxval,1e-100)])
+        except:
+            print(f"Error: Overflow for {funname}")
+            return 
         plt.legend(loc='upper right')
         plt.xlabel('$x$',fontsize=15)
         plt.ylabel('$|\hat{f}(x)-f(x)|$',fontsize=15)

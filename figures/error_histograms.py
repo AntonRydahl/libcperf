@@ -12,7 +12,7 @@ plot_counter = 1
 
 def main():
     global plot_counter
-    for arch in ["gfx90a","gfx906"]:
+    for arch in ["gfx90a","gfx906","sm_70","sm_80"]:
         plot_counter=1
         print(f"arch is {arch}")
         prevfun = ""
@@ -25,7 +25,7 @@ def main():
         for i in range(plots_per_line):
             readme.write("|:-----:")
         readme.write("|\n")
-        for subdir, dirs, files in os.walk(f'./results/histograms/{arch}/'):
+        for subdir, dirs, files in sorted(os.walk(f'./results/histograms/{arch}/')):
             funname = subdir.split('/')[4]
             if (not funname):
                 continue

@@ -12,7 +12,7 @@ plot_counter = 1
 
 def main():
     global plot_counter
-    for arch in ["gfx90a","gfx906"]:
+    for arch in ["gfx90a","gfx906","sm_70","sm_80"]:
         plot_counter=1
         prevfun = ""
         readme = open(f"timing_histograms_{arch}.md","w")
