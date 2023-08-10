@@ -18,12 +18,28 @@ set -o nounset
 # Program settings
 # Where to install LLVM
 export LLVMDIR=/dev/shm/rydahl1/LLVMTMP
+# Where to find LLVM sources
+export LLVMSRCDIR=/p/lustre1/rydahl1/
 # Where to find the source files
 export PROJECTDIR=`pwd`
 # What architecture to install except for "host"
 export VENDOR=AMDGPU # or NVPTX
 # What subarchitecture to use
 export GPUARCH=gfx906
+
+if [[ "$VENDOR" == "AMDGPU" ]]; then
+    export OMPTARGET=amdgcn-amd-amdhsa
+fi
+if [[ "$VENDOR" == "NVPTX" ]]; then
+    export OMPTARGET=nvptx   
+fi
+
+export LD_LIBRARY_PATH=""
+module load rocm
+module load ninja
+module load gcc/12.1.1
+export CC=`which gcc`
+export CXX=`which g++`
 
 # Making bin
 mkdir -p $PROJECTDIR/bin
@@ -32,6 +48,11 @@ mkdir -p $PROJECTDIR/bin
 if [ -d "$LLVMDIR/llvm-project" ] 
 then
     echo "Found existing LLVM source code in $LLVMDIR"
+elif [ -d "$LLVMSRCDIR/llvm-project" ] 
+then
+    echo "Found existing LLVM source code in $LLVMSRCDIR"
+    mkdir -p $LLVMDIR/llvm-project
+    cp -r $LLVMSRCDIR/llvm-project $LLVMDIR
 else
     rm -rf $LLVMDIR
     mkdir -p $LLVMDIR
@@ -58,13 +79,11 @@ cd $PROJECTDIR
 # Running GPU tests
 cd $PROJECTDIR
 if [[ "$VENDOR" == "AMDGPU" ]]; then
-    export OMPTARGET=amdgcn-amd-amdhsa
     ./gpu_ocml.sh
 fi
 
 cd $PROJECTDIR
 if [[ "$VENDOR" == "NVPTX" ]]; then
-    export OMPTARGET=nvptx   
     ./gpu_nv.sh
 fi
 
