@@ -76,6 +76,8 @@ def make_error_plot(funname,dir,readme):
             plt.stairs(counts,bins,label=label,hatch='//')
         elif "ocml" in filename:
             plt.stairs(counts,bins,label=label,hatch='X')
+        elif "nv" in filename:
+            plt.stairs(counts,bins,label=label,hatch='\\')
         else :
             plt.stairs(counts,bins,label=label,fill=True)
     plt.show()
