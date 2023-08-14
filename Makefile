@@ -1,6 +1,6 @@
 APP ?=vararg_gpu
 
-OPT ?=-O3
+OPT ?=-O3 -Xarch_device -fno-builtin -v
 
 CC = clang
 CXX = clang++
