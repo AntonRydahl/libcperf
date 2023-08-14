@@ -1,0 +1,5424 @@
+From 8fda6c8f604aaa6ef194e127140507582df9a04d Mon Sep 17 00:00:00 2001
+From: s174515 <s174515@student.dtu.dk>
+Date: Mon, 14 Aug 2023 18:53:34 +0200
+Subject: [PATCH] Updated D156263
+
+---
+ libc/config/gpu/entrypoints.txt               | 101 ++--
+ libc/src/math/CMakeLists.txt                  |  19 +-
+ libc/src/math/acos.h                          |  18 +
+ libc/src/math/acosh.h                         |  18 +
+ libc/src/math/asin.h                          |  18 +
+ libc/src/math/asinh.h                         |  18 +
+ libc/src/math/atan.h                          |  18 +
+ libc/src/math/atan2.h                         |  18 +
+ libc/src/math/atan2f.h                        |  18 +
+ libc/src/math/atanh.h                         |  18 +
+ libc/src/math/erf.h                           |  18 +
+ libc/src/math/exp.h                           |  18 +
+ libc/src/math/exp10.h                         |  18 +
+ libc/src/math/exp2.h                          |  18 +
+ libc/src/math/expm1.h                         |  18 +
+ libc/src/math/gpu/CMakeLists.txt              | 538 ++++-------------
+ libc/src/math/gpu/acos.cpp                    |  16 +
+ libc/src/math/gpu/acosf.cpp                   |  16 +
+ libc/src/math/gpu/acosh.cpp                   |  16 +
+ libc/src/math/gpu/acoshf.cpp                  |  16 +
+ libc/src/math/gpu/asin.cpp                    |  16 +
+ libc/src/math/gpu/asinf.cpp                   |  16 +
+ libc/src/math/gpu/asinh.cpp                   |  16 +
+ libc/src/math/gpu/asinhf.cpp                  |  16 +
+ libc/src/math/gpu/atan.cpp                    |  16 +
+ libc/src/math/gpu/atan2.cpp                   |  18 +
+ libc/src/math/gpu/atan2f.cpp                  |  18 +
+ libc/src/math/gpu/atanf.cpp                   |  16 +
+ libc/src/math/gpu/atanh.cpp                   |  17 +
+ libc/src/math/gpu/atanhf.cpp                  |  17 +
+ libc/src/math/gpu/cos.cpp                     |  16 +
+ libc/src/math/gpu/cosf.cpp                    |  16 +
+ libc/src/math/gpu/cosh.cpp                    |  16 +
+ libc/src/math/gpu/coshf.cpp                   |  16 +
+ libc/src/math/gpu/erf.cpp                     |  16 +
+ libc/src/math/gpu/erff.cpp                    |  16 +
+ libc/src/math/gpu/exp.cpp                     |  16 +
+ libc/src/math/gpu/exp2.cpp                    |  16 +
+ libc/src/math/gpu/exp2f.cpp                   |  16 +
+ libc/src/math/gpu/expf.cpp                    |  16 +
+ libc/src/math/gpu/expm1.cpp                   |  16 +
+ libc/src/math/gpu/expm1f.cpp                  |  16 +
+ libc/src/math/gpu/hypot.cpp                   |  18 +
+ libc/src/math/gpu/hypotf.cpp                  |  18 +
+ libc/src/math/gpu/ldexp.cpp                   |  18 +
+ libc/src/math/gpu/ldexpf.cpp                  |  18 +
+ libc/src/math/gpu/llrint.cpp                  |  18 +
+ libc/src/math/gpu/llrintf.cpp                 |  18 +
+ libc/src/math/gpu/llround.cpp                 |  18 +
+ libc/src/math/gpu/llroundf.cpp                |  19 +
+ libc/src/math/gpu/log.cpp                     |  16 +
+ libc/src/math/gpu/log10.cpp                   |  16 +
+ libc/src/math/gpu/log10f.cpp                  |  17 +
+ libc/src/math/gpu/log1p.cpp                   |  16 +
+ libc/src/math/gpu/log1pf.cpp                  |  16 +
+ libc/src/math/gpu/log2.cpp                    |  16 +
+ libc/src/math/gpu/log2f.cpp                   |  16 +
+ libc/src/math/gpu/logb.cpp                    |  16 +
+ libc/src/math/gpu/logbf.cpp                   |  17 +
+ libc/src/math/gpu/logf.cpp                    |  16 +
+ libc/src/math/gpu/lrint.cpp                   |  16 +
+ libc/src/math/gpu/lrintf.cpp                  |  16 +
+ libc/src/math/gpu/lround.cpp                  |  16 +
+ libc/src/math/gpu/lroundf.cpp                 |  17 +
+ libc/src/math/gpu/pow.cpp                     |  18 +
+ libc/src/math/gpu/powf.cpp                    |  18 +
+ libc/src/math/gpu/sin.cpp                     |  16 +
+ libc/src/math/gpu/sinf.cpp                    |  16 +
+ libc/src/math/gpu/tgamma.cpp                  |  16 +
+ libc/src/math/gpu/tgammaf.cpp                 |  16 +
+ libc/src/math/gpu/vendor/CMakeLists.txt       | 569 ++++--------------
+ libc/src/math/gpu/vendor/acos.cpp             |  18 +
+ libc/src/math/gpu/vendor/acosh.cpp            |  18 +
+ libc/src/math/gpu/vendor/amdgpu/amdgpu.h      | 109 +++-
+ .../src/math/gpu/vendor/amdgpu/declarations.h |  90 ++-
+ libc/src/math/gpu/vendor/asin.cpp             |  18 +
+ libc/src/math/gpu/vendor/asinh.cpp            |  18 +
+ libc/src/math/gpu/vendor/atan.cpp             |  18 +
+ libc/src/math/gpu/vendor/atan2.cpp            |  20 +
+ libc/src/math/gpu/vendor/atan2f.cpp           |  21 +
+ libc/src/math/gpu/vendor/atanh.cpp            |  18 +
+ libc/src/math/gpu/vendor/ceil.cpp             |  18 +
+ libc/src/math/gpu/vendor/ceilf.cpp            |  18 +
+ libc/src/math/gpu/vendor/copysign.cpp         |  20 +
+ libc/src/math/gpu/vendor/copysignf.cpp        |  20 +
+ libc/src/math/gpu/vendor/erf.cpp              |  18 +
+ libc/src/math/gpu/vendor/erff.cpp             |  18 +
+ libc/src/math/gpu/vendor/exp.cpp              |  18 +
+ libc/src/math/gpu/vendor/exp10.cpp            |  18 +
+ libc/src/math/gpu/vendor/exp2.cpp             |  18 +
+ libc/src/math/gpu/vendor/expm1.cpp            |  18 +
+ libc/src/math/gpu/vendor/fabs.cpp             |  18 +
+ libc/src/math/gpu/vendor/fabsf.cpp            |  18 +
+ libc/src/math/gpu/vendor/floor.cpp            |  18 +
+ libc/src/math/gpu/vendor/floorf.cpp           |  18 +
+ libc/src/math/gpu/vendor/fma.cpp              |  20 +
+ libc/src/math/gpu/vendor/fmaf.cpp             |  20 +
+ libc/src/math/gpu/vendor/fmax.cpp             |  20 +
+ libc/src/math/gpu/vendor/fmaxf.cpp            |  20 +
+ libc/src/math/gpu/vendor/fmin.cpp             |  20 +
+ libc/src/math/gpu/vendor/fminf.cpp            |  20 +
+ libc/src/math/gpu/vendor/fmod.cpp             |  20 +
+ libc/src/math/gpu/vendor/fmodf.cpp            |  20 +
+ libc/src/math/gpu/vendor/frexp.cpp            |  20 +
+ libc/src/math/gpu/vendor/frexpf.cpp           |  20 +
+ libc/src/math/gpu/vendor/log.cpp              |  18 +
+ libc/src/math/gpu/vendor/log10.cpp            |  18 +
+ libc/src/math/gpu/vendor/log10f.cpp           |  19 +
+ libc/src/math/gpu/vendor/log1p.cpp            |  18 +
+ libc/src/math/gpu/vendor/log1pf.cpp           |  18 +
+ libc/src/math/gpu/vendor/log2.cpp             |  18 +
+ libc/src/math/gpu/vendor/log2f.cpp            |  18 +
+ libc/src/math/gpu/vendor/logb.cpp             |  18 +
+ libc/src/math/gpu/vendor/logbf.cpp            |  19 +
+ libc/src/math/gpu/vendor/logf.cpp             |  18 +
+ libc/src/math/gpu/vendor/lrint.cpp            |  18 +
+ libc/src/math/gpu/vendor/lrintf.cpp           |  18 +
+ libc/src/math/gpu/vendor/lround.cpp           |  18 +
+ libc/src/math/gpu/vendor/lroundf.cpp          |  20 +
+ libc/src/math/gpu/vendor/modf.cpp             |  20 +
+ libc/src/math/gpu/vendor/modff.cpp            |  20 +
+ libc/src/math/gpu/vendor/nearbyint.cpp        |  20 +
+ libc/src/math/gpu/vendor/nearbyintf.cpp       |  20 +
+ libc/src/math/gpu/vendor/nvptx/declarations.h |  68 ++-
+ libc/src/math/gpu/vendor/nvptx/nvptx.h        |  85 ++-
+ libc/src/math/gpu/vendor/remainder.cpp        |  20 +
+ libc/src/math/gpu/vendor/remainderf.cpp       |  20 +
+ libc/src/math/gpu/vendor/remquo.cpp           |  20 +
+ libc/src/math/gpu/vendor/remquof.cpp          |  20 +
+ libc/src/math/gpu/vendor/rint.cpp             |  18 +
+ libc/src/math/gpu/vendor/rintf.cpp            |  18 +
+ libc/src/math/gpu/vendor/round.cpp            |  18 +
+ libc/src/math/gpu/vendor/roundf.cpp           |  18 +
+ libc/src/math/gpu/vendor/scalbn.cpp           |  20 +
+ libc/src/math/gpu/vendor/scalbnf.cpp          |  20 +
+ libc/src/math/gpu/vendor/sqrt.cpp             |  18 +
+ libc/src/math/gpu/vendor/sqrtf.cpp            |  18 +
+ libc/src/math/gpu/vendor/tgamma.cpp           |  18 +
+ libc/src/math/gpu/vendor/tgammaf.cpp          |  18 +
+ libc/src/math/gpu/vendor/trunc.cpp            |  18 +
+ libc/src/math/gpu/vendor/truncf.cpp           |  18 +
+ libc/src/math/sincos.h                        |  18 +
+ libc/src/math/tgamma.h                        |  18 +
+ libc/src/math/tgammaf.h                       |  18 +
+ 144 files changed, 3091 insertions(+), 911 deletions(-)
+ create mode 100644 libc/src/math/acos.h
+ create mode 100644 libc/src/math/acosh.h
+ create mode 100644 libc/src/math/asin.h
+ create mode 100644 libc/src/math/asinh.h
+ create mode 100644 libc/src/math/atan.h
+ create mode 100644 libc/src/math/atan2.h
+ create mode 100644 libc/src/math/atan2f.h
+ create mode 100644 libc/src/math/atanh.h
+ create mode 100644 libc/src/math/erf.h
+ create mode 100644 libc/src/math/exp.h
+ create mode 100644 libc/src/math/exp10.h
+ create mode 100644 libc/src/math/exp2.h
+ create mode 100644 libc/src/math/expm1.h
+ create mode 100644 libc/src/math/gpu/acos.cpp
+ create mode 100644 libc/src/math/gpu/acosf.cpp
+ create mode 100644 libc/src/math/gpu/acosh.cpp
+ create mode 100644 libc/src/math/gpu/acoshf.cpp
+ create mode 100644 libc/src/math/gpu/asin.cpp
+ create mode 100644 libc/src/math/gpu/asinf.cpp
+ create mode 100644 libc/src/math/gpu/asinh.cpp
+ create mode 100644 libc/src/math/gpu/asinhf.cpp
+ create mode 100644 libc/src/math/gpu/atan.cpp
+ create mode 100644 libc/src/math/gpu/atan2.cpp
+ create mode 100644 libc/src/math/gpu/atan2f.cpp
+ create mode 100644 libc/src/math/gpu/atanf.cpp
+ create mode 100644 libc/src/math/gpu/atanh.cpp
+ create mode 100644 libc/src/math/gpu/atanhf.cpp
+ create mode 100644 libc/src/math/gpu/cos.cpp
+ create mode 100644 libc/src/math/gpu/cosf.cpp
+ create mode 100644 libc/src/math/gpu/cosh.cpp
+ create mode 100644 libc/src/math/gpu/coshf.cpp
+ create mode 100644 libc/src/math/gpu/erf.cpp
+ create mode 100644 libc/src/math/gpu/erff.cpp
+ create mode 100644 libc/src/math/gpu/exp.cpp
+ create mode 100644 libc/src/math/gpu/exp2.cpp
+ create mode 100644 libc/src/math/gpu/exp2f.cpp
+ create mode 100644 libc/src/math/gpu/expf.cpp
+ create mode 100644 libc/src/math/gpu/expm1.cpp
+ create mode 100644 libc/src/math/gpu/expm1f.cpp
+ create mode 100644 libc/src/math/gpu/hypot.cpp
+ create mode 100644 libc/src/math/gpu/hypotf.cpp
+ create mode 100644 libc/src/math/gpu/ldexp.cpp
+ create mode 100644 libc/src/math/gpu/ldexpf.cpp
+ create mode 100644 libc/src/math/gpu/llrint.cpp
+ create mode 100644 libc/src/math/gpu/llrintf.cpp
+ create mode 100644 libc/src/math/gpu/llround.cpp
+ create mode 100644 libc/src/math/gpu/llroundf.cpp
+ create mode 100644 libc/src/math/gpu/log.cpp
+ create mode 100644 libc/src/math/gpu/log10.cpp
+ create mode 100644 libc/src/math/gpu/log10f.cpp
+ create mode 100644 libc/src/math/gpu/log1p.cpp
+ create mode 100644 libc/src/math/gpu/log1pf.cpp
+ create mode 100644 libc/src/math/gpu/log2.cpp
+ create mode 100644 libc/src/math/gpu/log2f.cpp
+ create mode 100644 libc/src/math/gpu/logb.cpp
+ create mode 100644 libc/src/math/gpu/logbf.cpp
+ create mode 100644 libc/src/math/gpu/logf.cpp
+ create mode 100644 libc/src/math/gpu/lrint.cpp
+ create mode 100644 libc/src/math/gpu/lrintf.cpp
+ create mode 100644 libc/src/math/gpu/lround.cpp
+ create mode 100644 libc/src/math/gpu/lroundf.cpp
+ create mode 100644 libc/src/math/gpu/pow.cpp
+ create mode 100644 libc/src/math/gpu/powf.cpp
+ create mode 100644 libc/src/math/gpu/sin.cpp
+ create mode 100644 libc/src/math/gpu/sinf.cpp
+ create mode 100644 libc/src/math/gpu/tgamma.cpp
+ create mode 100644 libc/src/math/gpu/tgammaf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/acos.cpp
+ create mode 100644 libc/src/math/gpu/vendor/acosh.cpp
+ create mode 100644 libc/src/math/gpu/vendor/asin.cpp
+ create mode 100644 libc/src/math/gpu/vendor/asinh.cpp
+ create mode 100644 libc/src/math/gpu/vendor/atan.cpp
+ create mode 100644 libc/src/math/gpu/vendor/atan2.cpp
+ create mode 100644 libc/src/math/gpu/vendor/atan2f.cpp
+ create mode 100644 libc/src/math/gpu/vendor/atanh.cpp
+ create mode 100644 libc/src/math/gpu/vendor/ceil.cpp
+ create mode 100644 libc/src/math/gpu/vendor/ceilf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/copysign.cpp
+ create mode 100644 libc/src/math/gpu/vendor/copysignf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/erf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/erff.cpp
+ create mode 100644 libc/src/math/gpu/vendor/exp.cpp
+ create mode 100644 libc/src/math/gpu/vendor/exp10.cpp
+ create mode 100644 libc/src/math/gpu/vendor/exp2.cpp
+ create mode 100644 libc/src/math/gpu/vendor/expm1.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fabs.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fabsf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/floor.cpp
+ create mode 100644 libc/src/math/gpu/vendor/floorf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fma.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fmaf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fmax.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fmaxf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fmin.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fminf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fmod.cpp
+ create mode 100644 libc/src/math/gpu/vendor/fmodf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/frexp.cpp
+ create mode 100644 libc/src/math/gpu/vendor/frexpf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/log.cpp
+ create mode 100644 libc/src/math/gpu/vendor/log10.cpp
+ create mode 100644 libc/src/math/gpu/vendor/log10f.cpp
+ create mode 100644 libc/src/math/gpu/vendor/log1p.cpp
+ create mode 100644 libc/src/math/gpu/vendor/log1pf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/log2.cpp
+ create mode 100644 libc/src/math/gpu/vendor/log2f.cpp
+ create mode 100644 libc/src/math/gpu/vendor/logb.cpp
+ create mode 100644 libc/src/math/gpu/vendor/logbf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/logf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/lrint.cpp
+ create mode 100644 libc/src/math/gpu/vendor/lrintf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/lround.cpp
+ create mode 100644 libc/src/math/gpu/vendor/lroundf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/modf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/modff.cpp
+ create mode 100644 libc/src/math/gpu/vendor/nearbyint.cpp
+ create mode 100644 libc/src/math/gpu/vendor/nearbyintf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/remainder.cpp
+ create mode 100644 libc/src/math/gpu/vendor/remainderf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/remquo.cpp
+ create mode 100644 libc/src/math/gpu/vendor/remquof.cpp
+ create mode 100644 libc/src/math/gpu/vendor/rint.cpp
+ create mode 100644 libc/src/math/gpu/vendor/rintf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/round.cpp
+ create mode 100644 libc/src/math/gpu/vendor/roundf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/scalbn.cpp
+ create mode 100644 libc/src/math/gpu/vendor/scalbnf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/sqrt.cpp
+ create mode 100644 libc/src/math/gpu/vendor/sqrtf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/tgamma.cpp
+ create mode 100644 libc/src/math/gpu/vendor/tgammaf.cpp
+ create mode 100644 libc/src/math/gpu/vendor/trunc.cpp
+ create mode 100644 libc/src/math/gpu/vendor/truncf.cpp
+ create mode 100644 libc/src/math/sincos.h
+ create mode 100644 libc/src/math/tgamma.h
+ create mode 100644 libc/src/math/tgammaf.h
+
+diff --git a/libc/config/gpu/entrypoints.txt b/libc/config/gpu/entrypoints.txt
+index f7a9f43dae9e..23f1db9ff92f 100644
+--- a/libc/config/gpu/entrypoints.txt
++++ b/libc/config/gpu/entrypoints.txt
+@@ -104,78 +104,111 @@ set(TARGET_LIBC_ENTRYPOINTS
+ set(TARGET_LIBM_ENTRYPOINTS
+     # math.h entrypoints
+     libc.src.math.acosf
++    libc.src.math.acos
+     libc.src.math.acoshf
++    libc.src.math.acosh
+     libc.src.math.asinf
++    libc.src.math.asin
+     libc.src.math.asinhf
++    libc.src.math.asinh
+     libc.src.math.atanf
++    libc.src.math.atan
++    libc.src.math.atan2f
++    libc.src.math.atan2
+     libc.src.math.atanhf
+-    libc.src.math.ceil
++    libc.src.math.atanh
+     libc.src.math.ceilf
+-    libc.src.math.copysign
++    libc.src.math.ceil
+     libc.src.math.copysignf
+-    libc.src.math.cos
++    libc.src.math.copysign
+     libc.src.math.cosf
+-    libc.src.math.cosh
++    libc.src.math.cos
+     libc.src.math.coshf
++    libc.src.math.cosh
++    libc.src.math.erff
++    libc.src.math.erf
++    libc.src.math.expf
++    libc.src.math.exp
+     libc.src.math.exp10f
++    libc.src.math.exp10
+     libc.src.math.exp2f
+-    libc.src.math.expf
++    libc.src.math.exp2
+     libc.src.math.expm1f
+-    libc.src.math.fabs
++    libc.src.math.expm1
+     libc.src.math.fabsf
+-    libc.src.math.fdim
++    libc.src.math.fabs
+     libc.src.math.fdimf
+-    libc.src.math.floor
++    libc.src.math.fdim
+     libc.src.math.floorf
+-    libc.src.math.fma
++    libc.src.math.floor
+     libc.src.math.fmaf
+-    libc.src.math.fmax
++    libc.src.math.fma
+     libc.src.math.fmaxf
+-    libc.src.math.fmin
++    libc.src.math.fmax
+     libc.src.math.fminf
+-    libc.src.math.fmod
++    libc.src.math.fmin
+     libc.src.math.fmodf
+-    libc.src.math.frexp
++    libc.src.math.fmod
+     libc.src.math.frexpf
+-    libc.src.math.hypot
++    libc.src.math.frexp
+     libc.src.math.hypotf
+-    libc.src.math.ilogb
++    libc.src.math.hypot
+     libc.src.math.ilogbf
+-    libc.src.math.ldexp
++    libc.src.math.ilogb
+     libc.src.math.ldexpf
+-    libc.src.math.llrint
++    libc.src.math.ldexp
+     libc.src.math.llrintf
+-    libc.src.math.llround
++    libc.src.math.llrint
+     libc.src.math.llroundf
+-    libc.src.math.pow
+-    libc.src.math.powf
+-    libc.src.math.sin
+-    libc.src.math.modf
++    libc.src.math.llround
++    libc.src.math.log10f
++    libc.src.math.log10
++    libc.src.math.log1pf
++    libc.src.math.log1p
++    libc.src.math.log2f
++    libc.src.math.log2
++    libc.src.math.logbf
++    libc.src.math.logb
++    libc.src.math.logf
++    libc.src.math.log
++    libc.src.math.lrintf
++    libc.src.math.lrint
++    libc.src.math.lroundf
++    libc.src.math.lround
+     libc.src.math.modff
+-    libc.src.math.nearbyint
++    libc.src.math.modf
+     libc.src.math.nearbyintf
+-    libc.src.math.nextafter
++    libc.src.math.nearbyint
+     libc.src.math.nextafterf
+-    libc.src.math.remainder
++    libc.src.math.nextafter
++    libc.src.math.pow
++    libc.src.math.powf
+     libc.src.math.remainderf
+-    libc.src.math.remquo
++    libc.src.math.remainder
+     libc.src.math.remquof
+-    libc.src.math.rint
++    libc.src.math.remquo
+     libc.src.math.rintf
+-    libc.src.math.round
++    libc.src.math.rint
+     libc.src.math.roundf
+-    libc.src.math.scalbn
++    libc.src.math.round
+     libc.src.math.scalbnf
+-    libc.src.math.sinh
++    libc.src.math.scalbn
++    libc.src.math.sincosf
++    libc.src.math.sincos
++    libc.src.math.sinf
++    libc.src.math.sin
+     libc.src.math.sinhf
+-    libc.src.math.sqrt
++    libc.src.math.sinh
+     libc.src.math.sqrtf
+-    libc.src.math.tan
++    libc.src.math.sqrt
+     libc.src.math.tanf
+-    libc.src.math.tanh
++    libc.src.math.tan
+     libc.src.math.tanhf
+-    libc.src.math.trunc
++    libc.src.math.tanh
++    libc.src.math.tgammaf
++    libc.src.math.tgamma
+     libc.src.math.truncf
++    libc.src.math.trunc
+ )
+ 
+ set(TARGET_LLVMLIBC_ENTRYPOINTS
+diff --git a/libc/src/math/CMakeLists.txt b/libc/src/math/CMakeLists.txt
+index 5054fd76bcb8..f241d5b50fe3 100644
+--- a/libc/src/math/CMakeLists.txt
++++ b/libc/src/math/CMakeLists.txt
+@@ -53,14 +53,22 @@ function(add_math_entrypoint_object name)
+   )
+ endfunction()
+ 
++add_math_entrypoint_object(acos)
+ add_math_entrypoint_object(acosf)
++add_math_entrypoint_object(acosh)
+ add_math_entrypoint_object(acoshf)
+ 
++add_math_entrypoint_object(asin)
+ add_math_entrypoint_object(asinf)
++add_math_entrypoint_object(asinh)
+ add_math_entrypoint_object(asinhf)
+ 
++add_math_entrypoint_object(atan)
+ add_math_entrypoint_object(atanf)
++add_math_entrypoint_object(atan2)
++add_math_entrypoint_object(atan2f)
+ 
++add_math_entrypoint_object(atanh)
+ add_math_entrypoint_object(atanhf)
+ 
+ add_math_entrypoint_object(ceil)
+@@ -76,14 +84,19 @@ add_math_entrypoint_object(cosf)
+ add_math_entrypoint_object(cosh)
+ add_math_entrypoint_object(coshf)
+ 
++add_math_entrypoint_object(erf)
+ add_math_entrypoint_object(erff)
+ 
++add_math_entrypoint_object(exp)
+ add_math_entrypoint_object(expf)
+ 
++add_math_entrypoint_object(exp2)
+ add_math_entrypoint_object(exp2f)
+ 
++add_math_entrypoint_object(exp10)
+ add_math_entrypoint_object(exp10f)
+ 
++add_math_entrypoint_object(expm1)
+ add_math_entrypoint_object(expm1f)
+ 
+ add_math_entrypoint_object(fabs)
+@@ -194,11 +207,11 @@ add_math_entrypoint_object(scalbn)
+ add_math_entrypoint_object(scalbnf)
+ add_math_entrypoint_object(scalbnl)
+ 
++add_math_entrypoint_object(sincos)
+ add_math_entrypoint_object(sincosf)
+ 
+ add_math_entrypoint_object(sin)
+ add_math_entrypoint_object(sinf)
+-
+ add_math_entrypoint_object(sinh)
+ add_math_entrypoint_object(sinhf)
+ 
+@@ -208,10 +221,12 @@ add_math_entrypoint_object(sqrtl)
+ 
+ add_math_entrypoint_object(tan)
+ add_math_entrypoint_object(tanf)
+-
+ add_math_entrypoint_object(tanh)
+ add_math_entrypoint_object(tanhf)
+ 
++add_math_entrypoint_object(tgamma)
++add_math_entrypoint_object(tgammaf)
++
+ add_math_entrypoint_object(trunc)
+ add_math_entrypoint_object(truncf)
+ add_math_entrypoint_object(truncl)
+diff --git a/libc/src/math/acos.h b/libc/src/math/acos.h
+new file mode 100644
+index 000000000000..53b299f1da89
+--- /dev/null
++++ b/libc/src/math/acos.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for acos --------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_ACOS_H
++#define LLVM_LIBC_SRC_MATH_ACOS_H
++
++namespace __llvm_libc {
++
++double acos(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_ACOS_H
+diff --git a/libc/src/math/acosh.h b/libc/src/math/acosh.h
+new file mode 100644
+index 000000000000..851c619fdb9f
+--- /dev/null
++++ b/libc/src/math/acosh.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for acosh -------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_ACOSH_H
++#define LLVM_LIBC_SRC_MATH_ACOSH_H
++
++namespace __llvm_libc {
++
++double acosh(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_ACOSH_H
+diff --git a/libc/src/math/asin.h b/libc/src/math/asin.h
+new file mode 100644
+index 000000000000..d8f3f191a357
+--- /dev/null
++++ b/libc/src/math/asin.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for asin --------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_ASIN_H
++#define LLVM_LIBC_SRC_MATH_ASIN_H
++
++namespace __llvm_libc {
++
++double asin(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_ASIN_H
+diff --git a/libc/src/math/asinh.h b/libc/src/math/asinh.h
+new file mode 100644
+index 000000000000..098880f26ecc
+--- /dev/null
++++ b/libc/src/math/asinh.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for asinh -------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_ASINH_H
++#define LLVM_LIBC_SRC_MATH_ASINH_H
++
++namespace __llvm_libc {
++
++double asinh(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_ASINH_H
+diff --git a/libc/src/math/atan.h b/libc/src/math/atan.h
+new file mode 100644
+index 000000000000..73d67e526d7d
+--- /dev/null
++++ b/libc/src/math/atan.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for atan --------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_ATAN_H
++#define LLVM_LIBC_SRC_MATH_ATAN_H
++
++namespace __llvm_libc {
++
++double atan(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_ATAN_H
+diff --git a/libc/src/math/atan2.h b/libc/src/math/atan2.h
+new file mode 100644
+index 000000000000..cac5b7ddfbb6
+--- /dev/null
++++ b/libc/src/math/atan2.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for atan2 -------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_ATAN2_H
++#define LLVM_LIBC_SRC_MATH_ATAN2_H
++
++namespace __llvm_libc {
++
++double atan2(double x, double y);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_ATAN2_H
+diff --git a/libc/src/math/atan2f.h b/libc/src/math/atan2f.h
+new file mode 100644
+index 000000000000..d3e81a2b8d5f
+--- /dev/null
++++ b/libc/src/math/atan2f.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for atan2f ------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_ATAN2F_H
++#define LLVM_LIBC_SRC_MATH_ATAN2F_H
++
++namespace __llvm_libc {
++
++float atan2f(float x, float y);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_ATAN2F_H
+diff --git a/libc/src/math/atanh.h b/libc/src/math/atanh.h
+new file mode 100644
+index 000000000000..de854451e7a2
+--- /dev/null
++++ b/libc/src/math/atanh.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for atanh -------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_ATANH_H
++#define LLVM_LIBC_SRC_MATH_ATANH_H
++
++namespace __llvm_libc {
++
++double atanh(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_ATANH_H
+diff --git a/libc/src/math/erf.h b/libc/src/math/erf.h
+new file mode 100644
+index 000000000000..86a146182b4f
+--- /dev/null
++++ b/libc/src/math/erf.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for erf ---------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_ERF_H
++#define LLVM_LIBC_SRC_MATH_ERF_H
++
++namespace __llvm_libc {
++
++double erf(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_ERF_H
+diff --git a/libc/src/math/exp.h b/libc/src/math/exp.h
+new file mode 100644
+index 000000000000..6fed17185ccc
+--- /dev/null
++++ b/libc/src/math/exp.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for exp ---------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_EXP_H
++#define LLVM_LIBC_SRC_MATH_EXP_H
++
++namespace __llvm_libc {
++
++double exp(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_EXP_H
+diff --git a/libc/src/math/exp10.h b/libc/src/math/exp10.h
+new file mode 100644
+index 000000000000..5afc95db2ce9
+--- /dev/null
++++ b/libc/src/math/exp10.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for exp10 -------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_EXP10_H
++#define LLVM_LIBC_SRC_MATH_EXP10_H
++
++namespace __llvm_libc {
++
++double exp10(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_EXP10_H
+diff --git a/libc/src/math/exp2.h b/libc/src/math/exp2.h
+new file mode 100644
+index 000000000000..ee70722ca385
+--- /dev/null
++++ b/libc/src/math/exp2.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for exp2 --------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_EXP2_H
++#define LLVM_LIBC_SRC_MATH_EXP2_H
++
++namespace __llvm_libc {
++
++double exp2(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_EXP2_H
+diff --git a/libc/src/math/expm1.h b/libc/src/math/expm1.h
+new file mode 100644
+index 000000000000..7ae354e459fe
+--- /dev/null
++++ b/libc/src/math/expm1.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for expm1 -------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_EXPM1_H
++#define LLVM_LIBC_SRC_MATH_EXPM1_H
++
++namespace __llvm_libc {
++
++double expm1(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_EXPM1_H
+diff --git a/libc/src/math/gpu/CMakeLists.txt b/libc/src/math/gpu/CMakeLists.txt
+index 37e9329eb5ac..067dc378c92b 100644
+--- a/libc/src/math/gpu/CMakeLists.txt
++++ b/libc/src/math/gpu/CMakeLists.txt
+@@ -11,424 +11,140 @@ add_subdirectory(vendor)
+ # TODO: We should have an option to enable or disable these on a per-function
+ # basis.
+ option(LIBC_GPU_VENDOR_MATH "Use vendor wrappers for GPU math" ON)
++
++# As a temporary solution to the above problem, we can add another CMake option
++# that allows the user to select between generic and built-in versions of the
++# math functions.
++option(LIBC_GPU_BUILTIN_MATH "Use built-in wrappers for GPU math" OFF)
++
++# And these options are regarded as mutually exclusive.
++if (${LIBC_GPU_VENDOR_MATH} AND ${LIBC_GPU_BUILTIN_MATH})
++  message(WARNING "\
++    Invalid CMake configuration. Please do not enable both \
++    'LIBC_GPU_VENDOR_MATH' and 'LIBC_GPU_BUILTIN_MATH'.\
++  ")
++endif()
++
+ function(add_math_entrypoint_gpu_object name)
+   get_fq_target_name("vendor.${name}" fq_vendor_specific_target_name)
+-  if(TARGET ${fq_vendor_specific_target_name} AND ${LIBC_GPU_VENDOR_MATH})
++  if(TARGET ${fq_vendor_specific_target_name} AND ${LIBC_GPU_VENDOR_MATH} 
++    AND NOT ${LIBC_GPU_BUILTIN_MATH})
+     return()
+   endif()
+ 
++  # If the user has not specified to use vendor math and has also not specified
++  # to use built-in math, we check wether a generic implementation exists. If a
++  # generic version exists, we do not add a built-in entry point.
++  if(NOT ${LIBC_GPU_BUILTIN_MATH})
++    get_filename_component(generic_file_path
++      "${CMAKE_CURRENT_LIST_DIR}/../generic/${name}.cpp" ABSOLUTE)
++    if (EXISTS ${generic_file_path})
++      return()
++    endif()
++  endif()
++
+   add_entrypoint_object(
+     ${name}
+-    ${ARGN}
++    SRCS
++      ${name}.cpp
++    HDRS
++      ../${name}.h
++    COMPILE_OPTIONS
++      -O2
+   )
+ endfunction()
+ 
+-add_math_entrypoint_gpu_object(
+-  ceil
+-  SRCS
+-    ceil.cpp
+-  HDRS
+-    ../ceil.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  ceilf
+-  SRCS
+-    ceilf.cpp
+-  HDRS
+-    ../ceilf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  copysign
+-  SRCS
+-    copysign.cpp
+-  HDRS
+-    ../copysign.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  copysignf
+-  SRCS
+-    copysignf.cpp
+-  HDRS
+-    ../copysignf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fabs
+-  SRCS
+-    fabs.cpp
+-  HDRS
+-    ../fabs.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fabsf
+-  SRCS
+-    fabsf.cpp
+-  HDRS
+-    ../fabsf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  floor
+-  SRCS
+-    floor.cpp
+-  HDRS
+-    ../floor.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  floorf
+-  SRCS
+-    floorf.cpp
+-  HDRS
+-    ../floorf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fma
+-  SRCS
+-    fma.cpp
+-  HDRS
+-    ../fma.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fmaf
+-  SRCS
+-    fmaf.cpp
+-  HDRS
+-    ../fmaf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fmax
+-  SRCS
+-    fmax.cpp
+-  HDRS
+-    ../fmax.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fmaxf
+-  SRCS
+-    fmaxf.cpp
+-  HDRS
+-    ../fmaxf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fmin
+-  SRCS
+-    fmin.cpp
+-  HDRS
+-    ../fmin.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fminf
+-  SRCS
+-    fminf.cpp
+-  HDRS
+-    ../fminf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fmod
+-  SRCS
+-    fmod.cpp
+-  HDRS
+-    ../fmod.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  fmodf
+-  SRCS
+-    fmodf.cpp
+-  HDRS
+-    ../fmodf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  frexp
+-  SRCS
+-    frexp.cpp
+-  HDRS
+-    ../frexp.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  frexpf
+-  SRCS
+-    frexpf.cpp
+-  HDRS
+-    ../frexpf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  modf
+-  SRCS
+-    modf.cpp
+-  HDRS
+-    ../modf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  modff
+-  SRCS
+-    modff.cpp
+-  HDRS
+-    ../modff.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  nearbyint
+-  SRCS
+-    nearbyint.cpp
+-  HDRS
+-    ../nearbyint.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  nearbyintf
+-  SRCS
+-    nearbyintf.cpp
+-  HDRS
+-    ../nearbyintf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  remainder
+-  SRCS
+-    remainder.cpp
+-  HDRS
+-    ../remainder.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  remainderf
+-  SRCS
+-    remainderf.cpp
+-  HDRS
+-    ../remainderf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  remquo
+-  SRCS
+-    remquo.cpp
+-  HDRS
+-    ../remquo.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  remquof
+-  SRCS
+-    remquof.cpp
+-  HDRS
+-    ../remquof.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  rint
+-  SRCS
+-    rint.cpp
+-  HDRS
+-    ../rint.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  rintf
+-  SRCS
+-    rintf.cpp
+-  HDRS
+-    ../rintf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  round
+-  SRCS
+-    round.cpp
+-  HDRS
+-    ../round.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  scalbn
+-  SRCS
+-    scalbn.cpp
+-  HDRS
+-    ../scalbn.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  scalbnf
+-  SRCS
+-    scalbnf.cpp
+-  HDRS
+-    ../scalbnf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  sinh
+-  SRCS
+-    sinh.cpp
+-  HDRS
+-    ../sinh.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  sinhf
+-  SRCS
+-    sinhf.cpp
+-  HDRS
+-    ../sinhf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  sqrt
+-  SRCS
+-    sqrt.cpp
+-  HDRS
+-    ../sqrt.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  sqrtf
+-  SRCS
+-    sqrtf.cpp
+-  HDRS
+-    ../sqrtf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  tan
+-  SRCS
+-    tan.cpp
+-  HDRS
+-    ../tan.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  tanf
+-  SRCS
+-    tanf.cpp
+-  HDRS
+-    ../tanf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  tanh
+-  SRCS
+-    tanh.cpp
+-  HDRS
+-    ../tanh.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  tanhf
+-  SRCS
+-    tanhf.cpp
+-  HDRS
+-    ../tanhf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  trunc
+-  SRCS
+-    trunc.cpp
+-  HDRS
+-    ../trunc.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+-
+-add_math_entrypoint_gpu_object(
+-  truncf
+-  SRCS
+-    truncf.cpp
+-  HDRS
+-    ../truncf.h
+-  COMPILE_OPTIONS
+-    -O2
+-)
+\ No newline at end of file
++add_math_entrypoint_gpu_object(acos)
++add_math_entrypoint_gpu_object(acosf)
++add_math_entrypoint_gpu_object(acosh)
++add_math_entrypoint_gpu_object(acoshf)
++add_math_entrypoint_gpu_object(asin)
++add_math_entrypoint_gpu_object(asinf)
++add_math_entrypoint_gpu_object(asinh)
++add_math_entrypoint_gpu_object(asinhf)
++add_math_entrypoint_gpu_object(atan)
++add_math_entrypoint_gpu_object(atanf)
++add_math_entrypoint_gpu_object(atan2)
++add_math_entrypoint_gpu_object(atan2f)
++add_math_entrypoint_gpu_object(atanh)
++add_math_entrypoint_gpu_object(atanhf)
++add_math_entrypoint_gpu_object(ceil)
++add_math_entrypoint_gpu_object(ceilf)
++add_math_entrypoint_gpu_object(copysign)
++add_math_entrypoint_gpu_object(copysignf)
++add_math_entrypoint_gpu_object(cos)
++add_math_entrypoint_gpu_object(cosf)
++add_math_entrypoint_gpu_object(cosh)
++add_math_entrypoint_gpu_object(coshf)
++add_math_entrypoint_gpu_object(erf)
++add_math_entrypoint_gpu_object(erff)
++add_math_entrypoint_gpu_object(exp)
++add_math_entrypoint_gpu_object(exp2)
++add_math_entrypoint_gpu_object(exp2f)
++add_math_entrypoint_gpu_object(expf)
++add_math_entrypoint_gpu_object(expm1)
++add_math_entrypoint_gpu_object(expm1f)
++add_math_entrypoint_gpu_object(fabs)
++add_math_entrypoint_gpu_object(fabsf)
++add_math_entrypoint_gpu_object(floor)
++add_math_entrypoint_gpu_object(floorf)
++add_math_entrypoint_gpu_object(fma)
++add_math_entrypoint_gpu_object(fmaf)
++add_math_entrypoint_gpu_object(fmax)
++add_math_entrypoint_gpu_object(fmaxf)
++add_math_entrypoint_gpu_object(fmin)
++add_math_entrypoint_gpu_object(fminf)
++add_math_entrypoint_gpu_object(fmod)
++add_math_entrypoint_gpu_object(fmodf)
++add_math_entrypoint_gpu_object(frexp)
++add_math_entrypoint_gpu_object(frexpf)
++add_math_entrypoint_gpu_object(hypot)
++add_math_entrypoint_gpu_object(hypotf)
++add_math_entrypoint_gpu_object(ldexp)
++add_math_entrypoint_gpu_object(ldexpf)
++add_math_entrypoint_gpu_object(llrint)
++add_math_entrypoint_gpu_object(llrintf)
++add_math_entrypoint_gpu_object(llround)
++add_math_entrypoint_gpu_object(llroundf)
++add_math_entrypoint_gpu_object(log10)
++add_math_entrypoint_gpu_object(log10f)
++add_math_entrypoint_gpu_object(log1p)
++add_math_entrypoint_gpu_object(log1pf)
++add_math_entrypoint_gpu_object(log2)
++add_math_entrypoint_gpu_object(log2f)
++add_math_entrypoint_gpu_object(log)
++add_math_entrypoint_gpu_object(logf)
++add_math_entrypoint_gpu_object(lrint)
++add_math_entrypoint_gpu_object(lrintf)
++add_math_entrypoint_gpu_object(lround)
++add_math_entrypoint_gpu_object(lroundf)
++add_math_entrypoint_gpu_object(modf)
++add_math_entrypoint_gpu_object(modff)
++add_math_entrypoint_gpu_object(nearbyint)
++add_math_entrypoint_gpu_object(nearbyintf)
++add_math_entrypoint_gpu_object(pow)
++add_math_entrypoint_gpu_object(powf)
++add_math_entrypoint_gpu_object(remainder)
++add_math_entrypoint_gpu_object(remainderf)
++add_math_entrypoint_gpu_object(remquo)
++add_math_entrypoint_gpu_object(remquof)
++add_math_entrypoint_gpu_object(rint)
++add_math_entrypoint_gpu_object(rintf)
++add_math_entrypoint_gpu_object(round)
++add_math_entrypoint_gpu_object(roundf)
++add_math_entrypoint_gpu_object(scalbn)
++add_math_entrypoint_gpu_object(scalbnf)
++add_math_entrypoint_gpu_object(sin)
++add_math_entrypoint_gpu_object(sinf)
++add_math_entrypoint_gpu_object(sinh)
++add_math_entrypoint_gpu_object(sinhf)
++add_math_entrypoint_gpu_object(sqrt)
++add_math_entrypoint_gpu_object(sqrtf)
++add_math_entrypoint_gpu_object(tan)
++add_math_entrypoint_gpu_object(tanf)
++add_math_entrypoint_gpu_object(tanh)
++add_math_entrypoint_gpu_object(tanhf)
++add_math_entrypoint_gpu_object(tgamma)
++add_math_entrypoint_gpu_object(tgammaf)
++add_math_entrypoint_gpu_object(trunc)
++add_math_entrypoint_gpu_object(truncf)
+diff --git a/libc/src/math/gpu/acos.cpp b/libc/src/math/gpu/acos.cpp
+new file mode 100644
+index 000000000000..6573338d79b7
+--- /dev/null
++++ b/libc/src/math/gpu/acos.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU acos function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/acos.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, acos, (double x)) { return __builtin_acos(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/acosf.cpp b/libc/src/math/gpu/acosf.cpp
+new file mode 100644
+index 000000000000..d633314f1926
+--- /dev/null
++++ b/libc/src/math/gpu/acosf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU acosf function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/acosf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, acosf, (float x)) { return __builtin_acosf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/acosh.cpp b/libc/src/math/gpu/acosh.cpp
+new file mode 100644
+index 000000000000..b9db708ca2c2
+--- /dev/null
++++ b/libc/src/math/gpu/acosh.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU acosh function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/acosh.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, acosh, (double x)) { return __builtin_acosh(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/acoshf.cpp b/libc/src/math/gpu/acoshf.cpp
+new file mode 100644
+index 000000000000..bff9de3ace47
+--- /dev/null
++++ b/libc/src/math/gpu/acoshf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU acoshf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/acoshf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, acoshf, (float x)) { return __builtin_acoshf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/asin.cpp b/libc/src/math/gpu/asin.cpp
+new file mode 100644
+index 000000000000..bc3a46e4f385
+--- /dev/null
++++ b/libc/src/math/gpu/asin.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU asin function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/asin.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, asin, (double x)) { return __builtin_asin(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/asinf.cpp b/libc/src/math/gpu/asinf.cpp
+new file mode 100644
+index 000000000000..253a1e6e0d75
+--- /dev/null
++++ b/libc/src/math/gpu/asinf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU asinf function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/asinf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, asinf, (float x)) { return __builtin_asinf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/asinh.cpp b/libc/src/math/gpu/asinh.cpp
+new file mode 100644
+index 000000000000..402c4187a62a
+--- /dev/null
++++ b/libc/src/math/gpu/asinh.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU asinh function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/asinh.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, asinh, (double x)) { return __builtin_asinh(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/asinhf.cpp b/libc/src/math/gpu/asinhf.cpp
+new file mode 100644
+index 000000000000..7c4d17dbad9b
+--- /dev/null
++++ b/libc/src/math/gpu/asinhf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU asinhf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/asinhf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, asinhf, (float x)) { return __builtin_asinhf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/atan.cpp b/libc/src/math/gpu/atan.cpp
+new file mode 100644
+index 000000000000..e0859f9cc81b
+--- /dev/null
++++ b/libc/src/math/gpu/atan.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU atan function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atan.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, atan, (double x)) { return __builtin_atan(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/atan2.cpp b/libc/src/math/gpu/atan2.cpp
+new file mode 100644
+index 000000000000..e68c9f6c7658
+--- /dev/null
++++ b/libc/src/math/gpu/atan2.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU atan2 function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atan2.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, atan2, (double x, double y)) {
++  return __builtin_atan2(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/atan2f.cpp b/libc/src/math/gpu/atan2f.cpp
+new file mode 100644
+index 000000000000..80ff19f09459
+--- /dev/null
++++ b/libc/src/math/gpu/atan2f.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU atan2f function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atan2f.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, atan2f, (float x, float y)) {
++  return __builtin_atan2f(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/atanf.cpp b/libc/src/math/gpu/atanf.cpp
+new file mode 100644
+index 000000000000..2c11eadca25a
+--- /dev/null
++++ b/libc/src/math/gpu/atanf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU atanf function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atanf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, atanf, (float x)) { return __builtin_atanf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/atanh.cpp b/libc/src/math/gpu/atanh.cpp
+new file mode 100644
+index 000000000000..a96ca091664c
+--- /dev/null
++++ b/libc/src/math/gpu/atanh.cpp
+@@ -0,0 +1,17 @@
++//===-- Implementation of the GPU atanh function
++//--------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atanh.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, atanh, (double x)) { return __builtin_atanh(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/atanhf.cpp b/libc/src/math/gpu/atanhf.cpp
+new file mode 100644
+index 000000000000..a1ca8c3e7170
+--- /dev/null
++++ b/libc/src/math/gpu/atanhf.cpp
+@@ -0,0 +1,17 @@
++//===-- Implementation of the GPU atanhf function
++//--------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atanhf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, atanhf, (float x)) { return __builtin_atanhf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/cos.cpp b/libc/src/math/gpu/cos.cpp
+new file mode 100644
+index 000000000000..fb332b97dc2a
+--- /dev/null
++++ b/libc/src/math/gpu/cos.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU cos function ----------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/cos.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, cos, (double x)) { return __builtin_cos(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/cosf.cpp b/libc/src/math/gpu/cosf.cpp
+new file mode 100644
+index 000000000000..a6ce32451b61
+--- /dev/null
++++ b/libc/src/math/gpu/cosf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU cosf function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/cosf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, cosf, (float x)) { return __builtin_cosf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/cosh.cpp b/libc/src/math/gpu/cosh.cpp
+new file mode 100644
+index 000000000000..297672de1b5b
+--- /dev/null
++++ b/libc/src/math/gpu/cosh.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU cosh function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/cosh.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, cosh, (double x)) { return __builtin_cosh(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/coshf.cpp b/libc/src/math/gpu/coshf.cpp
+new file mode 100644
+index 000000000000..27eeae909a29
+--- /dev/null
++++ b/libc/src/math/gpu/coshf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU coshf function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/coshf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, coshf, (float x)) { return __builtin_coshf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/erf.cpp b/libc/src/math/gpu/erf.cpp
+new file mode 100644
+index 000000000000..ab9622198c24
+--- /dev/null
++++ b/libc/src/math/gpu/erf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU erf function ----------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/erf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, erf, (double x)) { return __builtin_erf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/erff.cpp b/libc/src/math/gpu/erff.cpp
+new file mode 100644
+index 000000000000..cbadd346a804
+--- /dev/null
++++ b/libc/src/math/gpu/erff.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU erff function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/erff.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, erff, (float x)) { return __builtin_erff(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/exp.cpp b/libc/src/math/gpu/exp.cpp
+new file mode 100644
+index 000000000000..fb2a89175251
+--- /dev/null
++++ b/libc/src/math/gpu/exp.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU exp function ----------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/exp.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, exp, (double x)) { return __builtin_exp(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/exp2.cpp b/libc/src/math/gpu/exp2.cpp
+new file mode 100644
+index 000000000000..1fa44d54fb44
+--- /dev/null
++++ b/libc/src/math/gpu/exp2.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU exp2 function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/exp2.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, exp2, (double x)) { return __builtin_exp2(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/exp2f.cpp b/libc/src/math/gpu/exp2f.cpp
+new file mode 100644
+index 000000000000..00ced01c7a0e
+--- /dev/null
++++ b/libc/src/math/gpu/exp2f.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU exp2f function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/exp2f.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, exp2f, (float x)) { return __builtin_exp2f(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/expf.cpp b/libc/src/math/gpu/expf.cpp
+new file mode 100644
+index 000000000000..b7d8d0b340ed
+--- /dev/null
++++ b/libc/src/math/gpu/expf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU expf function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/expf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, expf, (float x)) { return __builtin_expf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/expm1.cpp b/libc/src/math/gpu/expm1.cpp
+new file mode 100644
+index 000000000000..f6573e5ddd44
+--- /dev/null
++++ b/libc/src/math/gpu/expm1.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU expm1 function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/expm1.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, expm1, (double x)) { return __builtin_expm1(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/expm1f.cpp b/libc/src/math/gpu/expm1f.cpp
+new file mode 100644
+index 000000000000..bf99658ca3fb
+--- /dev/null
++++ b/libc/src/math/gpu/expm1f.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU expm1f function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/expm1f.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, expm1f, (float x)) { return __builtin_expm1f(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/hypot.cpp b/libc/src/math/gpu/hypot.cpp
+new file mode 100644
+index 000000000000..7062b5fee098
+--- /dev/null
++++ b/libc/src/math/gpu/hypot.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the hypot function for GPU ----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/hypot.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, hypot, (double x, double y)) {
++  return __builtin_hypot(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/hypotf.cpp b/libc/src/math/gpu/hypotf.cpp
+new file mode 100644
+index 000000000000..6788a56fb38a
+--- /dev/null
++++ b/libc/src/math/gpu/hypotf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the hypotf function for GPU ---------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/hypotf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, hypotf, (float x, float y)) {
++  return __builtin_hypotf(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/ldexp.cpp b/libc/src/math/gpu/ldexp.cpp
+new file mode 100644
+index 000000000000..75a4eb6b6337
+--- /dev/null
++++ b/libc/src/math/gpu/ldexp.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU ldexp function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/ldexp.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, ldexp, (double x, int exp)) {
++  return __builtin_ldexp(x, exp);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/ldexpf.cpp b/libc/src/math/gpu/ldexpf.cpp
+new file mode 100644
+index 000000000000..458a7b69f1a9
+--- /dev/null
++++ b/libc/src/math/gpu/ldexpf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU ldexpf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/ldexpf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, ldexpf, (float x, int exp)) {
++  return __builtin_ldexpf(x, exp);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/llrint.cpp b/libc/src/math/gpu/llrint.cpp
+new file mode 100644
+index 000000000000..26acdda8a727
+--- /dev/null
++++ b/libc/src/math/gpu/llrint.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU llrint function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/llrint.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long long, llrint, (double x)) {
++  return __builtin_llrint(x);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/llrintf.cpp b/libc/src/math/gpu/llrintf.cpp
+new file mode 100644
+index 000000000000..50516f3940a1
+--- /dev/null
++++ b/libc/src/math/gpu/llrintf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU llrintf function ------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/llrintf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long long, llrintf, (float x)) {
++  return __builtin_llrintf(x);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/llround.cpp b/libc/src/math/gpu/llround.cpp
+new file mode 100644
+index 000000000000..f41852f52023
+--- /dev/null
++++ b/libc/src/math/gpu/llround.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU llround function ------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/llround.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long long, llround, (double x)) {
++  return __builtin_llround(x);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/llroundf.cpp b/libc/src/math/gpu/llroundf.cpp
+new file mode 100644
+index 000000000000..7b30709690e8
+--- /dev/null
++++ b/libc/src/math/gpu/llroundf.cpp
+@@ -0,0 +1,19 @@
++//===-- Implementation of the GPU llroundf function
++//------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/llroundf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long long, llroundf, (float x)) {
++  return __builtin_llroundf(x);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/log.cpp b/libc/src/math/gpu/log.cpp
+new file mode 100644
+index 000000000000..ed9694e363d6
+--- /dev/null
++++ b/libc/src/math/gpu/log.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU log function ----------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, log, (double x)) { return __builtin_log(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/log10.cpp b/libc/src/math/gpu/log10.cpp
+new file mode 100644
+index 000000000000..3bc4ba0cb684
+--- /dev/null
++++ b/libc/src/math/gpu/log10.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU log10 function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log10.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, log10, (double x)) { return __builtin_log10(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/log10f.cpp b/libc/src/math/gpu/log10f.cpp
+new file mode 100644
+index 000000000000..02b59dc53395
+--- /dev/null
++++ b/libc/src/math/gpu/log10f.cpp
+@@ -0,0 +1,17 @@
++//===-- Implementation of the GPU log10f function
++//---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log10f.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, log10f, (float x)) { return __builtin_log10f(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/log1p.cpp b/libc/src/math/gpu/log1p.cpp
+new file mode 100644
+index 000000000000..acfcb7542569
+--- /dev/null
++++ b/libc/src/math/gpu/log1p.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU log1p function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log1p.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, log1p, (double x)) { return __builtin_log1p(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/log1pf.cpp b/libc/src/math/gpu/log1pf.cpp
+new file mode 100644
+index 000000000000..fddf8a7a0f3a
+--- /dev/null
++++ b/libc/src/math/gpu/log1pf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU log1pf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log1pf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, log1pf, (float x)) { return __builtin_log1pf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/log2.cpp b/libc/src/math/gpu/log2.cpp
+new file mode 100644
+index 000000000000..33a6d345b10c
+--- /dev/null
++++ b/libc/src/math/gpu/log2.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU log2 function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log2.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, log2, (double x)) { return __builtin_log2(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/log2f.cpp b/libc/src/math/gpu/log2f.cpp
+new file mode 100644
+index 000000000000..563c73ee8075
+--- /dev/null
++++ b/libc/src/math/gpu/log2f.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU log2f function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log2f.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, log2f, (float x)) { return __builtin_log2f(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/logb.cpp b/libc/src/math/gpu/logb.cpp
+new file mode 100644
+index 000000000000..55c8c737aa9e
+--- /dev/null
++++ b/libc/src/math/gpu/logb.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU logb function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/logb.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, logb, (double x)) { return __builtin_logb(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/logbf.cpp b/libc/src/math/gpu/logbf.cpp
+new file mode 100644
+index 000000000000..acb262545800
+--- /dev/null
++++ b/libc/src/math/gpu/logbf.cpp
+@@ -0,0 +1,17 @@
++//===-- Implementation of the GPU logbf function
++//---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/logbf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, logbf, (float x)) { return __builtin_logbf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/logf.cpp b/libc/src/math/gpu/logf.cpp
+new file mode 100644
+index 000000000000..23918a8a1422
+--- /dev/null
++++ b/libc/src/math/gpu/logf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU logf function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/logf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, logf, (float x)) { return __builtin_logf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/lrint.cpp b/libc/src/math/gpu/lrint.cpp
+new file mode 100644
+index 000000000000..acdade0f2dd4
+--- /dev/null
++++ b/libc/src/math/gpu/lrint.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU lrint function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/lrint.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long, lrint, (double x)) { return __builtin_lrint(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/lrintf.cpp b/libc/src/math/gpu/lrintf.cpp
+new file mode 100644
+index 000000000000..7d8d65644b34
+--- /dev/null
++++ b/libc/src/math/gpu/lrintf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU lrintf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/lrintf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long, lrintf, (float x)) { return __builtin_lrintf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/lround.cpp b/libc/src/math/gpu/lround.cpp
+new file mode 100644
+index 000000000000..ced70a495e5a
+--- /dev/null
++++ b/libc/src/math/gpu/lround.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU lround function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/lround.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long, lround, (double x)) { return __builtin_lround(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/lroundf.cpp b/libc/src/math/gpu/lroundf.cpp
+new file mode 100644
+index 000000000000..ef0d114ce056
+--- /dev/null
++++ b/libc/src/math/gpu/lroundf.cpp
+@@ -0,0 +1,17 @@
++//===-- Implementation of the GPU lroundf function
++//-------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/lroundf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long, lroundf, (float x)) { return __builtin_lroundf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/pow.cpp b/libc/src/math/gpu/pow.cpp
+new file mode 100644
+index 000000000000..f86d8f8dd168
+--- /dev/null
++++ b/libc/src/math/gpu/pow.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU pow function ----------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/pow.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, pow, (double x, double y)) {
++  return __builtin_pow(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/powf.cpp b/libc/src/math/gpu/powf.cpp
+new file mode 100644
+index 000000000000..7e8667346e92
+--- /dev/null
++++ b/libc/src/math/gpu/powf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU powf function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/powf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, powf, (float x, float y)) {
++  return __builtin_powf(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/sin.cpp b/libc/src/math/gpu/sin.cpp
+new file mode 100644
+index 000000000000..9af0f0ac6fb1
+--- /dev/null
++++ b/libc/src/math/gpu/sin.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU sin function ----------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/sin.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, sin, (double x)) { return __builtin_sin(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/sinf.cpp b/libc/src/math/gpu/sinf.cpp
+new file mode 100644
+index 000000000000..c14c599ed5e3
+--- /dev/null
++++ b/libc/src/math/gpu/sinf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU sinf function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/sinf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, sinf, (float x)) { return __builtin_sinf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/tgamma.cpp b/libc/src/math/gpu/tgamma.cpp
+new file mode 100644
+index 000000000000..e343ceb4c54c
+--- /dev/null
++++ b/libc/src/math/gpu/tgamma.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU tgamma function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/tgamma.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, tgamma, (double x)) { return __builtin_tgamma(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/tgammaf.cpp b/libc/src/math/gpu/tgammaf.cpp
+new file mode 100644
+index 000000000000..c5d016d917c0
+--- /dev/null
++++ b/libc/src/math/gpu/tgammaf.cpp
+@@ -0,0 +1,16 @@
++//===-- Implementation of the GPU tgammaf function ------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/tgammaf.h"
++#include "src/__support/common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, tgammaf, (float x)) { return __builtin_tgammaf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/CMakeLists.txt b/libc/src/math/gpu/vendor/CMakeLists.txt
+index 9a9d538d3dde..3a2b5595cabf 100644
+--- a/libc/src/math/gpu/vendor/CMakeLists.txt
++++ b/libc/src/math/gpu/vendor/CMakeLists.txt
+@@ -29,442 +29,135 @@ endif()
+ # will link in identity metadata from both libraries. This silences the warning.
+ list(APPEND bitcode_link_flags "-Wno-linker-warnings")
+ 
+-add_entrypoint_object(
+-  acosf
+-  SRCS
+-    acosf.cpp
+-  HDRS
+-    ../../acosf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  acoshf
+-  SRCS
+-    acoshf.cpp
+-  HDRS
+-    ../../acoshf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  asinf
+-  SRCS
+-    asinf.cpp
+-  HDRS
+-    ../../asinf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  asinhf
+-  SRCS
+-    asinhf.cpp
+-  HDRS
+-    ../../asinhf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  atanf
+-  SRCS
+-    atanf.cpp
+-  HDRS
+-    ../../atanf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  atanhf
+-  SRCS
+-    atanhf.cpp
+-  HDRS
+-    ../../atanhf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  cos
+-  SRCS
+-    cos.cpp
+-  HDRS
+-    ../../cos.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  cosf
+-  SRCS
+-    cosf.cpp
+-  HDRS
+-    ../../cosf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  cosh
+-  SRCS
+-    cosh.cpp
+-  HDRS
+-    ../../cosh.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  coshf
+-  SRCS
+-    coshf.cpp
+-  HDRS
+-    ../../coshf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  exp10f
+-  SRCS
+-    exp10f.cpp
+-  HDRS
+-    ../../exp10f.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  exp2f
+-  SRCS
+-    exp2f.cpp
+-  HDRS
+-    ../../exp2f.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  expf
+-  SRCS
+-    expf.cpp
+-  HDRS
+-    ../../expf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  expm1f
+-  SRCS
+-    expm1f.cpp
+-  HDRS
+-    ../../expm1f.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  fdim
+-  SRCS
+-    fdim.cpp
+-  HDRS
+-    ../../fdim.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  fdimf
+-  SRCS
+-    fdimf.cpp
+-  HDRS
+-    ../../fdimf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  hypot
+-  SRCS
+-    hypot.cpp
+-  HDRS
+-    ../../hypot.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  hypotf
+-  SRCS
+-    hypotf.cpp
+-  HDRS
+-    ../../hypotf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  ilogb
+-  SRCS
+-    ilogb.cpp
+-  HDRS
+-    ../../ilogb.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  ilogbf
+-  SRCS
+-    ilogbf.cpp
+-  HDRS
+-    ../../ilogbf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  ldexp
+-  SRCS
+-    ldexp.cpp
+-  HDRS
+-    ../../ldexp.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  ldexpf
+-  SRCS
+-    ldexpf.cpp
+-  HDRS
+-    ../../ldexpf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  llrint
+-  SRCS
+-    llrint.cpp
+-  HDRS
+-    ../../llrint.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  llrintf
+-  SRCS
+-    llrintf.cpp
+-  HDRS
+-    ../../llrintf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  llround
+-  SRCS
+-    llround.cpp
+-  HDRS
+-    ../../llround.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  llroundf
+-  SRCS
+-    llroundf.cpp
+-  HDRS
+-    ../../llroundf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  nextafter
+-  SRCS
+-    nextafter.cpp
+-  HDRS
+-    ../../nextafter.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  nextafterf
+-  SRCS
+-    nextafterf.cpp
+-  HDRS
+-    ../../nextafterf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  pow
+-  SRCS
+-    pow.cpp
+-  HDRS
+-    ../../pow.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  powf
+-  SRCS
+-    powf.cpp
+-  HDRS
+-    ../../powf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  sin
+-  SRCS
+-    sin.cpp
+-  HDRS
+-    ../../sin.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  sinf
+-  SRCS
+-    sinf.cpp
+-  HDRS
+-    ../../sinf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  sincos
+-  SRCS
+-    sincos.cpp
+-  HDRS
+-    ../../sincos.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  sincosf
+-  SRCS
+-    sincosf.cpp
+-  HDRS
+-    ../../sincosf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  sinh
+-  SRCS
+-    sinh.cpp
+-  HDRS
+-    ../../sinh.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  sinhf
+-  SRCS
+-    sinhf.cpp
+-  HDRS
+-    ../../sinhf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  tan
+-  SRCS
+-    tan.cpp
+-  HDRS
+-    ../../tan.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  tanf
+-  SRCS
+-    tanf.cpp
+-  HDRS
+-    ../../tanf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+-
+-add_entrypoint_object(
+-  tanh
+-  SRCS
+-    tanh.cpp
+-  HDRS
+-    ../../tanh.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
++function(add_math_entrypoint_gpu_vendor_object name)
++  # If the user did not specify to use vendor implementations of the math
++  # functions, we check if a built-in or a generic implementation exists. If 
++  # the do not, we have to rely on the vendor version.
++  if(NOT ${LIBC_GPU_VENDOR_MATH})
++    get_filename_component(generic_file_path
++      "${CMAKE_CURRENT_LIST_DIR}/../../generic/${name}.cpp" ABSOLUTE)
++    get_filename_component(builtin_file_path
++      "${CMAKE_CURRENT_LIST_DIR}/../${name}.cpp" ABSOLUTE)
++    if ((EXISTS ${generic_file_path}) OR (EXISTS ${builtin_file_path}))
++      return()
++    endif()
++  endif()
+ 
+-add_entrypoint_object(
+-  tanhf
+-  SRCS
+-    tanhf.cpp
+-  HDRS
+-    ../../tanhf.h
+-  COMPILE_OPTIONS
+-    ${bitcode_link_flags}
+-    -O2
+-)
+\ No newline at end of file
++  add_entrypoint_object(
++    ${name}
++    SRCS
++      ${name}.cpp
++    HDRS
++      ../../${name}.h
++    COMPILE_OPTIONS
++      ${bitcode_link_flags}
++      -O2
++  )
++endfunction()
++
++add_math_entrypoint_gpu_vendor_object(acos)
++add_math_entrypoint_gpu_vendor_object(acosf)
++add_math_entrypoint_gpu_vendor_object(acosh)
++add_math_entrypoint_gpu_vendor_object(acoshf)
++add_math_entrypoint_gpu_vendor_object(asin)
++add_math_entrypoint_gpu_vendor_object(asinf)
++add_math_entrypoint_gpu_vendor_object(asinh)
++add_math_entrypoint_gpu_vendor_object(asinhf)
++add_math_entrypoint_gpu_vendor_object(atan)
++add_math_entrypoint_gpu_vendor_object(atanf)
++add_math_entrypoint_gpu_vendor_object(atan2)
++add_math_entrypoint_gpu_vendor_object(atan2f)
++add_math_entrypoint_gpu_vendor_object(atanh)
++add_math_entrypoint_gpu_vendor_object(atanhf)
++add_math_entrypoint_gpu_vendor_object(ceil)
++add_math_entrypoint_gpu_vendor_object(ceilf)
++add_math_entrypoint_gpu_vendor_object(copysign)
++add_math_entrypoint_gpu_vendor_object(copysignf)
++add_math_entrypoint_gpu_vendor_object(cos)
++add_math_entrypoint_gpu_vendor_object(cosf)
++add_math_entrypoint_gpu_vendor_object(cosh)
++add_math_entrypoint_gpu_vendor_object(coshf)
++add_math_entrypoint_gpu_vendor_object(erf)
++add_math_entrypoint_gpu_vendor_object(erff)
++add_math_entrypoint_gpu_vendor_object(exp)
++add_math_entrypoint_gpu_vendor_object(exp10)
++add_math_entrypoint_gpu_vendor_object(exp10f)
++add_math_entrypoint_gpu_vendor_object(exp2)
++add_math_entrypoint_gpu_vendor_object(exp2f)
++add_math_entrypoint_gpu_vendor_object(expf)
++add_math_entrypoint_gpu_vendor_object(expm1)
++add_math_entrypoint_gpu_vendor_object(expm1f)
++add_math_entrypoint_gpu_vendor_object(fabs)
++add_math_entrypoint_gpu_vendor_object(fabsf)
++add_math_entrypoint_gpu_vendor_object(fdim)
++add_math_entrypoint_gpu_vendor_object(fdimf)
++add_math_entrypoint_gpu_vendor_object(fma)
++add_math_entrypoint_gpu_vendor_object(fmaf)
++add_math_entrypoint_gpu_vendor_object(fmax)
++add_math_entrypoint_gpu_vendor_object(fmaxf)
++add_math_entrypoint_gpu_vendor_object(fmin)
++add_math_entrypoint_gpu_vendor_object(fminf)
++add_math_entrypoint_gpu_vendor_object(fmod)
++add_math_entrypoint_gpu_vendor_object(fmodf)
++add_math_entrypoint_gpu_vendor_object(floor)
++add_math_entrypoint_gpu_vendor_object(floorf)
++add_math_entrypoint_gpu_vendor_object(frexp)
++add_math_entrypoint_gpu_vendor_object(frexpf)
++add_math_entrypoint_gpu_vendor_object(hypot)
++add_math_entrypoint_gpu_vendor_object(hypotf)
++add_math_entrypoint_gpu_vendor_object(ilogb)
++add_math_entrypoint_gpu_vendor_object(ilogbf)
++add_math_entrypoint_gpu_vendor_object(ldexp)
++add_math_entrypoint_gpu_vendor_object(ldexpf)
++add_math_entrypoint_gpu_vendor_object(llrint)
++add_math_entrypoint_gpu_vendor_object(llrintf)
++add_math_entrypoint_gpu_vendor_object(llround)
++add_math_entrypoint_gpu_vendor_object(llroundf)
++add_math_entrypoint_gpu_vendor_object(log10)
++add_math_entrypoint_gpu_vendor_object(log10f)
++add_math_entrypoint_gpu_vendor_object(log1p)
++add_math_entrypoint_gpu_vendor_object(log1pf)
++add_math_entrypoint_gpu_vendor_object(log2)
++add_math_entrypoint_gpu_vendor_object(log2f)
++add_math_entrypoint_gpu_vendor_object(logb)
++add_math_entrypoint_gpu_vendor_object(logbf)
++add_math_entrypoint_gpu_vendor_object(log)
++add_math_entrypoint_gpu_vendor_object(logf)
++add_math_entrypoint_gpu_vendor_object(lrint)
++add_math_entrypoint_gpu_vendor_object(lrintf)
++add_math_entrypoint_gpu_vendor_object(lround)
++add_math_entrypoint_gpu_vendor_object(lroundf)
++add_math_entrypoint_gpu_vendor_object(modf)
++add_math_entrypoint_gpu_vendor_object(modff)
++add_math_entrypoint_gpu_vendor_object(nearbyint)
++add_math_entrypoint_gpu_vendor_object(nearbyintf)
++add_math_entrypoint_gpu_vendor_object(nextafter)
++add_math_entrypoint_gpu_vendor_object(nextafterf)
++add_math_entrypoint_gpu_vendor_object(pow)
++add_math_entrypoint_gpu_vendor_object(powf)
++add_math_entrypoint_gpu_vendor_object(remainder)
++add_math_entrypoint_gpu_vendor_object(remainderf)
++add_math_entrypoint_gpu_vendor_object(remquo)
++add_math_entrypoint_gpu_vendor_object(remquof)
++add_math_entrypoint_gpu_vendor_object(rint)
++add_math_entrypoint_gpu_vendor_object(rintf)
++add_math_entrypoint_gpu_vendor_object(round)
++add_math_entrypoint_gpu_vendor_object(roundf)
++add_math_entrypoint_gpu_vendor_object(scalbn)
++add_math_entrypoint_gpu_vendor_object(scalbnf)
++add_math_entrypoint_gpu_vendor_object(sin)
++add_math_entrypoint_gpu_vendor_object(sinf)
++add_math_entrypoint_gpu_vendor_object(sinh)
++add_math_entrypoint_gpu_vendor_object(sinhf)
++add_math_entrypoint_gpu_vendor_object(sincos)
++add_math_entrypoint_gpu_vendor_object(sincosf)
++add_math_entrypoint_gpu_vendor_object(sqrt)
++add_math_entrypoint_gpu_vendor_object(sqrtf)
++add_math_entrypoint_gpu_vendor_object(tan)
++add_math_entrypoint_gpu_vendor_object(tanf)
++add_math_entrypoint_gpu_vendor_object(tanh)
++add_math_entrypoint_gpu_vendor_object(tanhf)
++add_math_entrypoint_gpu_vendor_object(tgammaf)
++add_math_entrypoint_gpu_vendor_object(tgamma)
++add_math_entrypoint_gpu_vendor_object(trunc)
++add_math_entrypoint_gpu_vendor_object(truncf)
+diff --git a/libc/src/math/gpu/vendor/acos.cpp b/libc/src/math/gpu/vendor/acos.cpp
+new file mode 100644
+index 000000000000..7e6d00be3c3e
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/acos.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU acos function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/acos.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, acos, (double x)) { return internal::acos(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/acosh.cpp b/libc/src/math/gpu/vendor/acosh.cpp
+new file mode 100644
+index 000000000000..2ea150dcf78e
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/acosh.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU acosh function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/acosh.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, acosh, (double x)) { return internal::acosh(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/amdgpu/amdgpu.h b/libc/src/math/gpu/vendor/amdgpu/amdgpu.h
+index 6635ea51cd61..bd88d3a6997c 100644
+--- a/libc/src/math/gpu/vendor/amdgpu/amdgpu.h
++++ b/libc/src/math/gpu/vendor/amdgpu/amdgpu.h
+@@ -16,32 +16,101 @@
+ 
+ namespace __llvm_libc {
+ namespace internal {
++
++LIBC_INLINE double acos(double x) { return __ocml_acos_f64(x); }
+ LIBC_INLINE float acosf(float x) { return __ocml_acos_f32(x); }
++LIBC_INLINE double acosh(double x) { return __ocml_acosh_f64(x); }
+ LIBC_INLINE float acoshf(float x) { return __ocml_acosh_f32(x); }
++LIBC_INLINE double asin(double x) { return __ocml_asin_f64(x); }
+ LIBC_INLINE float asinf(float x) { return __ocml_asin_f32(x); }
++LIBC_INLINE double asinh(double x) { return __ocml_asinh_f64(x); }
+ LIBC_INLINE float asinhf(float x) { return __ocml_asinh_f32(x); }
++LIBC_INLINE double atan(double x) { return __ocml_atan_f64(x); }
+ LIBC_INLINE float atanf(float x) { return __ocml_atan_f32(x); }
++LIBC_INLINE double atan2(double x, double y) { return __ocml_atan2_f64(x, y); }
++LIBC_INLINE float atan2f(float x, float y) { return __ocml_atan2_f32(x, y); }
++LIBC_INLINE double atanh(double x) { return __ocml_atanh_f64(x); }
+ LIBC_INLINE float atanhf(float x) { return __ocml_atanh_f32(x); }
++LIBC_INLINE double ceil(double x) { return __ocml_ceil_f64(x); }
++LIBC_INLINE float ceilf(float x) { return __ocml_ceil_f32(x); }
++LIBC_INLINE double copysign(double x, double y) {
++  return __ocml_copysign_f64(x, y);
++}
++LIBC_INLINE float copysignf(float x, float y) {
++  return __ocml_copysign_f32(x, y);
++}
+ LIBC_INLINE double cos(double x) { return __ocml_cos_f64(x); }
+ LIBC_INLINE float cosf(float x) { return __ocml_cos_f32(x); }
+ LIBC_INLINE double cosh(double x) { return __ocml_cosh_f64(x); }
+ LIBC_INLINE float coshf(float x) { return __ocml_cosh_f32(x); }
+-LIBC_INLINE float expf(float x) { return __builtin_expf(x); }
+-LIBC_INLINE float exp2f(float x) { return __builtin_exp2f(x); }
++LIBC_INLINE float erf(float x) { return __ocml_erf_f64(x); }
++LIBC_INLINE float erff(float x) { return __ocml_erf_f32(x); }
++LIBC_INLINE double exp(double x) { return __ocml_exp_f64(x); }
++LIBC_INLINE double exp10(double x) { return __ocml_exp10_f64(x); }
+ LIBC_INLINE float exp10f(float x) { return __ocml_exp10_f32(x); }
++LIBC_INLINE double exp2(double x) { return __ocml_exp2_f64(x); }
++LIBC_INLINE float exp2f(float x) { return __ocml_exp2_f32(x); }
++LIBC_INLINE float expf(float x) { return __ocml_exp_f32(x); }
++LIBC_INLINE double expm1(double x) { return __ocml_expm1_f64(x); }
+ LIBC_INLINE float expm1f(float x) { return __ocml_expm1_f32(x); }
++LIBC_INLINE double fabs(double x) { return __ocml_fabs_f64(x); }
++LIBC_INLINE float fabsf(float x) { return __ocml_fabs_f32(x); }
+ LIBC_INLINE double fdim(double x, double y) { return __ocml_fdim_f64(x, y); }
+ LIBC_INLINE float fdimf(float x, float y) { return __ocml_fdim_f32(x, y); }
++LIBC_INLINE double floor(double x) { return __ocml_floor_f64(x); }
++LIBC_INLINE float floorf(float x) { return __ocml_floor_f32(x); }
++LIBC_INLINE double fma(double x, double y, double z) {
++  return __ocml_fma_f64(x, y, z);
++}
++LIBC_INLINE float fmaf(float x, float y, double z) {
++  return __ocml_fma_f32(x, y, z);
++}
++LIBC_INLINE double fmax(double x, double y) { return __ocml_fmax_f64(x, y); }
++LIBC_INLINE float fmaxf(float x, float y) { return __ocml_fmax_f32(x, y); }
++LIBC_INLINE double fmin(double x, double y) { return __ocml_fmin_f64(x, y); }
++LIBC_INLINE float fminf(float x, float y) { return __ocml_fmin_f32(x, y); }
++LIBC_INLINE double fmod(double x, double y) { return __ocml_fmod_f64(x, y); }
++LIBC_INLINE float fmodf(float x, float y) { return __ocml_fmod_f32(x, y); }
++LIBC_INLINE double frexp(double x, int *exp) {
++  return __ocml_frexp_f64(x, exp);
++}
++LIBC_INLINE float frexpf(float x, int *exp) { return __ocml_frexp_f32(x, exp); }
+ LIBC_INLINE double hypot(double x, double y) { return __ocml_hypot_f64(x, y); }
+ LIBC_INLINE float hypotf(float x, float y) { return __ocml_hypot_f32(x, y); }
+ LIBC_INLINE int ilogb(double x) { return __ocml_ilogb_f64(x); }
+ LIBC_INLINE int ilogbf(float x) { return __ocml_ilogb_f32(x); }
+-LIBC_INLINE double ldexp(double x, int i) { return __builtin_ldexp(x, i); }
+-LIBC_INLINE float ldexpf(float x, int i) { return __builtin_ldexpf(x, i); }
+-LIBC_INLINE long long llrint(double x) { return __builtin_rint(x); }
+-LIBC_INLINE long long llrintf(float x) { return __builtin_rintf(x); }
+-LIBC_INLINE long long llround(double x) { return __builtin_round(x); }
+-LIBC_INLINE long long llroundf(float x) { return __builtin_roundf(x); }
++LIBC_INLINE double ldexp(double x, int exp) { return __ocml_ldexp_f64(x, exp); }
++LIBC_INLINE float ldexpf(float x, int exp) { return __ocml_ldexp_f32(x, exp); }
++LIBC_INLINE long long llrint(double x) { return (long long)__ocml_rint_f64(x); }
++LIBC_INLINE long long llrintf(float x) { return (long long)__ocml_rint_f32(x); }
++LIBC_INLINE long long llround(double x) {
++  return (long long)__ocml_round_f64(x);
++}
++LIBC_INLINE long long llroundf(float x) {
++  return (long long)__ocml_round_f32(x);
++}
++LIBC_INLINE double log10(double x) { return __ocml_log10_f64(x); }
++LIBC_INLINE float log10f(float x) { return __ocml_log10_f32(x); }
++LIBC_INLINE double log1p(double x) { return __ocml_log1p_f64(x); }
++LIBC_INLINE float log1pf(float x) { return __ocml_log1p_f32(x); }
++LIBC_INLINE double log2(double x) { return __ocml_log2_f64(x); }
++LIBC_INLINE float log2f(float x) { return __ocml_log2_f32(x); }
++LIBC_INLINE double logb(double x) { return __ocml_logb_f64(x); }
++LIBC_INLINE float logbf(float x) { return __ocml_logb_f32(x); }
++LIBC_INLINE double log(double x) { return __ocml_log_f64(x); }
++LIBC_INLINE float logf(float x) { return __ocml_log_f32(x); }
++LIBC_INLINE long lrint(double x) { return (long)__ocml_rint_f64(x); }
++LIBC_INLINE long lrintf(float x) { return (long)__ocml_rint_f32(x); }
++LIBC_INLINE long lround(double x) { return (long)__ocml_round_f64(x); }
++LIBC_INLINE long lroundf(float x) { return (long)__ocml_round_f32(x); }
++LIBC_INLINE double modf(double x, double *iptr) {
++  return __ocml_modf_f64(x, iptr);
++}
++LIBC_INLINE float modff(float x, float *iptr) {
++  return __ocml_modf_f32(x, iptr);
++}
++LIBC_INLINE double nearbyint(double x) { return __ocml_nearbyint_f64(x); }
++LIBC_INLINE float nearbyintf(float x) { return __ocml_nearbyint_f32(x); }
+ LIBC_INLINE double nextafter(double x, double y) {
+   return __ocml_nextafter_f64(x, y);
+ }
+@@ -50,6 +119,24 @@ LIBC_INLINE float nextafterf(float x, float y) {
+ }
+ LIBC_INLINE double pow(double x, double y) { return __ocml_pow_f64(x, y); }
+ LIBC_INLINE float powf(float x, float y) { return __ocml_pow_f32(x, y); }
++LIBC_INLINE double remainder(double x, double y) {
++  return __ocml_remainder_f64(x, y);
++}
++LIBC_INLINE float remainderf(float x, float y) {
++  return __ocml_remainder_f32(x, y);
++}
++LIBC_INLINE double remquo(double x, double y, int *quo) {
++  return __ocml_remquo_f64(x, y, quo);
++}
++LIBC_INLINE float remquof(float x, float y, int *quo) {
++  return __ocml_remquo_f32(x, y, quo);
++}
++LIBC_INLINE double rint(double x) { return __ocml_rint_f64(x); }
++LIBC_INLINE float rintf(float x) { return __ocml_rint_f32(x); }
++LIBC_INLINE double round(double x) { return __ocml_round_f64(x); }
++LIBC_INLINE float roundf(float x) { return __ocml_round_f32(x); }
++LIBC_INLINE double scalbn(double x, int y) { return __ocml_scalb_f64(x, y); }
++LIBC_INLINE float scalbnf(float x, int y) { return __ocml_scalb_f32(x, y); }
+ LIBC_INLINE double sin(double x) { return __ocml_sin_f64(x); }
+ LIBC_INLINE float sinf(float x) { return __ocml_sin_f32(x); }
+ LIBC_INLINE void sincos(double x, double *sinptr, double *cosptr) {
+@@ -60,10 +147,16 @@ LIBC_INLINE void sincosf(float x, float *sinptr, float *cosptr) {
+ }
+ LIBC_INLINE double sinh(double x) { return __ocml_sinh_f64(x); }
+ LIBC_INLINE float sinhf(float x) { return __ocml_sinh_f32(x); }
++LIBC_INLINE double sqrt(double x) { return __ocml_sqrt_f64(x); }
++LIBC_INLINE float sqrtf(float x) { return __ocml_sqrt_f32(x); }
+ LIBC_INLINE double tan(double x) { return __ocml_tan_f64(x); }
+ LIBC_INLINE float tanf(float x) { return __ocml_tan_f32(x); }
+ LIBC_INLINE double tanh(double x) { return __ocml_tanh_f64(x); }
+ LIBC_INLINE float tanhf(float x) { return __ocml_tanh_f32(x); }
++LIBC_INLINE double tgamma(double x) { return __ocml_tgamma_f64(x); }
++LIBC_INLINE float tgammaf(float x) { return __ocml_tgamma_f32(x); }
++LIBC_INLINE double trunc(double x) { return __ocml_trunc_f64(x); }
++LIBC_INLINE float truncf(float x) { return __ocml_trunc_f32(x); }
+ 
+ } // namespace internal
+ } // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/amdgpu/declarations.h b/libc/src/math/gpu/vendor/amdgpu/declarations.h
+index cb910b03b8b2..5c5ee1a694c8 100644
+--- a/libc/src/math/gpu/vendor/amdgpu/declarations.h
++++ b/libc/src/math/gpu/vendor/amdgpu/declarations.h
+@@ -12,46 +12,110 @@
+ namespace __llvm_libc {
+ 
+ extern "C" {
++double __ocml_acos_f64(double);
+ float __ocml_acos_f32(float);
++double __ocml_acosh_f64(double);
+ float __ocml_acosh_f32(float);
++double __ocml_asin_f64(double);
+ float __ocml_asin_f32(float);
++double __ocml_asinh_f64(double);
+ float __ocml_asinh_f32(float);
++double __ocml_atan_f64(double);
+ float __ocml_atan_f32(float);
++double __ocml_atan2_f64(double, double);
++float __ocml_atan2_f32(float, float);
++double __ocml_atanh_f64(double);
+ float __ocml_atanh_f32(float);
+-float __ocml_cos_f32(float);
++double __ocml_ceil_f64(double);
++float __ocml_ceil_f32(float);
++double __ocml_copysign_f64(double, double);
++float __ocml_copysign_f32(float, float);
+ double __ocml_cos_f64(double);
+-float __ocml_cosh_f32(float);
++float __ocml_cos_f32(float);
+ double __ocml_cosh_f64(double);
++float __ocml_cosh_f32(float);
++double __ocml_erf_f64(double);
++float __ocml_erf_f32(float);
++double __ocml_exp_f64(double);
+ float __ocml_exp_f32(float);
+-float __ocml_exp2_f32(float);
++double __ocml_exp10_f64(double);
+ float __ocml_exp10_f32(float);
++double __ocml_exp2_f64(double);
++float __ocml_exp2_f32(float);
++double __ocml_expm1_f64(double);
+ float __ocml_expm1_f32(float);
+-float __ocml_fdim_f32(float, float);
++double __ocml_fabs_f64(double);
++float __ocml_fabs_f32(float);
+ double __ocml_fdim_f64(double, double);
++float __ocml_fdim_f32(float, float);
++double __ocml_fma_f64(double, double, double);
++float __ocml_fma_f32(float, float, float);
++double __ocml_fmax_f64(double, double);
++float __ocml_fmax_f32(float, float);
++double __ocml_fmin_f64(double, double);
++float __ocml_fmin_f32(float, float);
++double __ocml_floor_f64(double);
++float __ocml_floor_f32(float);
++double __ocml_fmod_f64(double, double);
++float __ocml_fmod_f32(float, float);
++double __ocml_frexp_f64(double, int *);
++float __ocml_frexp_f32(float, int *);
+ double __ocml_hypot_f64(double, double);
+ float __ocml_hypot_f32(float, float);
+ int __ocml_ilogb_f64(double);
+ int __ocml_ilogb_f32(float);
+-float __ocml_ldexp_f32(float, int);
+-double __ocml_ldexp_f64(double, int);
+-float __ocml_nextafter_f32(float, float);
++double __ocml_ldexp_f64(double x, int exp);
++float __ocml_ldexp_f32(float x, int exp);
++long long __ocml_llrint_f64(double);
++long long __ocml_llrint_f32(float);
++double __ocml_log10_f64(double);
++float __ocml_log10_f32(float);
++double __ocml_log1p_f64(double);
++float __ocml_log1p_f32(float);
++double __ocml_log2_f64(double);
++float __ocml_log2_f32(float);
++double __ocml_logb_f64(double);
++float __ocml_logb_f32(float);
++double __ocml_log_f64(double);
++float __ocml_log_f32(float);
++long __ocml_lrint_f64(double);
++long __ocml_lrint_f32(float);
++long __ocml_lround_f64(double);
++long __ocml_lround_f32(float);
++double __ocml_modf_f64(double, double *);
++float __ocml_modf_f32(float, float *);
++double __ocml_nearbyint_f64(double);
++float __ocml_nearbyint_f32(float);
+ double __ocml_nextafter_f64(double, double);
+-float __ocml_pow_f32(float, float);
++float __ocml_nextafter_f32(float, float);
+ double __ocml_pow_f64(double, double);
++float __ocml_pow_f32(float, float);
++double __ocml_remainder_f64(double, double);
++float __ocml_remainder_f32(float, float);
++double __ocml_remquo_f64(double, double, int *);
++float __ocml_remquo_f32(float, float, int *);
+ double __ocml_rint_f64(double);
+ float __ocml_rint_f32(float);
+ double __ocml_round_f64(double);
+ float __ocml_round_f32(float);
+-float __ocml_sin_f32(float);
++double __ocml_scalb_f64(double, int);
++float __ocml_scalb_f32(float, int);
+ double __ocml_sin_f64(double);
+-float __ocml_sincos_f32(float, float *);
++float __ocml_sin_f32(float);
+ double __ocml_sincos_f64(double, double *);
+-float __ocml_sinh_f32(float);
++float __ocml_sincos_f32(float, float *);
+ double __ocml_sinh_f64(double);
+-float __ocml_tan_f32(float);
++float __ocml_sinh_f32(float);
++double __ocml_sqrt_f64(double);
++float __ocml_sqrt_f32(float);
+ double __ocml_tan_f64(double);
+-float __ocml_tanh_f32(float);
++float __ocml_tan_f32(float);
+ double __ocml_tanh_f64(double);
++float __ocml_tanh_f32(float);
++double __ocml_tgamma_f64(double);
++float __ocml_tgamma_f32(float);
++double __ocml_trunc_f64(double);
++float __ocml_trunc_f32(float);
+ }
+ 
+ } // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/asin.cpp b/libc/src/math/gpu/vendor/asin.cpp
+new file mode 100644
+index 000000000000..eaf7253ad1ec
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/asin.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU asin function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/asin.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, asin, (double x)) { return internal::asin(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/asinh.cpp b/libc/src/math/gpu/vendor/asinh.cpp
+new file mode 100644
+index 000000000000..ddb33ebae3a5
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/asinh.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU asinh function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/asinh.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, asinh, (double x)) { return internal::asinh(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/atan.cpp b/libc/src/math/gpu/vendor/atan.cpp
+new file mode 100644
+index 000000000000..88452dc60188
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/atan.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU atan function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atan.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, atan, (double x)) { return internal::atan(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/atan2.cpp b/libc/src/math/gpu/vendor/atan2.cpp
+new file mode 100644
+index 000000000000..9f5736f7c30e
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/atan2.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU atan2 function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atan2.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, atan2, (double x, double y)) {
++  return internal::atan2(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/atan2f.cpp b/libc/src/math/gpu/vendor/atan2f.cpp
+new file mode 100644
+index 000000000000..897bd5d26527
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/atan2f.cpp
+@@ -0,0 +1,21 @@
++//===-- Implementation of the GPU atan2f function
++//--------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atan2f.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, atan2f, (float x, float y)) {
++  return internal::atan2f(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/atanh.cpp b/libc/src/math/gpu/vendor/atanh.cpp
+new file mode 100644
+index 000000000000..97246bf195ff
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/atanh.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU atanh function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/atanh.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, atanh, (double x)) { return internal::atanh(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/ceil.cpp b/libc/src/math/gpu/vendor/ceil.cpp
+new file mode 100644
+index 000000000000..ea310d5991c2
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/ceil.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the ceil function for GPU -----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/ceil.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, ceil, (double x)) { return internal::ceil(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/ceilf.cpp b/libc/src/math/gpu/vendor/ceilf.cpp
+new file mode 100644
+index 000000000000..85371d0d7a6e
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/ceilf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the ceilf function for GPU ----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/ceilf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, ceilf, (float x)) { return internal::ceilf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/copysign.cpp b/libc/src/math/gpu/vendor/copysign.cpp
+new file mode 100644
+index 000000000000..0713a348c0a1
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/copysign.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the copysign function for GPU -------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/copysign.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, copysign, (double x, double y)) {
++  return internal::copysign(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/copysignf.cpp b/libc/src/math/gpu/vendor/copysignf.cpp
+new file mode 100644
+index 000000000000..3725d35f2575
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/copysignf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the copysignf function for GPU ------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/copysignf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, copysignf, (float x, float y)) {
++  return internal::copysignf(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/erf.cpp b/libc/src/math/gpu/vendor/erf.cpp
+new file mode 100644
+index 000000000000..f06ab8121ebd
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/erf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU erf function ----------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/erf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, erf, (double x)) { return internal::erf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/erff.cpp b/libc/src/math/gpu/vendor/erff.cpp
+new file mode 100644
+index 000000000000..78c31383d86a
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/erff.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU erff function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/erff.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, erff, (float x)) { return internal::erff(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/exp.cpp b/libc/src/math/gpu/vendor/exp.cpp
+new file mode 100644
+index 000000000000..dc315d9555b4
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/exp.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU exp function ----------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/exp.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, exp, (double x)) { return internal::exp(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/exp10.cpp b/libc/src/math/gpu/vendor/exp10.cpp
+new file mode 100644
+index 000000000000..1bb746bfdcac
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/exp10.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU exp10 function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/exp10.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, exp10, (double x)) { return internal::exp10(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/exp2.cpp b/libc/src/math/gpu/vendor/exp2.cpp
+new file mode 100644
+index 000000000000..0dbea3837cbd
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/exp2.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU exp2 function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/exp2.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, exp2, (double x)) { return internal::exp2(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/expm1.cpp b/libc/src/math/gpu/vendor/expm1.cpp
+new file mode 100644
+index 000000000000..528daab22e14
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/expm1.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU expm1 function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/expm1.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, expm1, (double x)) { return internal::expm1(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fabs.cpp b/libc/src/math/gpu/vendor/fabs.cpp
+new file mode 100644
+index 000000000000..87c36cfaa20a
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fabs.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the fabs function for GPU -----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fabs.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, fabs, (double x)) { return internal::fabs(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fabsf.cpp b/libc/src/math/gpu/vendor/fabsf.cpp
+new file mode 100644
+index 000000000000..95f494991225
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fabsf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the fabsf function for GPU ----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fabsf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, fabsf, (float x)) { return internal::fabsf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/floor.cpp b/libc/src/math/gpu/vendor/floor.cpp
+new file mode 100644
+index 000000000000..dc53dbf16bbe
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/floor.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the floor function for GPU ----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/floor.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, floor, (double x)) { return internal::floor(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/floorf.cpp b/libc/src/math/gpu/vendor/floorf.cpp
+new file mode 100644
+index 000000000000..ba6680e6caca
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/floorf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the floorf function for GPU ---------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/floorf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, floorf, (float x)) { return internal::floorf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fma.cpp b/libc/src/math/gpu/vendor/fma.cpp
+new file mode 100644
+index 000000000000..003ce9f2e150
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fma.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the fma function for GPU ------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fma.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, fma, (double x, double y, double z)) {
++  return internal::fma(x, y, z);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fmaf.cpp b/libc/src/math/gpu/vendor/fmaf.cpp
+new file mode 100644
+index 000000000000..e80844770699
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fmaf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the fmaf function for GPU -----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fmaf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, fmaf, (float x, float y, float z)) {
++  return internal::fmaf(x, y, z);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fmax.cpp b/libc/src/math/gpu/vendor/fmax.cpp
+new file mode 100644
+index 000000000000..1d63f780fc95
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fmax.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the fmax function for GPU -----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fmax.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, fmax, (double x, double y)) {
++  return internal::fmax(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fmaxf.cpp b/libc/src/math/gpu/vendor/fmaxf.cpp
+new file mode 100644
+index 000000000000..743514651b59
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fmaxf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the fmaxf function for GPU ----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fmaxf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, fmaxf, (float x, float y)) {
++  return internal::fmaxf(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fmin.cpp b/libc/src/math/gpu/vendor/fmin.cpp
+new file mode 100644
+index 000000000000..1c6ac38018fb
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fmin.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the fmin function for GPU -----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fmin.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, fmin, (double x, double y)) {
++  return internal::fmin(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fminf.cpp b/libc/src/math/gpu/vendor/fminf.cpp
+new file mode 100644
+index 000000000000..33dc2454d6ed
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fminf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the fminf function for GPU ----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fminf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, fminf, (float x, float y)) {
++  return internal::fminf(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fmod.cpp b/libc/src/math/gpu/vendor/fmod.cpp
+new file mode 100644
+index 000000000000..adfe578c2d03
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fmod.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the fmod function for GPU -----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fmod.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, fmod, (double x, double y)) {
++  return internal::fmod(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/fmodf.cpp b/libc/src/math/gpu/vendor/fmodf.cpp
+new file mode 100644
+index 000000000000..c6c0ecb03eca
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/fmodf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the fmodf function for GPU ----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/fmodf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, fmodf, (float x, float y)) {
++  return internal::fmodf(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/frexp.cpp b/libc/src/math/gpu/vendor/frexp.cpp
+new file mode 100644
+index 000000000000..96a4d49bf1ab
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/frexp.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU frexp function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/frexp.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, frexp, (double x, int *iptr)) {
++  return internal::frexp(x, iptr);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/frexpf.cpp b/libc/src/math/gpu/vendor/frexpf.cpp
+new file mode 100644
+index 000000000000..f1d150a6a6b8
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/frexpf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU frexpf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/frexpf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, frexpf, (float x, int *iptr)) {
++  return internal::frexpf(x, iptr);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/log.cpp b/libc/src/math/gpu/vendor/log.cpp
+new file mode 100644
+index 000000000000..fe44d78724a4
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/log.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU log function ----------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, log, (double x)) { return internal::log(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/log10.cpp b/libc/src/math/gpu/vendor/log10.cpp
+new file mode 100644
+index 000000000000..6666dae82764
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/log10.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU log10 function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log10.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, log10, (double x)) { return internal::log10(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/log10f.cpp b/libc/src/math/gpu/vendor/log10f.cpp
+new file mode 100644
+index 000000000000..5e938a328951
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/log10f.cpp
+@@ -0,0 +1,19 @@
++//===-- Implementation of the GPU log10f function
++//---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log10f.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, log10f, (float x)) { return internal::log10f(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/log1p.cpp b/libc/src/math/gpu/vendor/log1p.cpp
+new file mode 100644
+index 000000000000..e2781bfbab1c
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/log1p.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU log1p function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log1p.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, log1p, (double x)) { return internal::log1p(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/log1pf.cpp b/libc/src/math/gpu/vendor/log1pf.cpp
+new file mode 100644
+index 000000000000..3cdde90d94b1
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/log1pf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU log1pf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log1pf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, log1pf, (float x)) { return internal::log1pf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/log2.cpp b/libc/src/math/gpu/vendor/log2.cpp
+new file mode 100644
+index 000000000000..45d2200d2690
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/log2.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU log2 function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log2.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, log2, (double x)) { return internal::log2(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/log2f.cpp b/libc/src/math/gpu/vendor/log2f.cpp
+new file mode 100644
+index 000000000000..2378bc1bacb4
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/log2f.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU log2f function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/log2f.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, log2f, (float x)) { return internal::log2f(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/logb.cpp b/libc/src/math/gpu/vendor/logb.cpp
+new file mode 100644
+index 000000000000..d7aa9a1d1517
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/logb.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU logb function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/logb.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, logb, (double x)) { return internal::logb(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/logbf.cpp b/libc/src/math/gpu/vendor/logbf.cpp
+new file mode 100644
+index 000000000000..021bed06c690
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/logbf.cpp
+@@ -0,0 +1,19 @@
++//===-- Implementation of the GPU logbf function
++//---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/logbf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, logbf, (float x)) { return internal::logbf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/logf.cpp b/libc/src/math/gpu/vendor/logf.cpp
+new file mode 100644
+index 000000000000..6f0c5d5c144e
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/logf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU logf function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/logf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, logf, (float x)) { return internal::logf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/lrint.cpp b/libc/src/math/gpu/vendor/lrint.cpp
+new file mode 100644
+index 000000000000..15316f02ebf8
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/lrint.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU lrint function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/lrint.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long, lrint, (double x)) { return internal::lrint(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/lrintf.cpp b/libc/src/math/gpu/vendor/lrintf.cpp
+new file mode 100644
+index 000000000000..5cbd212e0c99
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/lrintf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU lrintf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/lrintf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long, lrintf, (float x)) { return internal::lrintf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/lround.cpp b/libc/src/math/gpu/vendor/lround.cpp
+new file mode 100644
+index 000000000000..cb268104d94b
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/lround.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU lround function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/lround.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long int, lround, (double x)) { return internal::lround(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/lroundf.cpp b/libc/src/math/gpu/vendor/lroundf.cpp
+new file mode 100644
+index 000000000000..175c6a2561b2
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/lroundf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU lroundf function ------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/lroundf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(long int, lroundf, (float x)) {
++  return internal::lroundf(x);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/modf.cpp b/libc/src/math/gpu/vendor/modf.cpp
+new file mode 100644
+index 000000000000..e380b4414797
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/modf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU modf function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/modf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, modf, (double x, double *iptr)) {
++  return internal::modf(x, iptr);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/modff.cpp b/libc/src/math/gpu/vendor/modff.cpp
+new file mode 100644
+index 000000000000..c7f2d3ab7f09
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/modff.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU modff function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/modff.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, modff, (float x, float *iptr)) {
++  return internal::modff(x, iptr);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/nearbyint.cpp b/libc/src/math/gpu/vendor/nearbyint.cpp
+new file mode 100644
+index 000000000000..5c4ea5916887
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/nearbyint.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU nearbyint function ----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/nearbyint.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, nearbyint, (double x)) {
++  return internal::nearbyint(x);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/nearbyintf.cpp b/libc/src/math/gpu/vendor/nearbyintf.cpp
+new file mode 100644
+index 000000000000..f2caefce30d6
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/nearbyintf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU nearbyintf function ---------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/nearbyintf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, nearbyintf, (float x)) {
++  return internal::nearbyintf(x);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/nvptx/declarations.h b/libc/src/math/gpu/vendor/nvptx/declarations.h
+index 24711d53f750..adc7eb63b760 100644
+--- a/libc/src/math/gpu/vendor/nvptx/declarations.h
++++ b/libc/src/math/gpu/vendor/nvptx/declarations.h
+@@ -12,22 +12,54 @@
+ namespace __llvm_libc {
+ 
+ extern "C" {
++double __nv_acos(double);
+ float __nv_acosf(float);
++double __nv_acosh(double);
+ float __nv_acoshf(float);
++double __nv_asin(double);
+ float __nv_asinf(float);
++double __nv_asinh(double);
+ float __nv_asinhf(float);
++double __nv_atan(double);
+ float __nv_atanf(float);
++double __nv_atanh(double);
++double __nv_atan2(double, double);
++float __nv_atan2f(float, float);
+ float __nv_atanhf(float);
++double __nv_ceil(double);
++float __nv_ceilf(float);
++double __nv_copysign(double, double);
++float __nv_copysignf(float, float);
+ double __nv_cos(double);
+ float __nv_cosf(float);
+ double __nv_cosh(double);
+ float __nv_coshf(float);
++double __nv_erf(double);
++float __nv_erff(float);
++double __nv_exp(double);
+ float __nv_expf(float);
+-float __nv_exp2f(float);
++double __nv_exp10(double);
+ float __nv_exp10f(float);
++double __nv_exp2(double);
++float __nv_exp2f(float);
++double __nv_expm1(double);
+ float __nv_expm1f(float);
++double __nv_fabs(double);
++float __nv_fabsf(float);
+ double __nv_fdim(double, double);
+ float __nv_fdimf(float, float);
++double __nv_fma(double, double, double);
++float __nv_fmaf(float, float, float);
++double __nv_fmax(double, double);
++float __nv_fmaxf(float, float);
++double __nv_fmin(double, double);
++float __nv_fminf(float, float);
++double __nv_floor(double);
++float __nv_floorf(float);
++double __nv_fmod(double, double);
++float __nv_fmodf(float, float);
++double __nv_frexp(double, int *);
++float __nv_frexpf(float, int *);
+ double __nv_hypot(double, double);
+ float __nv_hypotf(float, float);
+ int __nv_ilogb(double);
+@@ -38,20 +70,54 @@ long long __nv_llrint(double);
+ long long __nv_llrintf(float);
+ long long __nv_llround(double);
+ long long __nv_llroundf(float);
++double __nv_log10(double);
++float __nv_log10f(float);
++double __nv_log1p(double);
++float __nv_log1pf(float);
++double __nv_log2(double);
++float __nv_log2f(float);
++double __nv_logb(double);
++float __nv_logbf(float);
++double __nv_log(double);
++float __nv_logf(float);
++long __nv_lrint(double);
++long __nv_lrintf(float);
++long __nv_lround(double);
++long __nv_lroundf(float);
++double __nv_modf(double, double *);
++float __nv_modff(float, float *);
++double __nv_nearbyint(double);
++float __nv_nearbyintf(float);
+ double __nv_nextafter(double, double);
+ float __nv_nextafterf(float, float);
+ double __nv_pow(double, double);
+ float __nv_powf(float, float);
++double __nv_remainder(double, double);
++float __nv_remainderf(float, float);
++double __nv_remquo(double, double, int *);
++float __nv_remquof(float, float, int *);
++double __nv_rint(double);
++float __nv_rintf(float);
++double __nv_round(double);
++float __nv_roundf(float);
++double __nv_scalb(double, int);
++float __nv_scalbf(float, int);
+ double __nv_sin(double);
+ float __nv_sinf(float);
+ void __nv_sincos(double, double *, double *);
+ void __nv_sincosf(float, float *, float *);
+ double __nv_sinh(double);
+ float __nv_sinhf(float);
++double __nv_sqrt(double);
++float __nv_sqrtf(float);
+ double __nv_tan(double);
+ float __nv_tanf(float);
+ double __nv_tanh(double);
+ float __nv_tanhf(float);
++double __nv_tgamma(double);
++float __nv_tgammaf(float);
++double __nv_trunc(double);
++float __nv_truncf(float);
+ }
+ 
+ } // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/nvptx/nvptx.h b/libc/src/math/gpu/vendor/nvptx/nvptx.h
+index 3310d2406c9d..287e3bf273b6 100644
+--- a/libc/src/math/gpu/vendor/nvptx/nvptx.h
++++ b/libc/src/math/gpu/vendor/nvptx/nvptx.h
+@@ -15,22 +15,59 @@
+ 
+ namespace __llvm_libc {
+ namespace internal {
++
++LIBC_INLINE double acos(double x) { return __nv_acos(x); }
+ LIBC_INLINE float acosf(float x) { return __nv_acosf(x); }
++LIBC_INLINE double acosh(double x) { return __nv_acosh(x); }
+ LIBC_INLINE float acoshf(float x) { return __nv_acoshf(x); }
++LIBC_INLINE double asin(double x) { return __nv_asin(x); }
+ LIBC_INLINE float asinf(float x) { return __nv_asinf(x); }
++LIBC_INLINE double asinh(double x) { return __nv_asinh(x); }
+ LIBC_INLINE float asinhf(float x) { return __nv_asinhf(x); }
++LIBC_INLINE double atan(double x) { return __nv_atan(x); }
+ LIBC_INLINE float atanf(float x) { return __nv_atanf(x); }
++LIBC_INLINE float atan2f(float x, float y) { return __nv_atan2f(x,y); }
++LIBC_INLINE double atan2(double x, double y) { return __nv_atan2(x,y); }
++LIBC_INLINE double atanh(double x) { return __nv_atanh(x); }
+ LIBC_INLINE float atanhf(float x) { return __nv_atanhf(x); }
++LIBC_INLINE double ceil(double x) { return __nv_ceil(x); }
++LIBC_INLINE float ceilf(float x) { return __nv_ceilf(x); }
++LIBC_INLINE double copysign(double x, double y) { return __nv_copysign(x, y); }
++LIBC_INLINE float copysignf(float x, float y) { return __nv_copysignf(x, y); }
+ LIBC_INLINE double cos(double x) { return __nv_cos(x); }
+ LIBC_INLINE float cosf(float x) { return __nv_cosf(x); }
+ LIBC_INLINE double cosh(double x) { return __nv_cosh(x); }
+ LIBC_INLINE float coshf(float x) { return __nv_coshf(x); }
+-LIBC_INLINE float expf(float x) { return __nv_expf(x); }
+-LIBC_INLINE float exp2f(float x) { return __nv_exp2f(x); }
++LIBC_INLINE float erf(float x) { return __nv_erf(x); }
++LIBC_INLINE float erff(float x) { return __nv_erff(x); }
++LIBC_INLINE double exp(double x) { return __nv_exp(x); }
++LIBC_INLINE double exp10(double x) { return __nv_exp10(x); }
+ LIBC_INLINE float exp10f(float x) { return __nv_exp10f(x); }
++LIBC_INLINE double exp2(double x) { return __nv_exp2(x); }
++LIBC_INLINE float exp2f(float x) { return __nv_exp2f(x); }
++LIBC_INLINE float expf(float x) { return __nv_expf(x); }
++LIBC_INLINE double expm1(double x) { return __nv_expm1(x); }
+ LIBC_INLINE float expm1f(float x) { return __nv_expm1f(x); }
++LIBC_INLINE double fabs(double x) { return __nv_fabs(x); }
++LIBC_INLINE float fabsf(float x) { return __nv_fabsf(x); }
+ LIBC_INLINE double fdim(double x, double y) { return __nv_fdim(x, y); }
+ LIBC_INLINE float fdimf(float x, float y) { return __nv_fdimf(x, y); }
++LIBC_INLINE double floor(double x) { return __nv_floor(x); }
++LIBC_INLINE float floorf(float x) { return __nv_floorf(x); }
++LIBC_INLINE double fma(double x, double y, double z) {
++  return __nv_fma(x, y, z);
++}
++LIBC_INLINE float fmaf(float x, float y, double z) {
++  return __nv_fmaf(x, y, z);
++}
++LIBC_INLINE double fmax(double x, double y) { return __nv_fmax(x, y); }
++LIBC_INLINE float fmaxf(float x, float y) { return __nv_fmaxf(x, y); }
++LIBC_INLINE double fmin(double x, double y) { return __nv_fmin(x, y); }
++LIBC_INLINE float fminf(float x, float y) { return __nv_fminf(x, y); }
++LIBC_INLINE double fmod(double x, double y) { return __nv_fmod(x, y); }
++LIBC_INLINE float fmodf(float x, float y) { return __nv_fmodf(x, y); }
++LIBC_INLINE double frexp(double x, int *exp) { return __nv_frexp(x, exp); }
++LIBC_INLINE float frexpf(float x, int *exp) { return __nv_frexpf(x, exp); }
+ LIBC_INLINE double hypot(double x, double y) { return __nv_hypot(x, y); }
+ LIBC_INLINE float hypotf(float x, float y) { return __nv_hypotf(x, y); }
+ LIBC_INLINE int ilogb(double x) { return __nv_ilogb(x); }
+@@ -41,26 +78,66 @@ LIBC_INLINE long long llrint(double x) { return __nv_llrint(x); }
+ LIBC_INLINE long long llrintf(float x) { return __nv_llrintf(x); }
+ LIBC_INLINE long long llround(double x) { return __nv_llround(x); }
+ LIBC_INLINE long long llroundf(float x) { return __nv_llroundf(x); }
++LIBC_INLINE double log10(double x) { return __nv_log10(x); }
++LIBC_INLINE float log10f(float x) { return __nv_log10f(x); }
++LIBC_INLINE double log1p(double x) { return __nv_log1p(x); }
++LIBC_INLINE float log1pf(float x) { return __nv_log1pf(x); }
++LIBC_INLINE double log2(double x) { return __nv_log2(x); }
++LIBC_INLINE float log2f(float x) { return __nv_log2f(x); }
++LIBC_INLINE double logb(double x) { return __nv_logb(x); }
++LIBC_INLINE float logbf(float x) { return __nv_logbf(x); }
++LIBC_INLINE double log(double x) { return __nv_log(x); }
++LIBC_INLINE float logf(float x) { return __nv_logf(x); }
++LIBC_INLINE long lrint(double x) { return __nv_lrint(x); }
++LIBC_INLINE long lrintf(float x) { return __nv_lrintf(x); }
++LIBC_INLINE long lround(double x) { return __nv_round(x); }
++LIBC_INLINE long lroundf(float x) { return __nv_roundf(x); }
++LIBC_INLINE double modf(double x, double *iptr) { return __nv_modf(x, iptr); }
++LIBC_INLINE float modff(float x, float *iptr) { return __nv_modff(x, iptr); }
++LIBC_INLINE double nearbyint(double x) { return __nv_nearbyint(x); }
++LIBC_INLINE float nearbyintf(float x) { return __nv_nearbyintf(x); }
+ LIBC_INLINE double nextafter(double x, double y) {
+   return __nv_nextafter(x, y);
+ }
+ LIBC_INLINE float nextafterf(float x, float y) { return __nv_nextafterf(x, y); }
+ LIBC_INLINE double pow(double x, double y) { return __nv_pow(x, y); }
+ LIBC_INLINE float powf(float x, float y) { return __nv_powf(x, y); }
++LIBC_INLINE double remainder(double x, double y) {
++  return __nv_remainder(x, y);
++}
++LIBC_INLINE float remainderf(float x, float y) { return __nv_remainderf(x, y); }
++LIBC_INLINE double remquo(double x, double y, int *quo) {
++  return __nv_remquo(x, y, quo);
++}
++LIBC_INLINE float remquof(float x, float y, int *quo) {
++  return __nv_remquof(x, y, quo);
++}
++LIBC_INLINE double rint(double x) { return __nv_rint(x); }
++LIBC_INLINE float rintf(float x) { return __nv_rintf(x); }
++LIBC_INLINE double round(double x) { return __nv_round(x); }
++LIBC_INLINE float roundf(float x) { return __nv_roundf(x); }
++LIBC_INLINE double scalbn(double x, int y) { return __nv_scalb(x, y); }
++LIBC_INLINE float scalbnf(float x, int y) { return __nv_scalbf(x, y); }
+ LIBC_INLINE double sin(double x) { return __nv_sin(x); }
+ LIBC_INLINE float sinf(float x) { return __nv_sinf(x); }
+ LIBC_INLINE void sincos(double x, double *sinptr, double *cosptr) {
+-  return __nv_sincos(x, sinptr, cosptr);
++  __nv_sincos(x, sinptr, cosptr);
+ }
+ LIBC_INLINE void sincosf(float x, float *sinptr, float *cosptr) {
+-  return __nv_sincosf(x, sinptr, cosptr);
++  __nv_sincosf(x, sinptr, cosptr);
+ }
+ LIBC_INLINE double sinh(double x) { return __nv_sinh(x); }
+ LIBC_INLINE float sinhf(float x) { return __nv_sinhf(x); }
++LIBC_INLINE double sqrt(double x) { return __nv_sqrt(x); }
++LIBC_INLINE float sqrtf(float x) { return __nv_sqrtf(x); }
+ LIBC_INLINE double tan(double x) { return __nv_tan(x); }
+ LIBC_INLINE float tanf(float x) { return __nv_tanf(x); }
+ LIBC_INLINE double tanh(double x) { return __nv_tanh(x); }
+ LIBC_INLINE float tanhf(float x) { return __nv_tanhf(x); }
++LIBC_INLINE double tgamma(double x) { return __nv_tgamma(x); }
++LIBC_INLINE float tgammaf(float x) { return __nv_tgammaf(x); }
++LIBC_INLINE double trunc(double x) { return __nv_trunc(x); }
++LIBC_INLINE float truncf(float x) { return __nv_truncf(x); }
+ 
+ } // namespace internal
+ } // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/remainder.cpp b/libc/src/math/gpu/vendor/remainder.cpp
+new file mode 100644
+index 000000000000..01bb605621f8
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/remainder.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU remainder function ----------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/remainder.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, remainder, (double x, double y)) {
++  return internal::remainder(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/remainderf.cpp b/libc/src/math/gpu/vendor/remainderf.cpp
+new file mode 100644
+index 000000000000..a35bcaa5b38a
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/remainderf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU remainderf function ---------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/remainderf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, remainderf, (float x, float y)) {
++  return internal::remainderf(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/remquo.cpp b/libc/src/math/gpu/vendor/remquo.cpp
+new file mode 100644
+index 000000000000..755efeaba530
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/remquo.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU remquo function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/remquo.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, remquo, (double x, double y, int *quo)) {
++  return internal::remquo(x, y, quo);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/remquof.cpp b/libc/src/math/gpu/vendor/remquof.cpp
+new file mode 100644
+index 000000000000..c2be2cd87aad
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/remquof.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU remquof function ------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/remquof.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, remquof, (float x, float y, int *quo)) {
++  return internal::remquof(x, y, quo);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/rint.cpp b/libc/src/math/gpu/vendor/rint.cpp
+new file mode 100644
+index 000000000000..edcf120fd60c
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/rint.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU rint function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/rint.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, rint, (double x)) { return internal::rint(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/rintf.cpp b/libc/src/math/gpu/vendor/rintf.cpp
+new file mode 100644
+index 000000000000..4ecd4bdf0c94
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/rintf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU rintf function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/rintf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, rintf, (float x)) { return internal::rintf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/round.cpp b/libc/src/math/gpu/vendor/round.cpp
+new file mode 100644
+index 000000000000..763d5a2746fa
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/round.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU round function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/round.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, round, (double x)) { return internal::round(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/roundf.cpp b/libc/src/math/gpu/vendor/roundf.cpp
+new file mode 100644
+index 000000000000..1d24161504b7
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/roundf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU roundf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/roundf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, roundf, (float x)) { return internal::roundf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/scalbn.cpp b/libc/src/math/gpu/vendor/scalbn.cpp
+new file mode 100644
+index 000000000000..44aa286166cb
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/scalbn.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU scalbn function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/scalbn.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, scalbn, (double x, int y)) {
++  return internal::scalbn(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/scalbnf.cpp b/libc/src/math/gpu/vendor/scalbnf.cpp
+new file mode 100644
+index 000000000000..6d02f8617201
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/scalbnf.cpp
+@@ -0,0 +1,20 @@
++//===-- Implementation of the GPU scalbnf function ------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/scalbnf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, scalbnf, (float x, int y)) {
++  return internal::scalbnf(x, y);
++}
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/sqrt.cpp b/libc/src/math/gpu/vendor/sqrt.cpp
+new file mode 100644
+index 000000000000..38b432c9ce21
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/sqrt.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU sqrt function ---------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/sqrt.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, sqrt, (double x)) { return internal::sqrt(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/sqrtf.cpp b/libc/src/math/gpu/vendor/sqrtf.cpp
+new file mode 100644
+index 000000000000..b61efec3ed75
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/sqrtf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU sqrtf function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/sqrtf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, sqrtf, (float x)) { return internal::sqrtf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/tgamma.cpp b/libc/src/math/gpu/vendor/tgamma.cpp
+new file mode 100644
+index 000000000000..9895c4bfcf55
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/tgamma.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU tgamma function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/tgamma.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, tgamma, (double x)) { return internal::tgamma(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/tgammaf.cpp b/libc/src/math/gpu/vendor/tgammaf.cpp
+new file mode 100644
+index 000000000000..9e86dacf3608
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/tgammaf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU tgammaf function ------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/tgammaf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, tgammaf, (float x)) { return internal::tgammaf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/trunc.cpp b/libc/src/math/gpu/vendor/trunc.cpp
+new file mode 100644
+index 000000000000..e055b0a89e12
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/trunc.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU trunc function --------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/trunc.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(double, trunc, (double x)) { return internal::trunc(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/gpu/vendor/truncf.cpp b/libc/src/math/gpu/vendor/truncf.cpp
+new file mode 100644
+index 000000000000..a423c3da3464
+--- /dev/null
++++ b/libc/src/math/gpu/vendor/truncf.cpp
+@@ -0,0 +1,18 @@
++//===-- Implementation of the GPU truncf function -------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#include "src/math/truncf.h"
++#include "src/__support/common.h"
++
++#include "common.h"
++
++namespace __llvm_libc {
++
++LLVM_LIBC_FUNCTION(float, truncf, (float x)) { return internal::truncf(x); }
++
++} // namespace __llvm_libc
+diff --git a/libc/src/math/sincos.h b/libc/src/math/sincos.h
+new file mode 100644
+index 000000000000..2e3d06739351
+--- /dev/null
++++ b/libc/src/math/sincos.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for sincos ------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_SINCOS_H
++#define LLVM_LIBC_SRC_MATH_SINCOS_H
++
++namespace __llvm_libc {
++
++void sincos(double x, double *sinx, double *cosx);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_SINCOS_H
+diff --git a/libc/src/math/tgamma.h b/libc/src/math/tgamma.h
+new file mode 100644
+index 000000000000..295070383f39
+--- /dev/null
++++ b/libc/src/math/tgamma.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for tgamma ------------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_TGAMMA_H
++#define LLVM_LIBC_SRC_MATH_TGAMMA_H
++
++namespace __llvm_libc {
++
++double tgamma(double x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_TGAMMA_H
+diff --git a/libc/src/math/tgammaf.h b/libc/src/math/tgammaf.h
+new file mode 100644
+index 000000000000..c098dae4b7ec
+--- /dev/null
++++ b/libc/src/math/tgammaf.h
+@@ -0,0 +1,18 @@
++//===-- Implementation header for tgammaf -----------------------*- C++ -*-===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++#ifndef LLVM_LIBC_SRC_MATH_TGAMMAF_H
++#define LLVM_LIBC_SRC_MATH_TGAMMAF_H
++
++namespace __llvm_libc {
++
++float tgammaf(float x);
++
++} // namespace __llvm_libc
++
++#endif // LLVM_LIBC_SRC_MATH_TGAMMAF_H
+-- 
+2.40.1
+

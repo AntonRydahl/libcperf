@@ -80,14 +80,17 @@ def make_error_plot(funname,dir,readme):
             if "ocml" in fun:
                 color='orange'
                 marker='x'
-            if "builtin" in fun:
+            elif "nv" in fun: 
+                color='purple'
+                marker='v'
+            elif "builtin" in fun:
                 color='cornflowerblue'
                 marker='d'
             data = data - reference
             data = abs(data)
             xtmp = x[finite(tmp)]
             data = data[finite(tmp)]
-            plt.scatter(xtmp,data, color=color, label=f" {fun}", marker=marker)
+            plt.scatter(xtmp,data, color=color, label=f" {fun} (max={max(data)})", marker=marker)
         if np.isnan(maxval):
             print(f"Error: Maximal error for {funname} is NaN")
             return
