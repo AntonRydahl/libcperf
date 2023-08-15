@@ -2,12 +2,14 @@ import numpy as np
 from math import ulp
 
 def stable_abs(xarr,yarr,epsilon):
+    equalmask = xarr == yarr
     infnanmask = (np.isnan(xarr) & np.isnan(yarr)) | (np.isinf(xarr) & np.isinf(yarr))
-    return np.array([ x>= y-epsilon if x<=y else x<= y+epsilon for (x,y) in zip(xarr,yarr)] | infnanmask).all()
+    return np.array([ x>= y-epsilon if x<=y else x<= y+epsilon for (x,y) in zip(xarr,yarr)] | infnanmask | equalmask).all()
 
 def stable_rel(xarr,yarr,epsilon):
+    equalmask = xarr == yarr
     infnanmask = (np.isnan(xarr) & np.isnan(yarr)) | (np.isinf(xarr) & np.isinf(yarr))
-    return np.array([ x/abs(y)>= y/abs(y)-epsilon if x<=y else x/abs(y)<= y/abs(y)+epsilon for (x,y) in zip(xarr,yarr)] | infnanmask).all()
+    return np.array([ x/abs(y)>= (y/abs(y))-epsilon if x<=y else x/abs(y)<= (y/abs(y))+epsilon for (x,y) in zip(xarr,yarr)] | infnanmask | equalmask).all()
 
 def max_error(obj,maxabserr,maxrelerr,maxulp):
     data = {}
@@ -18,8 +20,9 @@ def max_error(obj,maxabserr,maxrelerr,maxulp):
                 data[devfun][hostfun] = {}
                 tmpabs = abs(obj["host"][hostfun]-obj["device"][devfun])
                 ULP = [maxulp*ulp(t) for t in obj["host"][hostfun]]
+                equalmask = obj["host"][hostfun]==obj["device"][devfun]
                 infnanmask = (np.isnan(obj["host"][hostfun]) & np.isnan(obj["device"][devfun])) | (np.isinf(obj["host"][hostfun]) & np.isinf(obj["device"][devfun]))
-                ulpbool = (((obj["device"][devfun] <= obj["host"][hostfun]+ULP) & (obj["device"][devfun] >= obj["host"][hostfun]-ULP)) | infnanmask).all()
+                ulpbool = (((obj["device"][devfun] <= obj["host"][hostfun]+ULP) & (obj["device"][devfun] >= obj["host"][hostfun]-ULP)) | infnanmask | equalmask).all()
                 tmprel = abs(tmpabs/(obj["device"][devfun]+1e-6))
                 abserr = [t for t in tmpabs if (not np.isinf(t)) and (not np.isnan(t))]
                 relerr = [t for t in tmprel if (not np.isinf(t)) and (not np.isnan(t))]

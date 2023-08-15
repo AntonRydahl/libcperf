@@ -96,8 +96,8 @@ def stats_for(gpu,epsilonabs=float("inf"),epsilonrel=float("inf"),epsilonulp=flo
                                 and (ulpbool or np.isinf(epsilonulp)):
                         time = np.mean(timings[funname]["device"][version])
                         reltime = time/mintime
-                        if (reltime > 2):
-                            print(f"{version}: {time}/{mintime}={reltime}")
+                        #if (reltime > 2):
+                        #    print(f"{version}: {time}/{mintime}={reltime}")
                         if "nv" in version:
                             results["nv"].append(reltime)
                             correct["nv"].append(version)
@@ -142,9 +142,11 @@ def stats_for(gpu,epsilonabs=float("inf"),epsilonrel=float("inf"),epsilonulp=flo
             tmpincorrect = incorrect[version]
             print(f" |- incorrect: {tmpincorrect}")
             #print(f" |- correct: {tmpcorrect}")
-    print(fastest_set)
+    #print(fastest_set)
     print("Epsilon & Architecture & Version & Correct & $\\bar{t}$\\\\")
     for version in results:
+        #if "builtin" in version:
+        #    print(correct[version])
         ncorrect = len(correct[version])
         nincorrect = len(incorrect[version])
         total = ncorrect+nincorrect
@@ -171,12 +173,12 @@ def stats_for(gpu,epsilonabs=float("inf"),epsilonrel=float("inf"),epsilonulp=flo
 def main():
     gpus = ["gfx90a","gfx906","sm_70","sm_80"]
 
-    # epsilonrel = 1e-6
-    # print(f"=================================================================")
-    # print(f"Relative error of {epsilonrel}")
-    # print(f"=================================================================\n")
-    # for gpu in gpus:
-    #     stats_for(gpu,epsilonrel=epsilonrel)
+    epsilonrel = 1e-6
+    print(f"=================================================================")
+    print(f"Relative error of {epsilonrel}")
+    print(f"=================================================================\n")
+    for gpu in gpus:
+        stats_for(gpu,epsilonrel=epsilonrel)
 
     epsilonrel = 1e-9
     print(f"=================================================================")
@@ -199,12 +201,12 @@ def main():
     # for gpu in gpus:
     #     stats_for(gpu,epsilonabs=epsilonabs)
 
-    # maxulp = 8.0
-    # print(f"=================================================================")
-    # print(f"Within {maxulp} ULP")
-    # print(f"=================================================================\n")
-    # for gpu in gpus:
-    #     stats_for(gpu,epsilonulp=maxulp)
+    maxulp = 8.0
+    print(f"=================================================================")
+    print(f"Within {maxulp} ULP")
+    print(f"=================================================================\n")
+    for gpu in gpus:
+        stats_for(gpu,epsilonulp=maxulp)
 
     maxulp = 4.0
     print(f"=================================================================")
