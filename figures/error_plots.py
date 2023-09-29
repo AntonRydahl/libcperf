@@ -28,12 +28,14 @@ def main():
             if prevfun == funname:
                 continue
             prevfun = funname
-            make_error_plot(funname,subdir,readme)
+            make_error_plot(funname,subdir,readme,arch)
             #for file in files:
             #    print(os.path.join(subdir, file))
         readme.close()
 
-def make_error_plot(funname,dir,readme):
+def make_error_plot(funname,dir,readme,gpu):
+    if not "sm_80" in gpu or not "cosf" in funname:
+        return
     print(f"Making error plots for {funname}")
     print(os.path.join(dir,"device"))
     devdir = os.path.join(dir,"device/")
@@ -67,10 +69,10 @@ def make_error_plot(funname,dir,readme):
                 return 
 
             maxval = max(maxval,max(tmpfinite))
-            
-        x = np.linspace(-np.pi,np.pi,len(reference))
+
+        x = np.linspace(-1,1,len(reference),dtype=np.longdouble)
         
-        plt.figure()
+        plt.figure(figsize=(10, 5))
 
         for fun in devicefiles:
             data = np.loadtxt(os.path.join(devdir,fun), comments="#", unpack=False,dtype='double')
@@ -90,7 +92,7 @@ def make_error_plot(funname,dir,readme):
             data = abs(data)
             xtmp = x[finite(tmp)]
             data = data[finite(tmp)]
-            plt.scatter(xtmp,data, color=color, label=f" {fun} (max={max(data)})", marker=marker)
+            plt.scatter(xtmp,data, color=color, label=f" {fun}", marker=marker) #label=f" {fun} (max={np.round(max(data),3)})"
         if np.isnan(maxval):
             print(f"Error: Maximal error for {funname} is NaN")
             return
@@ -102,26 +104,36 @@ def make_error_plot(funname,dir,readme):
         except:
             print(f"Error: Overflow for {funname}")
             return 
-        plt.legend(loc='upper right')
-        plt.xlabel('$x$',fontsize=15)
-        plt.ylabel('$|\hat{f}(x)-f(x)|$',fontsize=15)
+        plt.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize=18)
+        #plt.xlabel('$x$',fontsize=18)
+        #plt.ylabel('$|\hat{f}(x)-f(x)|$',fontsize=18)
+        plt.xlabel('Real Line',fontsize=18)
+        plt.ylabel('Absolute Error',fontsize=18)
+        plt.rc('font', **{'size':'18'})
+        plt.tick_params(axis='both', which='major', labelsize=18, width=2.5, length=10)
+        if fun[-1] == 'f':
+            plt.xticks([-1,0,1], ['-3.40e+38', '0', '3.40e+38'])
+        else:
+            plt.xticks([-1,0,1], ['-1.80e+308', '0', '-1.80e+308'])
         if "builtin" in hostfun:
             builtinfound = True
-            plt.title(f"{funname} - Built-in Reference",fontsize=20)
-            plt.savefig(f"{dir}/{funname}_builtin.png")
+            plt.title(f"Absolute Errors for {funname} on {gpu}",fontsize=24)
+            plt.savefig(f"{dir}/{gpu}_{funname}_builtin.png",bbox_inches = 'tight')
+            plt.savefig(f"{dir}/{gpu}_{funname}_builtin.pdf",bbox_inches = 'tight')
         else:
             libcfound = True
-            plt.title(f"{funname} - LIBC Reference",fontsize=20)
-            plt.savefig(f"{dir}/{funname}_libc.png")
+            plt.title(f"Absolute Errors for {funname} on {gpu}",fontsize=24)
+            plt.savefig(f"{dir}/{gpu}_{funname}_libc.png",bbox_inches = 'tight')
+            plt.savefig(f"{dir}/{gpu}_{funname}_libc.pdf",bbox_inches = 'tight')
         plt.close()
 
     if (libcfound):
-        readme.write(f"![{funname}]({dir}/{funname}_libc.png)")
+        readme.write(f"![{funname}]({dir}/{gpu}_{funname}_libc.png)")
     else:
         readme.write(f"No LIBC reference")
     
     if (builtinfound):
-        readme.write(f" | ![{funname}]({dir}/{funname}_builtin.png)\n")
+        readme.write(f" | ![{funname}]({dir}/{gpu}_{funname}_builtin.png)\n")
     else:
         readme.write(f" | No builin-in reference\n")
 
