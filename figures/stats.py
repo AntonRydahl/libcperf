@@ -168,10 +168,38 @@ def stats_for(gpu,epsilonabs=float("inf"),epsilonrel=float("inf"),epsilonulp=flo
             elif "builtin" in version:
                 versionstr = "LLVM built-in"
             gpustr=gpu.replace("_","\\_")
-            print(f"{epsstring} & {gpustr} & {versionstr} & $\\frac{b1}{len(results[version])}{b2}{b1}{total}{b2}$ & {np.round(np.mean(results[version]),4)} \\\\")    
+            print(f"{epsstring} & {gpustr} & {versionstr} & $\\frac{b1}{len(results[version])}{b2}{b1}{total}{b2}$ & {np.round(np.mean(results[version]),4)} \\\\") 
+    return fastest_set, correct 
 
 def main():
     gpus = ["gfx90a","gfx906","sm_70","sm_80"]
+
+    maxulp = 12.0
+    print(f"=================================================================")
+    print(f"Within {maxulp} ULP")
+    print(f"=================================================================\n")
+    correct = {}
+    for gpu in gpus:
+        fastest, cor = stats_for(gpu,epsilonulp=maxulp)
+        correct[gpu] = cor
+    
+    for version in correct["sm_70"]:
+        corver = correct["sm_70"][version]
+        for gpu in gpus:
+            if len(correct[gpu][version]) > 0:
+                corver = [value for value in corver if value in correct[gpu][version]]
+        print(f"Correct {version} functions:")
+        print(corver)
+    
+    for version in correct["gfx90a"]:
+        corver = correct["gfx90a"][version]
+        for gpu in gpus:
+            if len(correct[gpu][version]) > 0:
+                corver = [value for value in corver if value in correct[gpu][version]]
+        print(f"Correct {version} functions:")
+        print(corver)
+
+    return
 
     epsilonrel = 1e-6
     print(f"=================================================================")
@@ -187,21 +215,7 @@ def main():
     for gpu in gpus:
         stats_for(gpu,epsilonrel=epsilonrel)
 
-    # epsilonabs = 1e-6
-    # print(f"=================================================================")
-    # print(f"Absolute error of {epsilonabs}")
-    # print(f"=================================================================\n")
-    # for gpu in gpus:
-    #     stats_for(gpu,epsilonabs=epsilonabs)
-    
-    # epsilonabs = 1e-9
-    # print(f"=================================================================")
-    # print(f"Absolute error of {epsilonabs}")
-    # print(f"=================================================================\n")
-    # for gpu in gpus:
-    #     stats_for(gpu,epsilonabs=epsilonabs)
-
-    maxulp = 8.0
+    maxulp = 12.0
     print(f"=================================================================")
     print(f"Within {maxulp} ULP")
     print(f"=================================================================\n")
@@ -212,8 +226,36 @@ def main():
     print(f"=================================================================")
     print(f"Within {maxulp} ULP")
     print(f"=================================================================\n")
+    fastest = {}
     for gpu in gpus:
-        stats_for(gpu,epsilonulp=maxulp)
+        tmp = stats_for(gpu,epsilonulp=maxulp)
+        for version in tmp:
+            fun = version.split('_')[-1]
+            shortversion = "L"
+            if "nv" in version:
+                shortversion = "N"
+            elif "ocml" in version:
+                shortversion = "A"
+            elif "builtin" in version:
+                shortversion = "B" 
+            if not fun in fastest:
+                fastest[fun] = {}
+            fastest[fun][gpu] = shortversion
+    string = ""
+    for gpu in sorted(gpus):
+        if not string:
+            string = f"{gpu} "
+        else:
+            string = string + f" & {gpu} "
+    print(f"{string}\\\\")
+    for fun in sorted(fastest):
+        string = "\\texttt{"+fun+"}"
+        for gpu in sorted(gpus):
+            if gpu in fastest[fun]:
+                string = string + f" & {fastest[fun][gpu]} "
+            else:
+                string = string + " & -- "
+        print(f"{string}\\\\")
 
 if __name__ == "__main__":
     with warnings.catch_warnings():

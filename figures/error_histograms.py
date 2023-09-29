@@ -27,27 +27,29 @@ def main():
         readme.write("|\n")
         for subdir, dirs, files in sorted(os.walk(f'./results/histograms/{arch}/')):
             funname = subdir.split('/')[4]
+            if '.png' in funname or '.pdf' in funname:
+                continue
             if (not funname):
                 continue
             if prevfun == funname:
                 continue
             prevfun = funname
             #try:
-            make_error_plot(funname,subdir,readme)
+            make_error_plot(funname,subdir,readme,arch)
             #for file in files:
             #    print(os.path.join(subdir, file))
             #except:
             #    print(f"Error plotting {funname}")
         readme.close()
 
-def make_error_plot(funname,dir,readme):
+def make_error_plot(funname,dir,readme,gpu):
     global plot_counter
     global plots_per_line
     print(f"Making error plots for {funname}")
     if not os.path.exists(dir):
         print(f"No such directory: {dir}")
         return
-    files = np.unique([f.replace("_bins","").replace("_counts","").replace("_nans","").replace("_infs","") for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f)) and not (".png" in f)])
+    files = np.unique([f.replace("_bins","").replace("_counts","").replace("_nans","").replace("_infs","") for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f)) and not (".png" in f) and not (".pdf" in f)])
     print(files)
     if 0==len(files):
         print(f"Missing files")
@@ -59,7 +61,7 @@ def make_error_plot(funname,dir,readme):
         bins = np.loadtxt(os.path.join(dir,f"{filename}_bins"), comments="#", unpack=False,dtype='double')
         maxbinwidth = max(maxbinwidth,bins[1]-bins[0])
 
-    plt.figure()
+    plt.figure(figsize=(10, 5))
     for filename in files:
         print(filename)
         bins = np.loadtxt(os.path.join(dir,f"{filename}_bins"), comments="#", unpack=False,dtype='double')
@@ -73,26 +75,30 @@ def make_error_plot(funname,dir,readme):
         if infs > 0:
             label = label + f" ({np.uint32(infs)} infs)"
         if "builtin" in filename:
-            plt.stairs(counts,bins,label=label,hatch='//')
+            plt.stairs(counts,bins,label=label,hatch='//',color='cornflowerblue')
         elif "ocml" in filename:
-            plt.stairs(counts,bins,label=label,hatch='X')
+            plt.stairs(counts,bins,label=label,hatch='X',color='orange')
         elif "nv" in filename:
-            plt.stairs(counts,bins,label=label,hatch='\\')
+            plt.stairs(counts,bins,label=label,hatch='\\',color='purple')
         else :
-            plt.stairs(counts,bins,label=label,fill=True)
+            plt.stairs(counts,bins,label=label,fill=True,color='green')
     plt.show()
     plt.legend(loc='upper right')
-    plt.ylabel('Observations',fontsize=15)
-    plt.xlabel('Absolute Error',fontsize=15)
+    plt.ylabel('Observations',fontsize=18)
+    plt.xlabel('Absolute Error',fontsize=18)
     plt.yscale("log")
-    plt.title(f"{funname}",fontsize=20)
-    plt.savefig(f"{dir}/{funname}.png")
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize=18)
+    plt.rc('font', **{'size':'18'})
+    plt.tick_params(axis='both', which='major', labelsize=18, width=2.5, length=10)
+    plt.title(f"Absolute Error Histogram for {funname} on {gpu}",fontsize=24)
+    plt.savefig(f"{dir}/{gpu}_{funname}.png",bbox_inches = 'tight')
+    plt.savefig(f"{dir}/{gpu}_{funname}.pdf",bbox_inches = 'tight')
     plt.close()
 
     if (plot_counter % plots_per_line) == 0:
-        readme.write(f"![{funname}]({dir}/{funname}.png)\n")
+        readme.write(f"![{funname}]({dir}/{gpu}_{funname}.png)\n")
     else:
-        readme.write(f"![{funname}]({dir}/{funname}.png)|")
+        readme.write(f"![{funname}]({dir}/{gpu}_{funname}.png)|")
     plot_counter = plot_counter + 1
 
 def finite(tmp):
