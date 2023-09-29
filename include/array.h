@@ -141,7 +141,7 @@ template <class T> void Array<T>::save(std::string filename) {
     this->to_host();
   std::ofstream result_file(filename);
   for (uint_t i = 0; i < this->_length; i++) {
-    result_file << std::fixed << std::setprecision(32) << this->_hostptr[i]
+    result_file << std::fixed << std::setprecision(53) << std::scientific << this->_hostptr[i]
                 << std::endl;
   }
   result_file.close();

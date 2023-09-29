@@ -1,6 +1,6 @@
 APP ?=vararg_gpu
 
-OPT ?=-O3 -Xarch_device -fno-builtin -v
+OPT ?=-O3 -Xarch_device -fno-builtin
 
 CC = clang
 CXX = clang++
@@ -20,6 +20,10 @@ endif
 
 ifdef CPUFUN
 CFLAGS += -DCPUFUN="$(CPUFUN)"
+endif
+
+ifdef MPFRFUN
+CFLAGS += -DMPFRFUN=$(MPFRFUN)
 endif
 
 ifdef PREFIX
@@ -89,8 +93,8 @@ CFLAGS += -fopenmp-targets=$(OMPTARGET) --offload-arch=$(GPUARCH)
 CFLAGS += -fopenmp-offload-mandatory #--offload-device-only
 LDFLAGS += -foffload-lto -L$(LLVMDIR)/install/lib -lomp
 LDFLAGS += -L$(LLVMDIR)/install/lib -lomptarget
-LDFLAGS += -L$(LLVMDIR)/install/lib -lomptarget.devicertl
-LDFLAGS += -L$(LLVMDIR)/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu
+LDFLAGS += -L$(LLVMDIR)/install/lib -lomptarget.devicertl #-l:libomptarget.so.18git
+LDFLAGS += -L$(LLVMDIR)/install/lib/x86_64-unknown-linux-gnu -lmgpu -lcgpu -lmpfr -lgmp
 LDFLAGS += -lm
 #LDFLAGS += -Xlinker --verbose
 

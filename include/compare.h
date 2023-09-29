@@ -7,6 +7,12 @@
 #include <iostream>
 #include <omp.h>
 #include <tuple>
+// For MPFR
+#include <gmp.h>
+#include <mpfr.h>
+#include <stdio.h>
+#include <cstring>
+#include <string>
 
 /**
  * The combination of the following macros are an unelegant solution to handle
@@ -31,6 +37,11 @@
 #else
 #define call3(arg) arg
 #endif
+
+#define FUNCALL1(fun, arg1) fun(call1(arg1))
+#define FUNCALL2(fun, arg1, arg2) fun(call1(arg1), call2(arg2))
+#define FUNCALL3(fun, arg1, arg2, arg3)                                        \
+  fun(call1(arg1), call2(arg2), call3(arg3))
 
 #define FUNCALL1(fun, arg1) fun(call1(arg1))
 #define FUNCALL2(fun, arg1, arg2) fun(call1(arg1), call2(arg2))
@@ -306,6 +317,146 @@ void save_range_result_cpu(std::tuple<Array<args>...> &input, Array<T> &output,
   std::get<2>(input).save(filename + "_2");
 #endif
 }
+
+template <class T, T (*F)(PTRARGS), typename... args>
+void apply_mpfr_fun(std::tuple<Array<args>...> &input,std::string filename) {
+  assert(!std::get<0>(input).on_device());
+  const int_t length = std::get<0>(input).length();
+  const auto *inptr1 = std::get<0>(input).hostptr();
+  mpfr_prec_t prec = 64;
+  int pprec = prec-1;
+  std::string filename_1=filename+"_mpfr";
+  char* char_array_1 = new char[filename_1.length() + 1];
+  strcpy(char_array_1, filename_1.c_str());
+  FILE * mpfr_file = fopen(char_array_1, "w");
+#ifdef ARG1POINTER
+    std::sting filename_2=filename+"_mpfr_0";
+  char* char_array_2 = new char[filename_2.length() + 1];
+  strcpy(char_array_2, filename_2.c_str());
+  FILE * mpfr_file_2 = fopen(char_array_2, "w");
+#endif
+#ifdef ARG2POINTER
+  std::string filename_3=filename+"_mpfr_1";
+  char* char_array_3 = new char[filename_3.length() + 1];
+  strcpy(char_array_3, filename_3.c_str());
+  FILE * mpfr_file_3 = fopen(char_array_3, "w");
+#endif
+#if NARGS == 1
+  for (int_t i = 0; i < length; i++){
+    mpfr_t y, x;
+    mpfr_inits2 (prec, x, y, (mpfr_ptr) 0);
+    mpfr_set_d(x, inptr1[i], MPFR_RNDN);
+    MPFRFUN(y,x,MPFR_RNDN);
+    mpfr_fprintf(mpfr_file,"%.*RNe\n", pprec, y);
+#ifdef ARG1POINTER
+    mpfr_fprintf(mpfr_file_2,"%.*RNe\n", pprec, x);
+#endif
+    mpfr_clears(x,y, (mpfr_ptr) 0);
+    mpfr_free_cache();
+  }
+#else
+  auto *inptr2 = std::get<1>(input).hostptr();
+  assert(!std::get<1>(input).on_device());
+#if NARGS == 2
+  for (int_t i = 0; i < length; i++){
+    mpfr_t y, x0, x1;
+    mpfr_inits2 (prec, x0, x1, y, (mpfr_ptr) 0);
+    mpfr_set_d(x0, inptr1[i], MPFR_RNDN);
+    mpfr_set_d(x1, inptr2[i], MPFR_RNDN);
+    MPFRFUN(y,x0,x1,MPFR_RNDN);
+    mpfr_fprintf(mpfr_file,"%.*RNe\n", pprec, y);
+#ifdef ARG1POINTER
+    mpfr_fprintf(mpfr_file_2,"%.*RNe\n", pprec, x0);
+#endif
+#ifdef ARG2POINTER
+    mpfr_fprintf(mpfr_file_3,"%.*RNe\n", pprec, x1);
+#endif
+    mpfr_clears(x0,x1,y, (mpfr_ptr) 0);
+    mpfr_free_cache();
+  }
+#else
+  assert(!std::get<2>(input).on_device());
+  auto *inptr3 = std::get<2>(input).hostptr();
+  for (int_t i = 0; i < length; i++){
+    mpfr_t x0, x1, x2;
+    mpfr_inits2 (prec, x0, x1, x2, (mpfr_ptr) 0);
+    mpfr_set_d(x0, inptr1[i], MPFR_RNDN);
+    mpfr_set_d(x1, inptr2[i], MPFR_RNDN);
+    mpfr_set_d(x2, inptr3[i], MPFR_RNDN);
+    MPFRFUN(x0,x1,x2,MPFR_RNDN);
+    mpfr_fprintf(mpfr_file,"%.*RNe\n", pprec, x0);
+#ifdef ARG1POINTER
+    mpfr_fprintf(mpfr_file_2,"%.*RNe\n", pprec, x1);
+#endif
+#ifdef ARG2POINTER
+    mpfr_fprintf(mpfr_file_3,"%.*RNe\n", pprec, x2);
+#endif
+    mpfr_clears(x0,x1,x2, (mpfr_ptr) 0);
+    mpfr_free_cache();
+  }
+#endif
+#endif
+  fclose(mpfr_file);
+#ifdef ARG1POINTER
+  fclose(mpfr_file_2);
+#endif
+#ifdef ARG2POINTER
+  fclose(mpfr_file_3);
+#endif
+}
+
+template <class T, T (*F)(PTRARGS), typename... args>
+void save_range_mpfr(std::tuple<Array<args>...> &host_input, 
+                           std::tuple<Array<args>...> &dev_input,
+                           Array<T> &dev_output,
+                           std::string filename) {
+  // Computing result on GPU
+  if (!std::get<0>(dev_input).on_device())
+    std::get<0>(dev_input).to_device();
+#if NARGS > 1
+  if (!std::get<1>(dev_input).on_device())
+    std::get<1>(dev_input).to_device();
+#endif
+#if NARGS > 2
+  if (!std::get<2>(dev_input).on_device())
+    std::get<2>(dev_input).to_device();
+#endif
+  if (!dev_output.on_device())
+    dev_output.to_device();
+#ifdef VOIDRETTYPE
+  apply_fun_gpu<F, args...>(dev_input);
+#else
+  apply_fun_gpu<T, F, args...>(dev_input, dev_output);
+  dev_output.save(filename+"_gpu");
+#endif
+
+  // Computing result on host      
+  if (std::get<0>(host_input).on_device())
+    std::get<0>(host_input).to_host();
+#if NARGS > 1
+  if (std::get<1>(host_input).on_device())
+    std::get<1>(host_input).to_host();
+#endif
+#if NARGS > 2
+  if (std::get<2>(host_input).on_device())
+    std::get<2>(host_input).to_host();
+#endif
+  apply_mpfr_fun<T, F, args...>(host_input,filename);
+
+
+  // Some functions write results to input variables, if they are of pointer
+  // type
+#ifdef ARG1POINTER
+  std::get<0>(dev_input).save(filename + "_gpu_0");
+#endif
+#ifdef ARG2POINTER
+  std::get<1>(dev_input).save(filename + "_gpu_1");
+#endif
+#ifdef ARG3POINTER
+  std::get<2>(dev_input).save(filename + "_gpu_2");
+#endif
+}
+
 } // namespace gpumath
 
 #endif

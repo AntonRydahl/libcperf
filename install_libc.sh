@@ -5,13 +5,14 @@ cd $LLVMDIR
 rm -rf $LLVMDIR/build; mkdir $LLVMDIR/build
 rm -rf $LLVMDIR/install; mkdir $LLVMDIR/install
 cd $LLVMDIR/build
-
+export CCACHE_DIR=/dev/shm/rydahl1/ccache
 cmake \
         -G Ninja \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=$LLVMDIR/install \
         -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
         -DCMAKE_CXX_LINK_FLAGS="-Wl,-rpath,$LD_LIBRARY_PATH" \
+        -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
         -DLLVM_ENABLE_ASSERTIONS=ON \
         -DLLVM_BUILD_EXAMPLES=ON \
         -DLLVM_LIT_ARGS=-v \
@@ -26,7 +27,7 @@ cmake \
         -DLIBC_GPU_BUILTIN_MATH=$LIBC_GPU_BUILTIN_MATH \
         ../llvm-project/llvm
 
-ninja install -j 32
+ninja install -j  64
 
 export PATH=$LLVMDIR/install/bin/:$PATH
 export LD_LIBRARY_PATH=$LLVMDIR/install/lib/:$LD_LIBRARY_PATH
