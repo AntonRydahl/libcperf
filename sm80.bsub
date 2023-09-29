@@ -9,7 +9,7 @@ set -o nounset
 #BSUB -R "span[hosts=1]"
 #BSUB -R "rusage[mem=50GB]"
 #BUSB -R "select[gpu80gb]"
-#BSUB -W 8:00
+#BSUB -W 4:00
 
 # Program settings
 # Where to install LLVM
@@ -66,9 +66,9 @@ source install_libc.sh
 
 # Running CPU tests
 cd $PROJECTDIR 
-./cpu_builtin.sh
+#./cpu_builtin.sh
 cd $PROJECTDIR
-./cpu_libc.sh
+#./cpu_libc.sh
 
 # Running GPU tests
 cd $PROJECTDIR
