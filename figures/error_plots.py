@@ -34,8 +34,8 @@ def main():
         readme.close()
 
 def make_error_plot(funname,dir,readme,gpu):
-    if not "sm_80" in gpu or not "cosf" in funname:
-        return
+    #if not "sm_80" in gpu:
+    #    return
     print(f"Making error plots for {funname}")
     print(os.path.join(dir,"device"))
     devdir = os.path.join(dir,"device/")

@@ -18,6 +18,10 @@ def max_error(obj,maxabserr,maxrelerr,maxulp):
             data[devfun] = {}
             for hostfun in obj["host"]:
                 data[devfun][hostfun] = {}
+                if not (len(obj["host"][hostfun]) == len(obj["device"][devfun])):
+                    print(devfun)
+                    print(hostfun)
+                    print(obj)
                 tmpabs = abs(obj["host"][hostfun]-obj["device"][devfun])
                 ULP = [maxulp*ulp(t) for t in obj["host"][hostfun]]
                 equalmask = obj["host"][hostfun]==obj["device"][devfun]

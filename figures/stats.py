@@ -1,5 +1,5 @@
 import numpy as np
-from python_helpers.gather_data import gather_data
+from python_helpers.gather_data import gather_data, merge_data
 from python_helpers.aggregate_output import aggregate_output
 from python_helpers.max_error import max_error
 import warnings
@@ -12,6 +12,9 @@ def stats_for(gpu,epsilonabs=float("inf"),epsilonrel=float("inf"),epsilonulp=flo
         cache[gpu] = {}
         output = gather_data(f"results/output/{gpu}")
         output = aggregate_output(output)
+        mpfr_output = gather_data(f"mpfr/output/{gpu}",is_mpfr=True)
+        mpfr_output = aggregate_output(mpfr_output)
+        output = merge_data(output,mpfr_output)
         cache[gpu]["output"] = output
         timings = gather_data(f"results/timings/{gpu}")
         cache[gpu]["timings"] = timings
@@ -47,15 +50,17 @@ def stats_for(gpu,epsilonabs=float("inf"),epsilonrel=float("inf"),epsilonulp=flo
                 minfun = None
                 for version in err:
                     obj = None
-                    if funname in err[version]:
+                    if version in err[version]:
+                        obj = err[version][version]
+                    elif funname in err[version]:
                         obj = err[version][funname]
                     elif f"__builtin_{funname}" in err[version]:
                         obj = err[version][f"__builtin_{funname}"]
                     else:
-                        print(f"No host baseline for {version}")
+                        #print(f"No host baseline for {version}")
                         continue
                     if not version in timings[funname]["device"]:
-                        print(f"No device timings for {version}")
+                        #print(f"No device timings for {version}")
                         continue
                     abserr = obj["abserr"]
                     relerr = obj["relerr"]
@@ -168,74 +173,77 @@ def stats_for(gpu,epsilonabs=float("inf"),epsilonrel=float("inf"),epsilonulp=flo
             elif "builtin" in version:
                 versionstr = "LLVM built-in"
             gpustr=gpu.replace("_","\\_")
-            print(f"{epsstring} & {gpustr} & {versionstr} & $\\frac{b1}{len(results[version])}{b2}{b1}{total}{b2}$ & {np.round(np.mean(results[version]),4)} \\\\") 
+            print(f"{epsstring} & {gpustr} & {versionstr} & $\\frac{b1}{len(results[version])}{b2}{b1}{total}{b2}$ & {np.round(np.mean(results[version]),2)} \\\\") 
     return fastest_set, correct 
 
 def main():
-    gpus = ["gfx90a","gfx906","sm_70","sm_80"]
+    gpus = ["gfx906","gfx90a","sm_70","sm_80"]
 
-    maxulp = 12.0
-    print(f"=================================================================")
-    print(f"Within {maxulp} ULP")
-    print(f"=================================================================\n")
-    correct = {}
-    for gpu in gpus:
-        fastest, cor = stats_for(gpu,epsilonulp=maxulp)
-        correct[gpu] = cor
+    # maxulp = 12.0
+    # print(f"=================================================================")
+    # print(f"Within {maxulp} ULP")
+    # print(f"=================================================================\n")
+    # correct = {}
+    # for gpu in gpus:
+    #     fastest, cor = stats_for(gpu,epsilonulp=maxulp)
+    #     correct[gpu] = cor
     
-    for version in correct["sm_70"]:
-        corver = correct["sm_70"][version]
-        for gpu in gpus:
-            if len(correct[gpu][version]) > 0:
-                corver = [value for value in corver if value in correct[gpu][version]]
-        print(f"Correct {version} functions:")
-        print(corver)
+    # for version in correct["sm_70"]:
+    #     corver = correct["sm_70"][version]
+    #     for gpu in gpus:
+    #         if len(correct[gpu][version]) > 0:
+    #             corver = [value for value in corver if value in correct[gpu][version]]
+    #     print(f"Correct {version} functions:")
+    #     print(corver)
     
-    for version in correct["gfx90a"]:
-        corver = correct["gfx90a"][version]
-        for gpu in gpus:
-            if len(correct[gpu][version]) > 0:
-                corver = [value for value in corver if value in correct[gpu][version]]
-        print(f"Correct {version} functions:")
-        print(corver)
+    # for version in correct["gfx90a"]:
+    #     corver = correct["gfx90a"][version]
+    #     for gpu in gpus:
+    #         if len(correct[gpu][version]) > 0:
+    #             corver = [value for value in corver if value in correct[gpu][version]]
+    #     print(f"Correct {version} functions:")
+    #     print(corver)
 
-    return
+    # epsilonrel = 1e-6
+    # print(f"=================================================================")
+    # print(f"Relative error of {epsilonrel}")
+    # print(f"=================================================================\n")
+    # for gpu in gpus:
+    #     stats_for(gpu,epsilonrel=epsilonrel)
 
-    epsilonrel = 1e-6
-    print(f"=================================================================")
-    print(f"Relative error of {epsilonrel}")
-    print(f"=================================================================\n")
-    for gpu in gpus:
-        stats_for(gpu,epsilonrel=epsilonrel)
+    # epsilonrel = 1e-9
+    # print(f"=================================================================")
+    # print(f"Relative error of {epsilonrel}")
+    # print(f"=================================================================\n")
+    # for gpu in gpus:
+    #     stats_for(gpu,epsilonrel=epsilonrel)
 
-    epsilonrel = 1e-9
-    print(f"=================================================================")
-    print(f"Relative error of {epsilonrel}")
-    print(f"=================================================================\n")
-    for gpu in gpus:
-        stats_for(gpu,epsilonrel=epsilonrel)
+    # maxulp = 12.0
+    # print(f"=================================================================")
+    # print(f"Within {maxulp} ULP")
+    # print(f"=================================================================\n")
+    # for gpu in gpus:
+    #     stats_for(gpu,epsilonulp=maxulp)
 
-    maxulp = 12.0
-    print(f"=================================================================")
-    print(f"Within {maxulp} ULP")
-    print(f"=================================================================\n")
-    for gpu in gpus:
-        stats_for(gpu,epsilonulp=maxulp)
-
+    # maxulp = 4.0
+    # print(f"=================================================================")
+    # print(f"Within {maxulp} ULP")
+    # print(f"=================================================================\n")
+    # for gpu in gpus:
+    #     stats_for(gpu,epsilonulp=maxulp)
+    
     maxulp = 4.0
-    print(f"=================================================================")
-    print(f"Within {maxulp} ULP")
-    print(f"=================================================================\n")
     fastest = {}
     for gpu in gpus:
-        tmp = stats_for(gpu,epsilonulp=maxulp)
-        for version in tmp:
+        fastesttmp, correct = stats_for(gpu,epsilonulp=maxulp)
+        for version in fastesttmp:
+            print(version)
             fun = version.split('_')[-1]
             shortversion = "L"
             if "nv" in version:
-                shortversion = "N"
+                shortversion = "C"
             elif "ocml" in version:
-                shortversion = "A"
+                shortversion = "H"
             elif "builtin" in version:
                 shortversion = "B" 
             if not fun in fastest:

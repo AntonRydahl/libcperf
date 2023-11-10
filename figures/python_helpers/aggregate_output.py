@@ -4,7 +4,7 @@ def aggregate_output(obj):
     for funname in obj:
         for hostdev in obj[funname]:
             todelete = []
-            for version in list(obj[funname][hostdev]):
+            for version in sorted(list(obj[funname][hostdev])):
                 if version[-1].isdigit() and version[-2] == '_':
                     version_short = version[:-2]
                     if version_short in obj[funname][hostdev]:
